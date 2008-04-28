@@ -11,7 +11,7 @@ Version 0.01
 
 Quick summary of what the module does.
 
-    use Artemis::Schema;
+ use Artemis::Schema;
 
 =head1 EXPORT
 
