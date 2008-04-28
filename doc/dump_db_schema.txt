@@ -1,0 +1,5 @@
+
+# NÖ: perl -Ilib/ -MDBIx::Class::Schema::Loader=dump_to_dir:lib/ -MArtemis::Schema::Tests -e 'Artemis::Schema::Tests->connection("dbi:mysql:dbname=testsystem;host=alzey", "root", "xyzxyzaa")'
+
+# Jep:
+perl -MDBIx::Class::Schema::Loader=make_schema_at,dump_to_dir:./lib -e 'make_schema_at("Artemis::Schema::Tests", { debug => 1 }, [ "dbi:mysql:dbname=testsystem;host=alzey", "root", "xyzxyzaa" ])'
