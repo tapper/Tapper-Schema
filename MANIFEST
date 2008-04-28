@@ -1,8 +1,12 @@
+.gitignore
 Build.PL
 ChangeLog
-MANIFEST
-README
 lib/Artemis/Schema.pm
+lib/Artemis/Schema.pod
+MANIFEST
+MANIFEST.SKIP
+README
 t/00-load.t
+t/boilerplate.t
 t/pod-coverage.t
 t/pod.t

@@ -5,26 +5,26 @@ use warnings;
 use Test::More tests => 3;
 
 sub not_in_file_ok {
-    my ($filename, %regex) = @_;
-    open( my $fh, '<', $filename )
-        or die "couldn't open $filename for reading: $!";
+        my ($filename, %regex) = @_;
+        open( my $fh, '<', $filename )
+            or die "couldn't open $filename for reading: $!";
 
-    my %violated;
+        my %violated;
 
-    while (my $line = <$fh>) {
-        while (my ($desc, $regex) = each %regex) {
-            if ($line =~ $regex) {
-                push @{$violated{$desc}||=[]}, $.;
-            }
+        while (my $line = <$fh>) {
+                while (my ($desc, $regex) = each %regex) {
+                        if ($line =~ $regex) {
+                                push @{$violated{$desc}||=[]}, $.;
+                        }
+                }
         }
-    }
 
-    if (%violated) {
-        fail("$filename contains boilerplate text");
-        diag "$_ appears on lines @{$violated{$_}}" for keys %violated;
-    } else {
-        pass("$filename contains no boilerplate text");
-    }
+        if (%violated) {
+                fail("$filename contains boilerplate text");
+                diag "$_ appears on lines @{$violated{$_}}" for keys %violated;
+        } else {
+                pass("$filename contains no boilerplate text");
+        }
 }
 
 sub module_boilerplate_ok {
