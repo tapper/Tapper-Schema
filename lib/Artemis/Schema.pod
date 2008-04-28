@@ -1,0 +1,40 @@
+
+=head1 NAME
+
+Artemis::Schema - Artemis Database Schema
+
+=head1 VERSION
+
+Version 0.01
+
+=head1 SYNOPSIS
+
+Quick summary of what the module does.
+
+    use Artemis::Schema;
+
+=head1 EXPORT
+
+A list of functions that can be exported.  You can delete this section
+if you don't export anything, such as for a purely object-oriented
+module.
+
+=head1 FUNCTIONS
+
+=head1 AUTHOR
+
+OSRC SysInt Team, C<< <osrc-sysint at elbe.amd.com> >>
+
+=head1 BUGS
+
+None.
+
+=head1 ACKNOWLEDGEMENTS
+
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008 OSRC SysInt Team, all rights reserved.
+
+This program is released under the following license: restrictive
+
