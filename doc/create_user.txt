@@ -1,5 +1,0 @@
-
-
-CREATE USER ss5 identified by 'ss5';
-GRANT ALL ON *.* to ss5;
-

@@ -1,6 +1,0 @@
-Artemis-Schema-*.*.tar.gz
-_build
-blib
-^Build$
-MANIFEST.bak
-
