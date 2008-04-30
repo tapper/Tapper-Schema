@@ -3,7 +3,7 @@ package Artemis::Schema::Tests;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Schema';
+use parent 'DBIx::Class::Schema';
 
 __PACKAGE__->load_classes;
 

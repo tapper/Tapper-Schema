@@ -13,6 +13,7 @@ my $builder = Module::Build->new(
                                               'DBD::mysql'                  => 0,
                                               'DBIx::Class'                 => 0,
                                               'DBIx::Class::Schema::Loader' => 0,
+                                              'parent'                      => 0,
                                              },
                                  add_to_cleanup      => [ 'Artemis-Schema-*' ],
                                  create_makefile_pl => 'traditional',
