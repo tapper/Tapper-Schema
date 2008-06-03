@@ -62,7 +62,7 @@ __PACKAGE__->set_primary_key("lid");
 
 =head1 NAME
 
-Artemis::Schema::TestsDB::TestsDBPerRun - A ResultSet description
+Artemis::Schema::TestsDB::TestsPerRun - A ResultSet description
 
 
 =head1 SYNOPSIS
