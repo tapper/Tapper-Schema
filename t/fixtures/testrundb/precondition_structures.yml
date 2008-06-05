@@ -18,7 +18,7 @@
     name: Software
     description: any non-kernel software, e.g., libraries, programs
 
-# -------------------- testruns "perfmon", "lmbench"
+# -------------------- testruns "lmbench"
 
 - schema: Testrun
   name: lmbench
