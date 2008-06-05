@@ -1,0 +1,98 @@
+---
+name: Artemis-Schema
+version: 2.010001
+author:
+  - 'OSRC SysInt Team <osrc-sysint@elbe.amd.com>'
+abstract: Database schemas for Artemis
+license: restrictive
+requires:
+  perl: 5.010
+build_requires:
+  Artemis::Config: 2.01
+  Test::More: 0
+provides:
+  Artemis::Schema:
+    file: lib/Artemis/Schema.pm
+    version: 2.010001
+  Artemis::Schema::HardwareDB:
+    file: lib/Artemis/Schema/HardwareDB.pm
+  Artemis::Schema::HardwareDB::Board:
+    file: lib/Artemis/Schema/HardwareDB/Board.pm
+  Artemis::Schema::HardwareDB::Cpu:
+    file: lib/Artemis/Schema/HardwareDB/Cpu.pm
+  Artemis::Schema::HardwareDB::Graphic:
+    file: lib/Artemis/Schema/HardwareDB/Graphic.pm
+  Artemis::Schema::HardwareDB::Hdd:
+    file: lib/Artemis/Schema/HardwareDB/Hdd.pm
+  Artemis::Schema::HardwareDB::Mainboard:
+    file: lib/Artemis/Schema/HardwareDB/Mainboard.pm
+  Artemis::Schema::HardwareDB::Misc:
+    file: lib/Artemis/Schema/HardwareDB/Misc.pm
+  Artemis::Schema::HardwareDB::Network:
+    file: lib/Artemis/Schema/HardwareDB/Network.pm
+  Artemis::Schema::HardwareDB::Ram:
+    file: lib/Artemis/Schema/HardwareDB/Ram.pm
+  Artemis::Schema::HardwareDB::Revision:
+    file: lib/Artemis/Schema/HardwareDB/Revision.pm
+  Artemis::Schema::HardwareDB::Systems:
+    file: lib/Artemis/Schema/HardwareDB/Systems.pm
+  Artemis::Schema::Printable:
+    file: lib/Artemis/Schema/Printable.pm
+  Artemis::Schema::ReportsDB:
+    file: lib/Artemis/Schema/ReportsDB.pm
+    version: 0.01
+  Artemis::Schema::ReportsDB::Result::Report:
+    file: lib/Artemis/Schema/ReportsDB/Result/Report.pm
+  Artemis::Schema::ReportsDB::Result::ReportComment:
+    file: lib/Artemis/Schema/ReportsDB/Result/ReportComment.pm
+  Artemis::Schema::ReportsDB::Result::ReportFile:
+    file: lib/Artemis/Schema/ReportsDB/Result/ReportFile.pm
+  Artemis::Schema::ReportsDB::Result::ReportTopic:
+    file: lib/Artemis/Schema/ReportsDB/Result/ReportTopic.pm
+  Artemis::Schema::ReportsDB::Result::Suite:
+    file: lib/Artemis/Schema/ReportsDB/Result/Suite.pm
+  Artemis::Schema::ReportsDB::Result::User:
+    file: lib/Artemis/Schema/ReportsDB/Result/User.pm
+  Artemis::Schema::TestrunDB:
+    file: lib/Artemis/Schema/TestrunDB.pm
+    version: 0.01
+  Artemis::Schema::TestrunDB::Result::PrePrecondition:
+    file: lib/Artemis/Schema/TestrunDB/Result/PrePrecondition.pm
+  Artemis::Schema::TestrunDB::Result::Precondition:
+    file: lib/Artemis/Schema/TestrunDB/Result/Precondition.pm
+  Artemis::Schema::TestrunDB::Result::Preconditiontype:
+    file: lib/Artemis/Schema/TestrunDB/Result/Preconditiontype.pm
+  Artemis::Schema::TestrunDB::Result::Testrun:
+    file: lib/Artemis/Schema/TestrunDB/Result/Testrun.pm
+  Artemis::Schema::TestrunDB::Result::TestrunPrecondition:
+    file: lib/Artemis/Schema/TestrunDB/Result/TestrunPrecondition.pm
+  Artemis::Schema::TestrunDB::Result::Topic:
+    file: lib/Artemis/Schema/TestrunDB/Result/Topic.pm
+  Artemis::Schema::TestrunDB::Result::User:
+    file: lib/Artemis/Schema/TestrunDB/Result/User.pm
+  Artemis::Schema::TestrunDB::ResultSet::Precondition:
+    file: lib/Artemis/Schema/TestrunDB/ResultSet/Precondition.pm
+  Artemis::Schema::TestrunDB::ResultSet::Testrun:
+    file: lib/Artemis/Schema/TestrunDB/ResultSet/Testrun.pm
+  Artemis::Schema::TestsDB:
+    file: lib/Artemis/Schema/TestsDB.pm
+  Artemis::Schema::TestsDB::ImagePerTestrun:
+    file: lib/Artemis/Schema/TestsDB/ImagePerTestrun.pm
+  Artemis::Schema::TestsDB::Packages:
+    file: lib/Artemis/Schema/TestsDB/Packages.pm
+  Artemis::Schema::TestsDB::PackagesPerTestrun:
+    file: lib/Artemis/Schema/TestsDB/PackagesPerTestrun.pm
+  Artemis::Schema::TestsDB::TestHw:
+    file: lib/Artemis/Schema/TestsDB/TestHw.pm
+  Artemis::Schema::TestsDB::TestProgram:
+    file: lib/Artemis/Schema/TestsDB/TestProgram.pm
+  Artemis::Schema::TestsDB::TestRun:
+    file: lib/Artemis/Schema/TestsDB/TestRun.pm
+  Artemis::Schema::TestsDB::TestsPerRun:
+    file: lib/Artemis/Schema/TestsDB/TestsPerRun.pm
+  Artemis::Schema::TestsDB::Version:
+    file: lib/Artemis/Schema/TestsDB/Version.pm
+generated_by: Module::Build version 0.280801
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
