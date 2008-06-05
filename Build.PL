@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+
 use Module::Build;
 
 my $builder = Module::Build->new(
@@ -9,6 +10,9 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/Artemis/Schema.pm',
     build_requires => {
         'Test::More' => 0,
+    },
+    requires => {
+                 'perl' => 5.010,
     },
     add_to_cleanup      => [ 'Artemis-Schema-*' ],
     create_makefile_pl => 'traditional',
