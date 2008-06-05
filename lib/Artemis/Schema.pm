@@ -13,7 +13,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = '2.01';
+our $VERSION = '2.010001';
 
 
 =head1 SYNOPSIS
@@ -39,7 +39,7 @@ automatically be notified of progress on your bug as I make changes.
 
 Copyright 2008 OSRC SysInt Team, all rights reserved.
 
-This program is released under the following license: restricted
+This program is released under the following license: restrictive
 
 
 =cut

@@ -6,7 +6,7 @@ use Module::Build;
 my $builder = Module::Build->new
     (
      module_name         => 'Artemis::Schema',
-     license             => 'restricted',
+     license             => 'restrictive',
      dist_author         => 'OSRC SysInt Team <osrc-sysint@elbe.amd.com>',
      dist_version_from   => 'lib/Artemis/Schema.pm',
      build_requires => {
