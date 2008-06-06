@@ -1,6 +1,6 @@
 ---
 name: Artemis-Schema
-version: 2.010001
+version: 2.010002
 author:
   - 'OSRC SysInt Team <osrc-sysint@elbe.amd.com>'
 abstract: Database schemas for Artemis
@@ -13,7 +13,7 @@ build_requires:
 provides:
   Artemis::Schema:
     file: lib/Artemis/Schema.pm
-    version: 2.010001
+    version: 2.010002
   Artemis::Schema::HardwareDB:
     file: lib/Artemis/Schema/HardwareDB.pm
   Artemis::Schema::HardwareDB::Board:
@@ -47,6 +47,8 @@ provides:
     file: lib/Artemis/Schema/ReportsDB/Result/ReportComment.pm
   Artemis::Schema::ReportsDB::Result::ReportFile:
     file: lib/Artemis/Schema/ReportsDB/Result/ReportFile.pm
+  Artemis::Schema::ReportsDB::Result::ReportGroup:
+    file: lib/Artemis/Schema/ReportsDB/Result/ReportGroup.pm
   Artemis::Schema::ReportsDB::Result::ReportTopic:
     file: lib/Artemis/Schema/ReportsDB/Result/ReportTopic.pm
   Artemis::Schema::ReportsDB::Result::Suite:

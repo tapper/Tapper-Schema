@@ -1,6 +1,7 @@
 .gitignore
 Artemis-Schema-2.01.tar
 Artemis-Schema-2.01.tar.gz
+Artemis-Schema-2.010001.tar
 Artemis-Schema-2.010001.tar.gz
 artemis_testrundb_development.sqlite
 Build.PL
@@ -19,9 +20,11 @@ lib/Artemis/Schema/HardwareDB/Revision.pm
 lib/Artemis/Schema/HardwareDB/Systems.pm
 lib/Artemis/Schema/Printable.pm
 lib/Artemis/Schema/ReportsDB.pm
+lib/Artemis/Schema/ReportsDB/Result/artemis_testrundb_development.sqlite
 lib/Artemis/Schema/ReportsDB/Result/Report.pm
 lib/Artemis/Schema/ReportsDB/Result/ReportComment.pm
 lib/Artemis/Schema/ReportsDB/Result/ReportFile.pm
+lib/Artemis/Schema/ReportsDB/Result/ReportGroup.pm
 lib/Artemis/Schema/ReportsDB/Result/ReportTopic.pm
 lib/Artemis/Schema/ReportsDB/Result/Suite.pm
 lib/Artemis/Schema/ReportsDB/Result/User.pm
