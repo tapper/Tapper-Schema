@@ -1,4 +1,4 @@
-package Artemis::Schema::ReportsDB::Result::ReportTopic;
+package Artemis::Schema::ReportsDB::Result::ReportGroup;
 
 use strict;
 use warnings;
@@ -7,25 +7,27 @@ use parent 'DBIx::Class';
 use parent 'Artemis::Schema::Printable';
 
 __PACKAGE__->load_components("Core");
-__PACKAGE__->table("reporttopic");
+__PACKAGE__->table("reportgroup");
 __PACKAGE__->add_columns
     (
      "id",                        { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11     },
+     "group_id",                  { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11     },
      "report_id",                 { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11     },
-     "name",                      { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 50     },
-     "details",                   { data_type => "TEXT",     default_value => "",     is_nullable => 0, size => 65535  },
     );
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to   ( report => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->has_many   ( report => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+
+
+# -------------------- methods on results --------------------
 
 
 1;
 
 =head1 NAME
 
-Artemis::Schema::ReportsDB::ReportTopic - A ResultSet description
+Artemis::Schema::ReportsDB::ReportGroup - A ResultSet description
 
 
 =head1 SYNOPSIS
