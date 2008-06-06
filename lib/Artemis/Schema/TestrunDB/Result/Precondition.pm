@@ -11,10 +11,8 @@ __PACKAGE__->add_columns
     (
      "id",                              { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11                        },
      "shortname",                       { data_type => "VARCHAR",  default_value => "",    is_nullable => 0, size => 255                       },
-     "repository_full_name",            { data_type => "TEXT",     default_value => "",    is_nullable => 0, size => 65535                     },
      "type",                            { data_type => "VARCHAR",  default_value => "",    is_nullable => 0, size => 50,   is_foreign_key => 1 },
      "condition",                       { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 65535                     },
-     "reboot_needed_after_preparation", { data_type => "INT",      default_value => 0,     is_nullable => 1, size => 1                         },
      "timeout",                         { data_type => "INT",      default_value => undef, is_nullable => 1, size => 10                        },
     );
 
