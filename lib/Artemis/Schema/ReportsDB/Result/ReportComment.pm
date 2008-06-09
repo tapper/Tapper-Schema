@@ -6,7 +6,7 @@ use warnings;
 use parent 'DBIx::Class';
 use parent 'Artemis::Schema::Printable';
 
-__PACKAGE__->load_components("Core");
+__PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("reportcomment");
 __PACKAGE__->add_columns
     (

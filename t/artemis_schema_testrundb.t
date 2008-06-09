@@ -8,7 +8,7 @@ use warnings;
 use t::Tools;
 use Data::Dumper;
 use Test::Fixture::DBIC::Schema;
-use Test::More tests => 53;
+use Test::More tests => 49;
 
 BEGIN {
         use_ok( 'Artemis::Schema::TestrunDB' );
@@ -86,8 +86,8 @@ is($preconditions[0]->id, 8, "1st precondition");
 is($preconditions[1]->id, 7, "2nd precondition");
 is($preconditions[0]->shortname, 'perl-5.10', "preconditions[0]->shortname 1");
 is($preconditions[1]->shortname, 'artemis-tools', "preconditions[1]->shortname 2");
-is($preconditions[0]->repository_full_name, '/package/redhat/5.2/64bit/perl-5.10', "preconditions[0]->repository_full_name 1");
-is($preconditions[1]->repository_full_name, '/subdir/tools/64bit/artemis/tools', "preconditions[1]->repository_full_name 2");
+#is($preconditions[0]->repository_full_name, '/package/redhat/5.2/64bit/perl-5.10', "preconditions[0]->repository_full_name 1");
+#is($preconditions[1]->repository_full_name, '/subdir/tools/64bit/artemis/tools', "preconditions[1]->repository_full_name 2");
 
 # --------------------------------------------------
 
@@ -101,13 +101,13 @@ is($perl_preconditions[0]->id, 9, "1st perl pre-precondition");
 is($perl_preconditions[1]->id, 10, "2nd perl pre-precondition");
 is($perl_preconditions[0]->shortname, 'gcc-4.2', "perl pre_preconditions[0]->shortname 1");
 is($perl_preconditions[1]->shortname, 'glibc-2.1', "perl pre_preconditions[1]->shortname 2");
-is($perl_preconditions[0]->repository_full_name, '/package/redhat/5.2/64bit/gcc-4.2', "pre_preconditions[0]->repository_full_name 1");
-is($perl_preconditions[1]->repository_full_name, '/package/redhat/5.2/64bit/glibc-2.1', "pre_preconditions[1]->repository_full_name 2");
+#is($perl_preconditions[0]->repository_full_name, '/package/redhat/5.2/64bit/gcc-4.2', "pre_preconditions[0]->repository_full_name 1");
+#is($perl_preconditions[1]->repository_full_name, '/package/redhat/5.2/64bit/glibc-2.1', "pre_preconditions[1]->repository_full_name 2");
 
 # --------------------------------------------------
 
 # check for parents of any gcc preconditions
-my @gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ repository_full_name => '/package/redhat/5.2/64bit/gcc-4.2' })->all;
+my @gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ shortname => 'gcc-4.2' })->all;
 is (scalar @gcc_preconditions, 2, "fuzzy gcc parents count");
 my @gcc_parent_shortnames = sort map { $_->parent->shortname} map { $_->parent_pre_precondition } @gcc_preconditions;
 is_deeply(\@gcc_parent_shortnames, [qw/artemis-tools perl-5.10/], "fuzzy gcc parents shortnames");
@@ -123,7 +123,7 @@ is_deeply(\@gcc_parent_shortnames, [qw/perl-5.10/], "specific gcc parents shortn
 # same checks for (any|specific) gcc preconditions, but with easier relations
 
 # check for parents of any gcc preconditions
-@gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ repository_full_name => '/package/redhat/5.2/64bit/gcc-4.2' })->all;
+@gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ shortname => 'gcc-4.2' })->all;
 is (scalar @gcc_preconditions, 2, "fuzzy gcc parents count");
 @gcc_parent_shortnames = sort map { $_->shortname} map { $_->parent_preconditions } @gcc_preconditions;
 is_deeply(\@gcc_parent_shortnames, [qw/artemis-tools perl-5.10/], "fuzzy gcc parents shortnames");
