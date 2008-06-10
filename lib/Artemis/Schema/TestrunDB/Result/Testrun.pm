@@ -34,7 +34,6 @@ __PACKAGE__->belongs_to( owner => 'Artemis::Schema::TestrunDB::Result::User',  {
 __PACKAGE__->has_many     ( testrun_precondition => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.testrun_id' => 'self.id' });
 __PACKAGE__->many_to_many ( preconditions        => 'testrun_precondition', 'precondition' );
 
-
 # -------------------- methods on results --------------------
 
 sub to_string

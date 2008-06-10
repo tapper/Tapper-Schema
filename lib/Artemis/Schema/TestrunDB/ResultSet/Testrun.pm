@@ -31,9 +31,7 @@ sub finished_testruns
 }
 
 sub all_testruns {
-        my ($resultset) = @_;
-
-        $resultset->search({});
+        shift->search({});
 }
 
 1;

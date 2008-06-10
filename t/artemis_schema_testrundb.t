@@ -8,7 +8,7 @@ use warnings;
 use t::Tools;
 use Data::Dumper;
 use Test::Fixture::DBIC::Schema;
-use Test::More tests => 49;
+use Test::More tests => 50;
 
 BEGIN {
         use_ok( 'Artemis::Schema::TestrunDB' );
@@ -177,3 +177,13 @@ is_deeply(\@ordered_precondition_shortnames, [ qw/gcc-4.2
                                                   artemis-tools
                                                  / ], "ordered preconditions");
 
+
+# -----------------------------------------------------------------------------------------------------------------
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/preconditions_with_yaml.yml' );
+# -----------------------------------------------------------------------------------------------------------------
+
+my $testrun2 = testrundb_schema->resultset('Testrun')->search({ shortname => 'lmbench' })->first;
+my @ordered_preconditions = $testrun2->ordered_preconditions;
+
+my @filtered_precondition_ids = map { $_->id } grep { $_->condition_as_hash->{precondition_type} =~ /^image|package$/ } @ordered_preconditions;
+is_deeply(\@filtered_precondition_ids, [ 9, 10, 8, 11, 12 ], "filtered preconditions");

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
+use YAML::Syck;
 
 __PACKAGE__->load_components("Core");
 __PACKAGE__->table("precondition");
@@ -81,6 +82,15 @@ sub to_string
                 $str   .= $val . $Artemis::Schema::TestrunDB::DELIM;
         }
         return $str;
+}
+
+sub condition_as_hash {
+        my ($self) = @_;
+        print STDERR $self->condition, "\n";
+        my $cond = Load($self->condition);
+        use Data::Dumper;
+        print STDERR Dumper($cond);
+        return $cond;
 }
 
 
