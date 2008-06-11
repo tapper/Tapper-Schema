@@ -12,8 +12,7 @@ __PACKAGE__->add_columns
     (
      "id",                              { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11                        },
      "shortname",                       { data_type => "VARCHAR",  default_value => "",    is_nullable => 0, size => 255                       },
-     "type",                            { data_type => "VARCHAR",  default_value => "",    is_nullable => 0, size => 50,   is_foreign_key => 1 },
-     "condition",                       { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 65535                     },
+     "precondition",                    { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 65535                     },
      "timeout",                         { data_type => "INT",      default_value => undef, is_nullable => 1, size => 10                        },
     );
 
