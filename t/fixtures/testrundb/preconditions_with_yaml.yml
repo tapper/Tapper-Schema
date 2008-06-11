@@ -19,8 +19,7 @@
   data:
     id: 7
     shortname: artemis-tools
-    type: subdir
-    condition: |
+    precondition: |
                 name: foobar
                 precondition_type: subdir
                 subdir: foobar
@@ -30,8 +29,7 @@
   data:
     id: 8
     shortname: perl-5.10
-    type: package
-    condition: |
+    precondition: |
                 name: foobar
                 precondition_type: package
                 subdir: foobar
@@ -41,8 +39,7 @@
   data:
     id: 9
     shortname: gcc-4.2
-    type: package
-    condition: |
+    precondition: |
                 name: foobar
                 precondition_type: package
                 subdir: foobar
@@ -52,8 +49,7 @@
   data:
     id: 10
     shortname: glibc-2.1
-    type: package
-    condition: |
+    precondition: |
                 name: foobar
                 precondition_type: package
                 subdir: foobar
@@ -63,8 +59,7 @@
   data:
     id: 11
     shortname: mysql-5.1
-    type: package
-    condition: |
+    precondition: |
                 name: foobar
                 precondition_type: package
                 subdir: foobar
@@ -74,8 +69,7 @@
   data:
     id: 12
     shortname: sqlite-3.1.2
-    type: package
-    condition: |
+    precondition: |
                 name: foobar
                 precondition_type: package
                 subdir: foobar

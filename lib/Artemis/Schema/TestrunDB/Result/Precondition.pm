@@ -83,8 +83,8 @@ sub to_string
         return $str;
 }
 
-sub condition_as_hash {
-        Load(shift->condition);
+sub precondition_as_hash {
+        Load(shift->precondition);
 }
 
 
