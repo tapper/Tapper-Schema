@@ -17,6 +17,8 @@ __PACKAGE__->add_columns
      "starttime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
      "endtime_test_program",      { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
      "osname",                    { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255    },
+     "uname",                     { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255    },
+     "language_description",      { data_type => "TEXT",     default_value => "",     is_nullable => 1, size => 255    },
      "machine_name",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 50     },
      "machine_description",       { data_type => "TEXT",     default_value => "",     is_nullable => 1, size => 65535  },
      "cpuinfo",                   { data_type => "TEXT",     default_value => "",     is_nullable => 1, size => 65535  },
