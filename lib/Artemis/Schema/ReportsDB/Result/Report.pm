@@ -14,8 +14,8 @@ __PACKAGE__->add_columns
      "suite_id",                  { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11     },
      "successgrade",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 10     },
      "reviewed_successgrade",     { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 10     },
-     "starttime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "endtime_test_program",      { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
+     "starttime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1                 },
+     "endtime_test_program",      { data_type => "DATETIME", default_value => undef,  is_nullable => 1                 },
      "osname",                    { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255    },
      "uname",                     { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255    },
      "language_description",      { data_type => "TEXT",     default_value => "",     is_nullable => 1, size => 255    },
@@ -35,8 +35,8 @@ __PACKAGE__->add_columns
      "tap",                       { data_type => "TEXT",     default_value => "",     is_nullable => 0, size => 65535  },
      "test_was_on_guest",         { data_type => "INT",      default_value => 0,      is_nullable => 1, size => 1      },
      "test_was_on_hv",            { data_type => "INT",      default_value => 0,      is_nullable => 1, size => 1      },
-     "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
+     "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1                 },
+     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1                 },
     );
 
 __PACKAGE__->set_primary_key("id");

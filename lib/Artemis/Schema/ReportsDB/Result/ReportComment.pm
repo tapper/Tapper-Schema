@@ -14,8 +14,8 @@ __PACKAGE__->add_columns
      "report_id",                 { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11     },
      "user_id",                   { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11     },
      "comment",                   { data_type => "TEXT",     default_value => "",     is_nullable => 0, size => 65535  },
-     "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
+     "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1                 },
+     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1                 },
     );
 
 __PACKAGE__->set_primary_key("id");

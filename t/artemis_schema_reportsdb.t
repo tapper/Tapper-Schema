@@ -22,4 +22,4 @@ construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb
 is( reportsdb_schema->resultset('Report')->count, 3,  "report count" );
 
 my $report = reportsdb_schema->resultset('Report')->find(21);
-diag Dumper($report->tap);
+
