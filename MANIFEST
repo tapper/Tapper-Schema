@@ -59,6 +59,7 @@ t/boilerplate.t
 t/fixtures/README
 t/fixtures/reportsdb/report.yml
 t/fixtures/testrundb/precondition_structures.yml
+t/fixtures/testrundb/preconditions_with_yaml.yml
 t/fixtures/testrundb/testrun.yml
 t/fixtures/testrundb/testrun_with_preconditions.yml
 t/fixtures/testrundb/topic.yml

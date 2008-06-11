@@ -1,6 +1,6 @@
 ---
 name: Artemis-Schema
-version: 2.010002
+version: 2.010003
 author:
   - 'OSRC SysInt Team <osrc-sysint@elbe.amd.com>'
 abstract: Database schemas for Artemis
@@ -13,7 +13,7 @@ build_requires:
 provides:
   Artemis::Schema:
     file: lib/Artemis/Schema.pm
-    version: 2.010002
+    version: 2.010003
   Artemis::Schema::HardwareDB:
     file: lib/Artemis/Schema/HardwareDB.pm
   Artemis::Schema::HardwareDB::Board:

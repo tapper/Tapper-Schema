@@ -1,9 +1,7 @@
-Artemis-*.*.tar.gz
+Artemis-Schema-*.*.tar.gz
 Artemis-Schema-*.*
 _build
 blib
 ^Build$
 MANIFEST.bak
-t/artemis_schema_testrundb_test.sqlite
-t/artemis_schema_reportsdb_test.sqlite
 
