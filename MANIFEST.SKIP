@@ -1,5 +1,5 @@
 Artemis-Schema-*.*.tar.gz
-Artemis-Schema-*.*
+^Artemis-Schema-*.*$
 _build
 blib
 ^Build$
