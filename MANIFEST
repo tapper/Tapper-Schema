@@ -1,5 +1,4 @@
 .gitignore
-artemis_testrundb_development.sqlite
 Build.PL
 Changes
 lib/Artemis/Schema.pm
@@ -16,7 +15,6 @@ lib/Artemis/Schema/HardwareDB/Revision.pm
 lib/Artemis/Schema/HardwareDB/Systems.pm
 lib/Artemis/Schema/Printable.pm
 lib/Artemis/Schema/ReportsDB.pm
-lib/Artemis/Schema/ReportsDB/Result/artemis_testrundb_development.sqlite
 lib/Artemis/Schema/ReportsDB/Result/Report.pm
 lib/Artemis/Schema/ReportsDB/Result/ReportComment.pm
 lib/Artemis/Schema/ReportsDB/Result/ReportFile.pm
@@ -49,10 +47,14 @@ MANIFEST.SKIP
 META.yml
 README
 scripts/dist_upload_wotan.sh
+t/00-artemis-meta.t
 t/00-load.t
 t/artemis_schema_reportsdb.t
+t/artemis_schema_reportsdb_test.sqlite
 t/artemis_schema_testrundb.t
+t/artemis_schema_testrundb_test.sqlite
 t/artemis_schema_testsdb.t
+t/artemis_schema_testsdb_testdb.sqlite
 t/boilerplate.t
 t/fixtures/README
 t/fixtures/reportsdb/report.yml

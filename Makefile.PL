@@ -10,6 +10,7 @@ WriteMakefile
           'VERSION_FROM' => 'lib/Artemis/Schema.pm',
           'PREREQ_PM' => {
                            'Test::More' => 0,
+                           'Artemis::Test' => 0,
                            'Artemis::Config' => '2.01'
                          }
         )
