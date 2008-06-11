@@ -96,6 +96,23 @@ sub ordered_preconditions
         return @done;
 }
 
+=head2 hostname
+
+Return the name of a host instead of its id.
+
+@return success - hostname
+
+=cut
+
+sub hostname
+{
+        my ($self) = @_;
+        my $host=$self->hardwaredb_systems_id;
+        my $search=Artemis->model('HardwareDB')->resultset('Systems')->search({lid => $host,})->first();
+        return $search->systemname;
+
+}
+
 
 1;
 
