@@ -19,13 +19,13 @@ __PACKAGE__->add_columns
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many     ( child_pre_precondition      => 'Artemis::Schema::TestrunDB::Result::PrePrecondition',     { 'foreign.parent_precondition_id' => 'self.id' });
-__PACKAGE__->many_to_many ( child_preconditions         => 'child_pre_precondition',                          'child' );
+__PACKAGE__->many_to_many ( child_preconditions         => 'child_pre_precondition',                                  'child' );
 
 __PACKAGE__->has_many     ( parent_pre_precondition     => 'Artemis::Schema::TestrunDB::Result::PrePrecondition',     { 'foreign.child_precondition_id' => 'self.id' });
-__PACKAGE__->many_to_many ( parent_preconditions        => 'parent_pre_precondition',                         'parent' );
+__PACKAGE__->many_to_many ( parent_preconditions        => 'parent_pre_precondition',                                 'parent' );
 
 __PACKAGE__->has_many     ( testrun_precondition        => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.precondition_id'       => 'self.id' });
-__PACKAGE__->many_to_many ( parent_testruns             => 'testrun_precondition',                            'testrun' );
+__PACKAGE__->many_to_many ( parent_testruns             => 'testrun_precondition',                                    'testrun' );
 
 __PACKAGE__->might_have   ( parent_testrun_precondition => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.precondition_id'       => 'self.id' });
 # DEPRECATED: __PACKAGE__->belongs_to   ( preconditiontype            => 'Artemis::Schema::TestrunDB::Result::Preconditiontype',    { 'foreign.name'                  => 'self.preconditiontype_name' });
