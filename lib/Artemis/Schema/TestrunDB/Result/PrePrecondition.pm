@@ -9,9 +9,9 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("pre_precondition");
 __PACKAGE__->add_columns
     (
-     "parent_precondition_id", { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11 },
-     "child_precondition_id",  { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11 },
-     "succession",             { data_type => "INT",      default_value => undef, is_nullable => 0, size => 10 },
+     "parent_precondition_id", { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "child_precondition_id",  { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "succession",             { data_type => "INT",      default_value => undef, is_nullable => 0, size => 10,                      },
     );
 
 __PACKAGE__->set_primary_key(qw/parent_precondition_id child_precondition_id/);

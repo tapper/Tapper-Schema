@@ -10,10 +10,10 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("precondition");
 __PACKAGE__->add_columns
     (
-     "id",                              { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11                        },
-     "shortname",                       { data_type => "VARCHAR",  default_value => "",    is_nullable => 0, size => 255                       },
-     "precondition",                    { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 65535                     },
-     "timeout",                         { data_type => "INT",      default_value => undef, is_nullable => 1, size => 10                        },
+     "id",                              { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
+     "shortname",                       { data_type => "VARCHAR",  default_value => "",    is_nullable => 0, size => 255,                        },
+     "precondition",                    { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 65535,                      },
+     "timeout",                         { data_type => "INT",      default_value => undef, is_nullable => 1, size => 10,                         },
     );
 
 __PACKAGE__->set_primary_key("id");
@@ -28,7 +28,7 @@ __PACKAGE__->has_many     ( testrun_precondition        => 'Artemis::Schema::Tes
 __PACKAGE__->many_to_many ( parent_testruns             => 'testrun_precondition',                            'testrun' );
 
 __PACKAGE__->might_have   ( parent_testrun_precondition => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.precondition_id'       => 'self.id' });
-__PACKAGE__->belongs_to   ( preconditiontype            => 'Artemis::Schema::TestrunDB::Result::Preconditiontype',    { 'foreign.name'                  => 'self.preconditiontype_name' });
+# DEPRECATED: __PACKAGE__->belongs_to   ( preconditiontype            => 'Artemis::Schema::TestrunDB::Result::Preconditiontype',    { 'foreign.name'                  => 'self.preconditiontype_name' });
 
 1;
 

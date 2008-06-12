@@ -9,9 +9,9 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("testrun_precondition");
 __PACKAGE__->add_columns
     (
-     "testrun_id",      { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
-     "precondition_id", { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
-     "succession",      { data_type => "INT", default_value => undef, is_nullable => 1, size => 10 },
+     "testrun_id",      { data_type => "INT", default_value => undef, is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "precondition_id", { data_type => "INT", default_value => undef, is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "succession",      { data_type => "INT", default_value => undef, is_nullable => 1, size => 10,                      },
     );
 
 __PACKAGE__->set_primary_key(qw/testrun_id precondition_id/);

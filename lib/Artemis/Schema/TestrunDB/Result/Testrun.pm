@@ -9,21 +9,21 @@ __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("testrun");
 __PACKAGE__->add_columns
     (
-     "id",                        { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11     },
-     "shortname",                 { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255    },
-     "notes",                     { data_type => "TEXT",     default_value => "",     is_nullable => 1, size => 65535  },
-     "topic_name",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 0, size => 20, is_foreign_key => 1 },
-     "starttime_earliest",        { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "starttime_testrun",         { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "starttime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "endtime_test_program",      { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "hardwaredb_systems_id",     { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11     },
-     "owner_user_id",             { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11     },
-     "test_program",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 0, size => 255    },
-     "timeout_after_testprogram", { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10     },
-     "wait_after_tests",          { data_type => "INT",      default_value => 0,      is_nullable => 1, size => 1      },
-     "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
-     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, size => 19     },
+     "id",                        { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11,    is_auto_increment => 1, },
+     "shortname",                 { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                           },
+     "notes",                     { data_type => "TEXT",     default_value => "",     is_nullable => 1, size => 65535,                         },
+     "topic_name",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 0, size => 20,    is_foreign_key => 1,    },
+     "starttime_earliest",        { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
+     "starttime_testrun",         { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
+     "starttime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
+     "endtime_test_program",      { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
+     "hardwaredb_systems_id",     { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11,                            },
+     "owner_user_id",             { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11,    is_foreign_key => 1,    },
+     "test_program",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 0, size => 255,                           },
+     "timeout_after_testprogram", { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10,                            },
+     "wait_after_tests",          { data_type => "INT",      default_value => 0,      is_nullable => 1, size => 1,                             },
+     "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
+     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
     );
 
 __PACKAGE__->set_primary_key("id");
