@@ -12,6 +12,7 @@ __PACKAGE__->add_columns
     (
      "id",                        { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11, is_auto_increment => 1, },
      "suite_id",                  { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11, is_foreign_key => 1,    },
+     "suite_version",             { data_type => "VARCHAR",  default_value => undef,  is_nullable => 1, size => 11,                         },
      "successgrade",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 10,                         },
      "reviewed_successgrade",     { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 10,                         },
      "starttime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                     },
