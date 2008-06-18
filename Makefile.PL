@@ -11,7 +11,8 @@ WriteMakefile
           'PREREQ_PM' => {
                            'Test::More' => 0,
                            'Artemis::Test' => 0,
-                           'Artemis::Config' => '2.01'
+                           'Artemis::Config' => '2.01',
+                           'DBIx::Class' => 0
                          }
         )
 ;

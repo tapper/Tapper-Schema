@@ -17,7 +17,7 @@ my $builder = Module::Build->new
      requires => {
                   'perl'                    => '5.010',
                   'DBIx::Class'             => 0,
-                  'DBIx::Class::TimeStamp ' => 0,
+#                  'DBIx::Class::TimeStamp ' => 0,
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],
      create_makefile_pl => 'traditional',
