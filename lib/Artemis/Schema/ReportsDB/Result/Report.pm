@@ -59,7 +59,6 @@ __PACKAGE__->has_many     ( reportsections => 'Artemis::Schema::ReportsDB::Resul
 1;
 
 
-
 sub to_simple_hash
 {
         my ($self) = @_;
@@ -76,6 +75,27 @@ sub to_simple_hash
         return $simple_hash;
 }
 
+sub sections_cpuinfo
+{
+        my ($self) = @_;
+        my $sections = $self->reportsections;
+        my @cpus;
+        while (my $section = $sections->next) {
+                push @cpus, $section->cpuinfo;
+        }
+        return @cpus;
+}
+
+sub sections_osname
+{
+        my ($self) = @_;
+        my $sections = $self->reportsections;
+        my @cpus;
+        while (my $section = $sections->next) {
+                push @cpus, $section->osname;
+        }
+        return @cpus;
+}
 
 
 
