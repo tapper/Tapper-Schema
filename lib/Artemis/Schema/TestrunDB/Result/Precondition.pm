@@ -87,7 +87,6 @@ sub precondition_as_hash {
         Load(shift->precondition);
 }
 
-
 =head1 NAME
 
 Artemis::Schema::TestrunDB::Result::Precondition - A ResultSet description
