@@ -3,6 +3,10 @@ package Artemis::Schema::TestrunDB::ResultSet::Testrun;
 use strict;
 use warnings;
 
+use DateTime;
+use Artemis::Model 'model';
+
+
 use parent 'DBIx::Class::ResultSet';
 
 sub queued_testruns
@@ -28,6 +32,19 @@ sub finished_testruns
                        endtime_test_program => { '!=' => undef },
                       }
                      );
+}
+
+sub due_testruns
+{
+        return shift->search(
+                             {
+                              starttime_earliest => { '<', model('TestrunDB')->storage->datetime_parser(DateTime->now)}, 
+                              starttime_testrun  => undef,
+                             },
+                             {
+                              order_by => [qw/starttime_earliest/]
+                             }
+                            );
 }
 
 sub all_testruns {

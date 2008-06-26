@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
+use Artemis::Model 'model';
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("testrun");
@@ -108,7 +109,7 @@ sub hostname
 {
         my ($self) = @_;
         my $host=$self->hardwaredb_systems_id;
-        my $search=Artemis->model('HardwareDB')->resultset('Systems')->search({lid => $host,})->first();
+        my $search=model('HardwareDB')->resultset('Systems')->search({lid => $host,})->first();
         return $search->systemname;
 
 }
