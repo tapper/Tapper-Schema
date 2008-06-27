@@ -1,9 +1,15 @@
 package Artemis::Schema::ReportsDB;
 
+use 5.010;
+
 use strict;
 use warnings;
 
+use 5.010;
+
 our $VERSION = '1.001';
+
+sub version { $VERSION };
 
 use parent 'DBIx::Class::Schema';
 
@@ -13,16 +19,14 @@ our $DELIM = ' | ';
 __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
 __PACKAGE__->load_namespaces;
 
-__PACKAGE__->upgrade_directory('reportdb/upgrades/');
-__PACKAGE__->backup_directory('reportdb/backups/');
+__PACKAGE__->upgrade_directory('/tmp/db/upgrades/');
+__PACKAGE__->backup_directory('/tmp/db/backups/');
 
-# Tried to deactivate the warnings. With no success.
-# sub connect {
-#         my $self = shift;
-#         no warnings;
-#         print STDERR "*** BUH! ***\n";
-#         $self->SUPER::connect(@_);
-# }
+
+sub backup
+{
+        say STDERR "(TODO: Implement backup method.)";
+}
 
 1;
 
