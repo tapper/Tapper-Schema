@@ -3,18 +3,19 @@ package Artemis::Schema::TestrunDB;
 use strict;
 use warnings;
 
-our $VERSION = "0.01";
+our $VERSION = '1.001';
 
 use parent 'DBIx::Class::Schema';
 
 our $NULL  = 'NULL';
 our $DELIM = ' | ';
 
+__PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
 __PACKAGE__->load_namespaces;
 
-# __PACKAGE__->load_components('+DBIx::Class::Schema::Versioned');
-# __PACKAGE__->upgrade_directory('./db/upgrades/');
-# __PACKAGE__->backup_directory('./db/backups/');
+__PACKAGE__->upgrade_directory('testrundb/upgrades/');
+__PACKAGE__->backup_directory('testrundb/backups/');
+
 
 1;
 

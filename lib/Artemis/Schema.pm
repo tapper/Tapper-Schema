@@ -3,18 +3,12 @@ package Artemis::Schema;
 use warnings;
 use strict;
 
+our $VERSION = '2.010009';
+
+
 =head1 NAME
 
 Artemis::Schema - Database schemas for Artemis
-
-=head1 VERSION
-
-Version 0.01
-
-=cut
-
-our $VERSION = '2.010008';
-
 
 =head1 SYNOPSIS
 
