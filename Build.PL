@@ -15,9 +15,11 @@ my $builder = Module::Build->new
                         'Artemis::Test'   => 0,
                        },
      requires => {
-                  'perl'                    => '5.010',
-                  'DBIx::Class'             => 0,
-#                  'DBIx::Class::TimeStamp ' => 0,
+                  'perl'                           => '5.010',
+                  'perl'                           => 0,
+                  'DBIx::Class'                    => 0,
+                  # 'DBIx::Class::TimeStamp '      => 0, # needed but problems on auto installing
+                  'DBIx::Class::Schema::Versioned' => 0,
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],
      create_makefile_pl => 'traditional',
