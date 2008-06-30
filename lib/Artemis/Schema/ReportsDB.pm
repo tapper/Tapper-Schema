@@ -7,7 +7,7 @@ use warnings;
 
 use Artemis::Schema;
 
-our $VERSION = $Artemis::Schema::VERSION;
+our $VERSION = '2.010011';
 
 sub version { $VERSION };
 

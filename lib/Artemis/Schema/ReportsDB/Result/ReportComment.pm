@@ -6,16 +6,16 @@ use warnings;
 use parent 'DBIx::Class';
 use parent 'Artemis::Schema::Printable';
 
-__PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
+__PACKAGE__->load_components(qw/InflateColumn::DateTime TimeStamp Core/);
 __PACKAGE__->table("reportcomment");
 __PACKAGE__->add_columns
     (
-     "id",                        { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11, is_auto_increment => 1, },
-     "report_id",                 { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1,    },
-     "user_id",                   { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11, is_foreign_key => 1,    },
-     "comment",                   { data_type => "TEXT",     default_value => "",     is_nullable => 0, size => 65535,                      },
-     "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                     },
-     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                     },
+     "id",         { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11, is_auto_increment => 1,     },
+     "report_id",  { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1,        },
+     "user_id",    { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11, is_foreign_key => 1,        },
+     "comment",    { data_type => "TEXT",     default_value => "",     is_nullable => 0, size => 65535,                          },
+     "created_at", { data_type => "DATETIME", default_value => undef,  is_nullable => 0, set_on_create => 1,                     },
+     "updated_at", { data_type => "DATETIME", default_value => undef,  is_nullable => 0, set_on_create => 1, set_on_update => 1, },
     );
 
 __PACKAGE__->set_primary_key("id");

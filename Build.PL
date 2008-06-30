@@ -17,7 +17,7 @@ my $builder = Module::Build->new
      requires => {
                   'perl'                           => '5.010',
                   'perl'                           => 0,
-                  'DBIx::Class'                    => 0,
+                  'DBIx::Class'                    => "0.08099",
                   # 'DBIx::Class::TimeStamp '      => 0, # needed but problems on auto installing
                   'DBIx::Class::Schema::Versioned' => 0,
                  },

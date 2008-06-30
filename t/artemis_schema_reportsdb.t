@@ -8,24 +8,20 @@ use warnings;
 use t::Tools;
 use Data::Dumper;
 use Test::Fixture::DBIC::Schema;
-use Test::More tests => 14;
+use Test::More tests => 13;
 
 BEGIN {
-        use_ok( 'Artemis::Schema' );
         use_ok( 'Artemis::Schema::ReportsDB' );
 }
-
-is($Artemis::Schema::VERSION, $Artemis::Schema::ReportsDB::VERSION, "global schema version number");
-diag("Version: ".$Artemis::Schema::ReportsDB::VERSION);
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/report.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
+ok( reportsdb_schema->get_db_version, "schema is versioned" );
+diag reportsdb_schema->get_db_version;
+
 is( reportsdb_schema->resultset('Report')->count, 3,  "report count" );
-
-my $report = reportsdb_schema->resultset('Report')->find(21);
-
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/reportsection.yml' );

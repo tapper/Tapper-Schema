@@ -7,7 +7,7 @@ use warnings;
 
 use Artemis::Schema;
 
-our $VERSION = $Artemis::Schema::VERSION;
+our $VERSION = '2.010009';
 
 use parent 'DBIx::Class::Schema';
 
