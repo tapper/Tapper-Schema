@@ -5,9 +5,9 @@ use 5.010;
 use strict;
 use warnings;
 
-use 5.010;
+use Artemis::Schema;
 
-our $VERSION = '1.001';
+our $VERSION = $Artemis::Schema::VERSION;
 
 sub version { $VERSION };
 
@@ -19,8 +19,8 @@ our $DELIM = ' | ';
 __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
 __PACKAGE__->load_namespaces;
 
-__PACKAGE__->upgrade_directory('/tmp/db/upgrades/');
-__PACKAGE__->backup_directory('/tmp/db/backups/');
+__PACKAGE__->upgrade_directory('/var/tmp/');
+__PACKAGE__->backup_directory('/var/tmp/');
 
 
 sub backup

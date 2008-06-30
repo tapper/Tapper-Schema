@@ -8,12 +8,15 @@ use warnings;
 use t::Tools;
 use Data::Dumper;
 use Test::Fixture::DBIC::Schema;
-use Test::More tests => 12;
+use Test::More tests => 14;
 
 BEGIN {
+        use_ok( 'Artemis::Schema' );
         use_ok( 'Artemis::Schema::ReportsDB' );
 }
 
+is($Artemis::Schema::VERSION, $Artemis::Schema::ReportsDB::VERSION, "global schema version number");
+diag("Version: ".$Artemis::Schema::ReportsDB::VERSION);
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/report.yml' );

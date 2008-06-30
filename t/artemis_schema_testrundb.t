@@ -8,14 +8,16 @@ use warnings;
 use t::Tools;
 use Data::Dumper;
 use Test::Fixture::DBIC::Schema;
-use Test::More tests => 50;
+use Test::More tests => 52;
 
 BEGIN {
+        use_ok( 'Artemis::Schema' );
         use_ok( 'Artemis::Schema::TestrunDB' );
 }
 
 
-#diag(Dumper(testrundb_schema));
+is($Artemis::Schema::VERSION, $Artemis::Schema::TestrunDB::VERSION, "global schema version number");
+diag("Version: ".$Artemis::Schema::TestrunDB::VERSION);
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/user.yml' );
