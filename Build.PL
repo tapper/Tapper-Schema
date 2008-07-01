@@ -22,7 +22,6 @@ my $builder = Module::Build->new
                   'DBIx::Class::Schema::Versioned' => 0,
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],
-     create_makefile_pl => 'traditional',
     );
 
 $builder->create_build_script();
