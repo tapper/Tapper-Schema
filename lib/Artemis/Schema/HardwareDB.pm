@@ -1,5 +1,7 @@
 package Artemis::Schema::HardwareDB;
 
+use 5.010;
+
 use strict;
 use warnings;
 
@@ -10,11 +12,12 @@ use parent 'DBIx::Class::Schema';
 our $NULL  = 'NULL';
 our $DELIM = ' | ';
 
+__PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
+__PACKAGE__->upgrade_directory('/var/tmp/');
+__PACKAGE__->backup_directory('/var/tmp/');
+
 __PACKAGE__->load_namespaces;
 
-# not versioned: __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
-# __PACKAGE__->upgrade_directory('/var/tmp/');
-# __PACKAGE__->backup_directory('/var/tmp/');
 
 sub backup
 {

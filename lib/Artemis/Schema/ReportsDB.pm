@@ -13,10 +13,10 @@ our $NULL  = 'NULL';
 our $DELIM = ' | ';
 
 __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
-__PACKAGE__->load_namespaces;
-
 __PACKAGE__->upgrade_directory('/var/tmp/');
 __PACKAGE__->backup_directory('/var/tmp/');
+
+__PACKAGE__->load_namespaces;
 
 
 sub backup
@@ -26,33 +26,6 @@ sub backup
 }
 
 1;
-
-=head1 NAME
-
-Artemis::Schema::ReportsDB - Artemis Database Schema for Reports
-
-=hea1 VERSION
-
-Version 0.01
-
-=head1 SYNOPSIS
-
- use Artemis::Schema::ReportsDB;
-
-=head1 AUTHOR
-
-OSRC SysInt Team, C<< <osrc-sysint at elbe.amd.com> >>
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008 OSRC SysInt Team, all rights reserved.
-
-This program is released under the following license: restrictive
 
 __END__
 
