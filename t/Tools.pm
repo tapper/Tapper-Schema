@@ -30,8 +30,9 @@ sub setup_testrundb {
                                                                 Artemis::Config->subconfig->{test}{database}{TestrunDB}{password},
                                                                 { ignore_version => 1 }
                                                                );
-        $testrundb_schema->deploy;
-        $testrundb_schema->upgrade;
+        $testrundb_schema->deploy({ add_drop_table => 1 });
+        eval { $testrundb_schema->upgrade };
+        print STDERR $@ if $@;
 }
 
 sub setup_reportsdb {
@@ -49,8 +50,9 @@ sub setup_reportsdb {
                                                                 Artemis::Config->subconfig->{test}{database}{ReportsDB}{password},
                                                                 { ignore_version => 1 }
                                                                );
-        $reportsdb_schema->deploy;
-        $reportsdb_schema->upgrade;
+        $reportsdb_schema->deploy({ add_drop_table => 1 });
+        eval { $reportsdb_schema->upgrade };
+        print STDERR $@ if $@;
 }
 
 sub import {

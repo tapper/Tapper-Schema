@@ -5,8 +5,6 @@ use 5.010;
 use strict;
 use warnings;
 
-use Artemis::Schema;
-
 our $VERSION = '2.010009';
 
 use parent 'DBIx::Class::Schema';
@@ -23,7 +21,8 @@ __PACKAGE__->backup_directory('/var/tmp/');
 
 sub backup
 {
-        say STDERR "(TODO: Implement backup method.)";
+        #say STDERR "(TODO: Implement backup method.)";
+        1;
 }
 
 1;

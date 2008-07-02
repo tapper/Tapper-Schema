@@ -3,14 +3,23 @@ package Artemis::Schema::HardwareDB;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Schema';
+our $VERSION = '2.010009';
 
-__PACKAGE__->load_classes;
+use parent 'DBIx::Class::Schema';
 
+our $NULL  = 'NULL';
+our $DELIM = ' | ';
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-05-22 14:22:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QUPPzJT1y+i6Wx5tz32klA
+__PACKAGE__->load_namespaces;
 
+# not versioned: __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
+# __PACKAGE__->upgrade_directory('/var/tmp/');
+# __PACKAGE__->backup_directory('/var/tmp/');
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+sub backup
+{
+        #say STDERR "(TODO: Implement backup method.)";
+        1;
+}
+
 1;
