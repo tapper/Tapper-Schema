@@ -38,7 +38,7 @@ sub due_testruns
 {
         return shift->search(
                              {
-                              starttime_earliest => { '<', model('TestrunDB')->storage->datetime_parser(DateTime->now)}, 
+                              starttime_earliest => { '<', model('TestrunDB')->storage->datetime_parser(DateTime->now)},
                               starttime_testrun  => undef,
                              },
                              {
