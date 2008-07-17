@@ -22,8 +22,8 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("preconditiontype");
 __PACKAGE__->add_columns
     (
-     "name",        { data_type => "VARCHAR",  default_value => undef, is_nullable => 0, size => 20     },
-     "description", { data_type => "TEXT",     default_value => "",    is_nullable => 0, size => 65535  },
+     "name",        { data_type => "VARCHAR",  default_value => undef, is_nullable => 0, size => 20,     },
+     "description", { data_type => "TEXT",     default_value => "",    is_nullable => 0,                 },
     );
 __PACKAGE__->set_primary_key("name");
 

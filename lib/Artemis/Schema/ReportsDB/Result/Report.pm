@@ -17,7 +17,7 @@ __PACKAGE__->add_columns
      #
      # raw tap
      #
-     "tap",                     { data_type => "TEXT",     default_value => "",     is_nullable => 0, size => 65535,                          },
+     "tap",                     { data_type => "TEXT",     default_value => "",     is_nullable => 0,                                         },
      #
      # tap parse result and its human interpretation
      #
@@ -41,7 +41,7 @@ __PACKAGE__->add_columns
      "endtime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      #
      "machine_name",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 50,                             },
-     "machine_description",     { data_type => "TEXT",     default_value => "",     is_nullable => 1, size => 65535,                          },
+     "machine_description",     { data_type => "TEXT",     default_value => "",     is_nullable => 1,                                         },
      #
      "created_at",              { data_type => "DATETIME", default_value => undef,  is_nullable => 0, set_on_create => 1,                     },
      "updated_at",              { data_type => "DATETIME", default_value => undef,  is_nullable => 0, set_on_create => 1, set_on_update => 1, },
