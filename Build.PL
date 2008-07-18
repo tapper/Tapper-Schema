@@ -18,7 +18,10 @@ my $builder = Module::Build->new
                   'perl'                           => '5.010',
                   'perl'                           => 0,
                   'DBIx::Class'                    => "0.08099",
-                  # 'DBIx::Class::TimeStamp '      => 0, # needed but problems on auto installing
+                  'DateTime::Format::Builder'      => 0,
+                  'DateTime::Format::Strptime'     => 0,
+                  'DateTime::Format::MySQL'        => 0,
+                  #'DBIx::Class::TimeStamp '        => 0, # needed but problems on auto installing
                   'DBIx::Class::Schema::Versioned' => 0,
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],

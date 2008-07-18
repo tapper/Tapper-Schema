@@ -8,7 +8,7 @@ use warnings;
 use t::Tools;
 use Data::Dumper;
 use Test::Fixture::DBIC::Schema;
-use Test::More tests => 51;
+use Test::More tests => 52;
 
 BEGIN {
         use_ok( 'Artemis::Schema::TestrunDB' );
@@ -156,6 +156,10 @@ is ($testruns->count, 4, "queued_testruns count");
 
 $testruns = testrundb_schema->resultset('Testrun')->running_testruns;
 is ($testruns->count, 2, "running_testruns count");
+
+$testruns = testrundb_schema->resultset('Testrun')->due_testruns;
+is ($testruns->count, 3, "due_testruns count that are older than 'now'"); # one of seven is in 2038, which is hopefully the future
+#diag Dumper([$_->id, $_->starttime_earliest]) foreach $testruns->all;
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/precondition_structures.yml' );

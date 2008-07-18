@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use DateTime;
-use Artemis::Model 'model';
 
 
 use parent 'DBIx::Class::ResultSet';
@@ -36,9 +35,12 @@ sub finished_testruns
 
 sub due_testruns
 {
-        return shift->search(
+        my ($self) = @_;
+
+        my $now = $self->result_source->storage->datetime_parser->format_datetime(DateTime->now);
+        return $self->search(
                              {
-                              starttime_earliest => { '<', model('TestrunDB')->storage->datetime_parser(DateTime->now)},
+                              starttime_earliest => { '<', $now},
                               starttime_testrun  => undef,
                              },
                              {
