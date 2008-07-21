@@ -1,4 +1,4 @@
-package Artemis::Schema::HardwareDB::Network;
+package Artemis::Schema::HardwareDB::Result::Network;
 
 use strict;
 use warnings;

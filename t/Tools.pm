@@ -72,7 +72,7 @@ sub setup_hardwaredb {
                                                                   { ignore_version => 1 }
                                                                  );
         $hardwaredb_schema->deploy;
-        $hardwaredb_schema->upgrade;
+        #$hardwaredb_schema->upgrade; # not yet versioned
 }
 
 sub import {

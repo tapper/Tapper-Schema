@@ -1,4 +1,4 @@
-package Artemis::Schema::HardwareDB::Systems;
+package Artemis::Schema::HardwareDB::Result::Systems;
 
 use strict;
 use warnings;

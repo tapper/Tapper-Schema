@@ -1,4 +1,4 @@
-package Artemis::Schema::HardwareDB::Cpu;
+package Artemis::Schema::HardwareDB::Result::Cpu;
 
 use strict;
 use warnings;

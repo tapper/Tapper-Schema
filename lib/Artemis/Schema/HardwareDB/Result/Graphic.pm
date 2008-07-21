@@ -1,4 +1,4 @@
-package Artemis::Schema::HardwareDB::Graphic;
+package Artemis::Schema::HardwareDB::Result::Graphic;
 
 use strict;
 use warnings;
