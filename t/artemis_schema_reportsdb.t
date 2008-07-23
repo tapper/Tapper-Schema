@@ -10,9 +10,8 @@ use Artemis::Schema::TestTools;
 use Test::Fixture::DBIC::Schema;
 use Test::More;
 
-plan tests => 13;
-
 BEGIN {
+        plan tests => 13;
         use_ok( 'Artemis::Schema::ReportsDB' );
 }
 
