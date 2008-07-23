@@ -5,10 +5,12 @@ use lib '.';
 use  strict;
 use warnings;
 
-use t::Tools;
 use Data::Dumper;
+use Artemis::Schema::TestTools;
 use Test::Fixture::DBIC::Schema;
-use Test::More tests => 13;
+use Test::More;
+
+plan tests => 13;
 
 BEGIN {
         use_ok( 'Artemis::Schema::ReportsDB' );
