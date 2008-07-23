@@ -1,4 +1,4 @@
-package t::Tools;
+package Artemis::Schema::TestTools;
 
 # inspired by Test::Fixture::DBIC::Schema
 
@@ -33,7 +33,6 @@ sub setup_testrundb {
                                                                );
         $testrundb_schema->deploy;
         $testrundb_schema->upgrade;
-        print STDERR $@ if $@;
 }
 
 sub setup_reportsdb {
@@ -53,7 +52,6 @@ sub setup_reportsdb {
                                                                );
         $reportsdb_schema->deploy;
         $reportsdb_schema->upgrade;
-        print STDERR $@ if $@;
 }
 
 sub setup_hardwaredb {
