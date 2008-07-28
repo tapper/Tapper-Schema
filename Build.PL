@@ -23,6 +23,7 @@ my $builder = Module::Build->new
                   'DateTime::Format::MySQL'        => 0,
                   #'DBIx::Class::TimeStamp '        => 0, # needed but problems on auto installing
                   'DBIx::Class::Schema::Versioned' => 0,
+                  'SQL::Translator'                => 0,
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],
     );
