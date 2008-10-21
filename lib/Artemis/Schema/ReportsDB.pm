@@ -5,7 +5,7 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '2.010012';
+our $VERSION = '2.010013';
 
 use parent 'DBIx::Class::Schema';
 
@@ -44,8 +44,7 @@ perl -Ilib -MArtemis::Schema::ReportsDB -MArtemis::Model=model -e 'model("Report
 
 # aktuelle Version und Diff erzeugen zur gewünschten vorherigen
 # Version erzeugen (diesmal arg4)
-perl -I. -MReportDB -e 'ReportDB->connect("DBI:SQLite:foo")->create_ddl_dir([qw/MySQL SQLite/], undef, "reportdb/upgrades/", "2.010001") or die'
-
+perl -Ilib -MArtemis::Schema::ReportsDB -e 'Artemis::Schema::ReportsDB->connect("DBI:SQLite:foo")->create_ddl_dir([qw/MySQL SQLite/], undef, "upgrades/", "2.010012") or die'
 
 # Das connectede Schema von bisheriger Version auf aktuelle Version bringen.
 # Dazu die vorher angelegten Diffs in upgrade_directory() verwenden und
