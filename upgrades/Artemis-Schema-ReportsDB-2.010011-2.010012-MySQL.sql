@@ -1,4 +1,4 @@
--- Convert schema '/var/tmp/Artemis-Schema-ReportsDB-2.010011-MySQL.sql' to 'Artemis::Schema::ReportsDB v2.010012':
+-- Convert schema 'upgrades/Artemis-Schema-ReportsDB-2.010011-MySQL.sql' to 'Artemis::Schema::ReportsDB v2.010012':
 
 BEGIN;
 
