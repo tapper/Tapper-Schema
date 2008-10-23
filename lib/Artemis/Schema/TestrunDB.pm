@@ -7,6 +7,14 @@ use warnings;
 
 our $VERSION = '2.010011';
 
+# avoid these warnings
+#   Subroutine initialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 70.
+#   Subroutine uninitialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 88.
+#   Subroutine reinitialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 101.
+# by forcing correct load order.
+use Class::C3;
+use MRO::Compat;
+
 use parent 'DBIx::Class::Schema';
 
 our $NULL  = 'NULL';
