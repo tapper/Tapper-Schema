@@ -5,12 +5,16 @@ package Artemis::Schema::TestTools;
 use strict;
 use warnings;
 
+BEGIN {
+        use Class::C3;
+        use MRO::Compat;
+}
+
 use Artemis::Schema::TestrunDB;
 use Artemis::Schema::ReportsDB;
 use Artemis::Schema::HardwareDB;
 
 use Artemis::Config;
-
 
 my $testrundb_schema;
 my $reportsdb_schema;
