@@ -11,7 +11,7 @@ use Test::Fixture::DBIC::Schema;
 use Test::More;
 
 BEGIN {
-        plan tests => 13;
+        plan tests => 15;
         use_ok( 'Artemis::Schema::ReportsDB' );
 }
 
@@ -41,3 +41,11 @@ is( $reportsections[4]->some_meta_available, 1, "some meta available");
 is( $reportsections[5]->some_meta_available, 0, "some meta available");
 is( $reportsections[6]->some_meta_available, 1, "some meta available");
 is( $reportsections[7]->some_meta_available, 1, "some meta available");
+
+# -----------------------------------------------------------------------------------------------------------------
+construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/reportgroups.yml' );
+# -----------------------------------------------------------------------------------------------------------------
+
+is( reportsdb_schema->resultset('ReportgroupTestrun')->count,   3, "reportgrouptestrun count" );
+is( reportsdb_schema->resultset('ReportgroupArbitrary')->count, 3, "reportgrouparbitrary count" );
+
