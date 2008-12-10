@@ -49,7 +49,9 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to   ( suite          => 'Artemis::Schema::ReportsDB::Result::Suite',         { 'foreign.id'        => 'self.suite_id' });
+__PACKAGE__->belongs_to   ( suite                => 'Artemis::Schema::ReportsDB::Result::Suite',                { 'foreign.id'           => 'self.suite_id' });
+__PACKAGE__->belongs_to   ( reportgrouparbitrary => 'Artemis::Schema::ReportsDB::Result::ReportgroupArbitrary', { 'foreign.arbitrary_id' => 'self.id'       });
+__PACKAGE__->belongs_to   ( reportgrouptestrun   => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun',   { 'foreign.testrun_id'   => 'self.id'       });
 
 __PACKAGE__->has_many     ( comments       => 'Artemis::Schema::ReportsDB::Result::ReportComment', { 'foreign.report_id' => 'self.id' });
 __PACKAGE__->has_many     ( topics         => 'Artemis::Schema::ReportsDB::Result::ReportTopic',   { 'foreign.report_id' => 'self.id' });
