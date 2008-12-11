@@ -16,7 +16,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/arbitrary_id report_id/);
 
-__PACKAGE__->has_many ( reports => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->has_many ( report => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 # -------------------- methods on results --------------------
 
