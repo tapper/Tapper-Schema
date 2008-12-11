@@ -11,7 +11,7 @@ use Test::Fixture::DBIC::Schema;
 use Test::More;
 
 BEGIN {
-        plan tests => 15;
+        plan tests => 19;
         use_ok( 'Artemis::Schema::ReportsDB' );
 }
 
@@ -48,4 +48,14 @@ construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb
 
 is( reportsdb_schema->resultset('ReportgroupTestrun')->count,   3, "reportgrouptestrun count" );
 is( reportsdb_schema->resultset('ReportgroupArbitrary')->count, 3, "reportgrouparbitrary count" );
+
+my $report = reportsdb_schema->resultset('Report')->find(24);
+like($report->tap, qr/OK 2 bar DDD/ms, "found report");
+my $reportgroup_arbitrary = $report->reportgrouparbitrary;
+ok(defined $reportgroup_arbitrary, "has according reportgroup arbitrary");
+
+$report = reportsdb_schema->resultset('Report')->find(23);
+like($report->tap, qr/OK 2 bar CCC/ms, "found report");
+my $reportgroup_testrun = $report->reportgrouptestrun;
+ok(defined $reportgroup_testrun, "has according reportgroup testrun");
 
