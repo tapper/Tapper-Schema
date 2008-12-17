@@ -14,6 +14,9 @@ __PACKAGE__->add_columns
      "suite_id",                { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11, is_foreign_key => 1,        },
      "suite_version",           { data_type => "VARCHAR",  default_value => undef,  is_nullable => 1, size => 11,                             },
      "reportername",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 100,                            },
+     "peeraddr",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 20,                             },
+     "peerport",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 20,                             },
+     "peerhost",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
      #
      # raw tap
      #
