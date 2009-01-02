@@ -15,10 +15,14 @@ sub lonely_preconditions
 
 sub primary_preconditions
 {
-        shift->search({
-                       TODO_NOT_YET_IMPLEMENTED()
+        # XXX: This generates a left outer join but we need a inner join 
+        shift->search(
+                      {},
+                      {
+                       join => 'testrun_precondition',
                       }
                      );
+
 }
 
 sub pre_preconditions
