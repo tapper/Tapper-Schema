@@ -24,7 +24,7 @@ __PACKAGE__->many_to_many ( child_preconditions         => 'child_pre_preconditi
 __PACKAGE__->has_many     ( parent_pre_precondition     => 'Artemis::Schema::TestrunDB::Result::PrePrecondition',     { 'foreign.child_precondition_id' => 'self.id' });
 __PACKAGE__->many_to_many ( parent_preconditions        => 'parent_pre_precondition',                                 'parent' );
 
-__PACKAGE__->has_many     ( testrun_precondition        => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.precondition_id'       => 'self.id' });
+__PACKAGE__->has_many     ( testrun_precondition        => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.precondition_id'       => 'self.id' },  { 'join_type' => 'INNER' });
 __PACKAGE__->many_to_many ( parent_testruns             => 'testrun_precondition',                                    'testrun' );
 
 __PACKAGE__->might_have   ( parent_testrun_precondition => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.precondition_id'       => 'self.id' });

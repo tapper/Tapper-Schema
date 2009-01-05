@@ -15,7 +15,6 @@ sub lonely_preconditions
 
 sub primary_preconditions
 {
-        # XXX: This generates a left outer join but we need a inner join 
         shift->search(
                       {},
                       {
