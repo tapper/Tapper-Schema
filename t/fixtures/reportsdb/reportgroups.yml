@@ -67,18 +67,21 @@
   data:
     testrun_id: 753
     report_id: 21
+    primaryreport: 0
 
 - schema: ReportgroupTestrun
   name: rg 2
   data:
     testrun_id: 753
     report_id: 22
+    primaryreport: 1
 
 - schema: ReportgroupTestrun
   name: rg 3
   data:
     testrun_id: 753
     report_id: 23
+    primaryreport: 0
 
 # ---------- second group ----------
 
@@ -87,15 +90,18 @@
   data:
     arbitrary_id: blubberzomtec
     report_id: 24
+    primaryreport: 0
 
 - schema: ReportgroupArbitrary
   name: rs 5
   data:
     arbitrary_id: blubberzomtec
     report_id: 25
+    primaryreport: 0
 
 - schema: ReportgroupArbitrary
   name: rs 6
   data:
     arbitrary_id: blubberzomtec
     report_id: 26
+    primaryreport: 1

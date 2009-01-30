@@ -10,8 +10,9 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("reportgrouptestrun");
 __PACKAGE__->add_columns
     (
-     "testrun_id", { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11,                      }, # semi-foreign, into TestrundDB
-     "report_id",  { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "testrun_id",    { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11,                      }, # semi-foreign, into TestrundDB
+     "report_id",     { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "primaryreport", { data_type => "INT",     default_value => undef,  is_nullable => 1, size => 11,                      },
     );
 
 __PACKAGE__->set_primary_key(qw/testrun_id report_id/);

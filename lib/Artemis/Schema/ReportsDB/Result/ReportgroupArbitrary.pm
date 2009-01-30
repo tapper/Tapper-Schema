@@ -10,8 +10,9 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("reportgrouparbitrary");
 __PACKAGE__->add_columns
     (
-     "arbitrary_id", { data_type => "VARCHAR", default_value => undef,  is_nullable => 0, size => 11,                      },
-     "report_id",    { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "arbitrary_id",  { data_type => "VARCHAR", default_value => undef,  is_nullable => 0, size => 11,                      },
+     "report_id",     { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1, },
+     "primaryreport", { data_type => "INT",     default_value => undef,  is_nullable => 1, size => 11,                      },
     );
 
 __PACKAGE__->set_primary_key(qw/arbitrary_id report_id/);
