@@ -20,7 +20,9 @@ __PACKAGE__->add_columns
      #
      # raw tap
      #
-     "tap",                     { data_type => "TEXT",     default_value => "",     is_nullable => 0,                                         },
+     #"tap",                    { data_type => "TEXT",     default_value => "",     is_nullable => 0,                                         },
+     "tap",                     { data_type => "LONGBLOB", default_value => "",     is_nullable => 0,                                         },
+     "tapdata",                 { data_type => "LONGBLOB", default_value => "",     is_nullable => 0,                                         },
      #
      # tap parse result and its human interpretation
      #
@@ -63,22 +65,6 @@ __PACKAGE__->has_many     ( reportsections => 'Artemis::Schema::ReportsDB::Resul
 
 1;
 
-
-sub to_simple_hash
-{
-        my ($self) = @_;
-
-        my $simple_hash = {
-                           id                 => $self->id,
-                           suite_name         => $self->suite ? $self->suite->name : 'unknown',
-                           suite_id           => $self->suite ? $self->suite->id : '0',
-                           machine_name       => $self->machine_name || 'unknown',
-                           created_at_ymd_hms => $self->created_at->ymd('-')." ".$self->created_at->hms(':'),
-                           created_at_ymd     => $self->created_at->ymd('-'),
-                           success_ratio      => $self->success_ratio,
-                          };
-        return $simple_hash;
-}
 
 sub sections_cpuinfo
 {
