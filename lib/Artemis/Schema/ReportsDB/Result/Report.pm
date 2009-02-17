@@ -54,7 +54,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to   ( suite                => 'Artemis::Schema::ReportsDB::Result::Suite',                { 'foreign.id'        => 'self.suite_id' });
+__PACKAGE__->belongs_to   ( suite                => 'Artemis::Schema::ReportsDB::Result::Suite',                { 'foreign.id'        => 'self.suite_id' }, { 'join_type' => 'LEFT OUTER' });
 __PACKAGE__->belongs_to   ( reportgrouparbitrary => 'Artemis::Schema::ReportsDB::Result::ReportgroupArbitrary', { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
 __PACKAGE__->belongs_to   ( reportgrouptestrun   => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun',   { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
 
@@ -63,8 +63,9 @@ __PACKAGE__->has_many     ( topics         => 'Artemis::Schema::ReportsDB::Resul
 __PACKAGE__->has_many     ( files          => 'Artemis::Schema::ReportsDB::Result::ReportFile',    { 'foreign.report_id' => 'self.id' });
 __PACKAGE__->has_many     ( reportsections => 'Artemis::Schema::ReportsDB::Result::ReportSection', { 'foreign.report_id' => 'self.id' });
 
-1;
 
+#sub suite_name { shift->suite->name }
+sub suite_name { my ($self, $arg) = @_; return $self->search({ "suite.name" => $arg })};
 
 sub sections_cpuinfo
 {
@@ -89,6 +90,9 @@ sub sections_osname
 }
 
 
+1;
+
+__END__
 
 =head1 NAME
 
