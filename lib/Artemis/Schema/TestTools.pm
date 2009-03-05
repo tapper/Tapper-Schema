@@ -8,6 +8,7 @@ use warnings;
 BEGIN {
         use Class::C3;
         use MRO::Compat;
+        $DBD::SQLite::sqlite_version; # fix "used only once" warning
 }
 
 use Artemis::Schema::TestrunDB;
