@@ -1,10 +1,11 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Mar 13 09:52:53 2009
+-- Created on Fri Mar 13 10:07:38 2009
 -- 
 SET foreign_key_checks=0;
 
 DROP TABLE IF EXISTS `report`;
+
 --
 -- Table: `report`
 --
@@ -42,6 +43,7 @@ CREATE TABLE `report` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportcomment`;
+
 --
 -- Table: `reportcomment`
 --
@@ -60,6 +62,7 @@ CREATE TABLE `reportcomment` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportfile`;
+
 --
 -- Table: `reportfile`
 --
@@ -77,6 +80,7 @@ CREATE TABLE `reportfile` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportgroup`;
+
 --
 -- Table: `reportgroup`
 --
@@ -90,6 +94,7 @@ CREATE TABLE `reportgroup` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportsection`;
+
 --
 -- Table: `reportsection`
 --
@@ -120,6 +125,7 @@ CREATE TABLE `reportsection` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reporttopic`;
+
 --
 -- Table: `reporttopic`
 --
@@ -134,6 +140,7 @@ CREATE TABLE `reporttopic` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportgrouparbitrary`;
+
 --
 -- Table: `reportgrouparbitrary`
 --
@@ -147,6 +154,7 @@ CREATE TABLE `reportgrouparbitrary` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportgrouptestrun`;
+
 --
 -- Table: `reportgrouptestrun`
 --
@@ -160,6 +168,7 @@ CREATE TABLE `reportgrouptestrun` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `suite`;
+
 --
 -- Table: `suite`
 --
@@ -172,6 +181,7 @@ CREATE TABLE `suite` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `user`;
+
 --
 -- Table: `user`
 --

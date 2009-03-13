@@ -1,14 +1,16 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Mar 13 09:52:53 2009
+-- Created on Fri Mar 13 10:07:39 2009
 -- 
-BEGIN TRANSACTION;
 
+
+BEGIN TRANSACTION;
 
 --
 -- Table: report
 --
 DROP TABLE report;
+
 CREATE TABLE report (
   id INTEGER PRIMARY KEY NOT NULL,
   suite_id INT(11),
@@ -45,6 +47,7 @@ CREATE INDEX report_idx_suite_id_report ON report (suite_id);
 -- Table: reportcomment
 --
 DROP TABLE reportcomment;
+
 CREATE TABLE reportcomment (
   id INTEGER PRIMARY KEY NOT NULL,
   report_id INT(11) NOT NULL,
@@ -55,12 +58,14 @@ CREATE TABLE reportcomment (
 );
 
 CREATE INDEX reportcomment_idx_report_id_re ON reportcomment (report_id);
+
 CREATE INDEX reportcomment_idx_user_id_repo ON reportcomment (user_id);
 
 --
 -- Table: reportfile
 --
 DROP TABLE reportfile;
+
 CREATE TABLE reportfile (
   id INTEGER PRIMARY KEY NOT NULL,
   report_id INT(11) NOT NULL,
@@ -77,6 +82,7 @@ CREATE INDEX reportfile_idx_report_id_repor ON reportfile (report_id);
 -- Table: reportgroup
 --
 DROP TABLE reportgroup;
+
 CREATE TABLE reportgroup (
   id INTEGER PRIMARY KEY NOT NULL,
   group_id INT(11) NOT NULL,
@@ -89,6 +95,7 @@ CREATE INDEX reportgroup_idx_report_id_repo ON reportgroup (report_id);
 -- Table: reportsection
 --
 DROP TABLE reportsection;
+
 CREATE TABLE reportsection (
   id INTEGER PRIMARY KEY NOT NULL,
   report_id INT(11) NOT NULL,
@@ -118,6 +125,7 @@ CREATE INDEX reportsection_idx_report_id_re ON reportsection (report_id);
 -- Table: reporttopic
 --
 DROP TABLE reporttopic;
+
 CREATE TABLE reporttopic (
   id INTEGER PRIMARY KEY NOT NULL,
   report_id INT(11) NOT NULL,
@@ -131,6 +139,7 @@ CREATE INDEX reporttopic_idx_report_id_repo ON reporttopic (report_id);
 -- Table: reportgrouparbitrary
 --
 DROP TABLE reportgrouparbitrary;
+
 CREATE TABLE reportgrouparbitrary (
   arbitrary_id VARCHAR(255) NOT NULL,
   report_id INT(11) NOT NULL,
@@ -144,6 +153,7 @@ CREATE INDEX reportgrouparbitrary_idx_report_id_reportgrouparbi ON reportgroupar
 -- Table: reportgrouptestrun
 --
 DROP TABLE reportgrouptestrun;
+
 CREATE TABLE reportgrouptestrun (
   testrun_id INT(11) NOT NULL,
   report_id INT(11) NOT NULL,
@@ -157,6 +167,7 @@ CREATE INDEX reportgrouptestrun_idx_report_id_reportgrouptest ON reportgrouptest
 -- Table: suite
 --
 DROP TABLE suite;
+
 CREATE TABLE suite (
   id INTEGER PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
@@ -164,17 +175,16 @@ CREATE TABLE suite (
   description TEXT NOT NULL
 );
 
-
 --
 -- Table: user
 --
 DROP TABLE user;
+
 CREATE TABLE user (
   id INTEGER PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
   login VARCHAR(255) NOT NULL,
   password VARCHAR(255)
 );
-
 
 COMMIT;
