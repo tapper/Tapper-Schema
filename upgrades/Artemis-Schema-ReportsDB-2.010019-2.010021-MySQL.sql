@@ -2,8 +2,7 @@
 
 BEGIN;
 
-ALTER TABLE report DROP COLUMN tapdata,
-                   ADD COLUMN tapdom LONGBLOB DEFAULT '';
+ALTER TABLE report CHANGE COLUMN tapdata tapdom LONGBLOB DEFAULT '';
 
 ALTER TABLE reportgrouparbitrary CHANGE COLUMN arbitrary_id arbitrary_id VARCHAR(255) NOT NULL;
 

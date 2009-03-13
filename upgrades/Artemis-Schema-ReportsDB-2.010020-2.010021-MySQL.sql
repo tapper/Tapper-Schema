@@ -5,8 +5,7 @@ BEGIN;
 ALTER TABLE report DROP FOREIGN KEY report_fk_id,
                    DROP FOREIGN KEY report_fk_id_1,
                    DROP INDEX report_idx_id,
-                   DROP COLUMN tapdata,
-                   ADD COLUMN tapdom LONGBLOB DEFAULT '';
+                   CHANGE COLUMN tapdata tapdom LONGBLOB DEFAULT '';
 
 ALTER TABLE reportgroup ADD INDEX reportgroup_idx_report_id (report_id),
                         ADD CONSTRAINT reportgroup_fk_report_id FOREIGN KEY (report_id) REFERENCES report (id),
