@@ -22,7 +22,7 @@ __PACKAGE__->add_columns
      #
      #"tap",                    { data_type => "TEXT",     default_value => "",     is_nullable => 0,                                         },
      "tap",                     { data_type => "LONGBLOB", default_value => "",     is_nullable => 0,                                         },
-     "tapdata",                 { data_type => "LONGBLOB", default_value => "",     is_nullable => 0,                                         },
+     "tapdom",                  { data_type => "LONGBLOB", default_value => "",     is_nullable => 1,                                         },
      #
      # tap parse result and its human interpretation
      #
