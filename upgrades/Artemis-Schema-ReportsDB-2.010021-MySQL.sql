@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Mar 13 08:50:26 2009
+-- Created on Fri Mar 13 09:52:53 2009
 -- 
 SET foreign_key_checks=0;
 
@@ -36,11 +36,8 @@ CREATE TABLE `report` (
   `machine_description` text DEFAULT '',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  INDEX report_idx_id (`id`),
   INDEX report_idx_suite_id (`suite_id`),
   PRIMARY KEY (`id`),
-  CONSTRAINT `report_fk_id` FOREIGN KEY (`id`) REFERENCES `reportgrouparbitrary` (`report_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `report_fk_id_1` FOREIGN KEY (`id`) REFERENCES `reportgrouptestrun` (`report_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `report_fk_suite_id` FOREIGN KEY (`suite_id`) REFERENCES `suite` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
@@ -87,8 +84,10 @@ CREATE TABLE `reportgroup` (
   `id` integer(11) NOT NULL auto_increment,
   `group_id` integer(11) NOT NULL,
   `report_id` integer(11) NOT NULL,
-  PRIMARY KEY (`id`)
-);
+  INDEX reportgroup_idx_report_id (`report_id`),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `reportgroup_fk_report_id` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`)
+) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportsection`;
 --
@@ -115,8 +114,10 @@ CREATE TABLE `reportsection` (
   `test_was_on_guest` integer(1),
   `test_was_on_hv` integer(1),
   `xen_guest_flags` VARCHAR(255),
-  PRIMARY KEY (`id`)
-);
+  INDEX reportsection_idx_report_id (`report_id`),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `reportsection_fk_report_id` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reporttopic`;
 --
@@ -140,7 +141,9 @@ CREATE TABLE `reportgrouparbitrary` (
   `arbitrary_id` VARCHAR(255) NOT NULL,
   `report_id` integer(11) NOT NULL,
   `primaryreport` integer(11),
-  PRIMARY KEY (`arbitrary_id`, `report_id`)
+  INDEX reportgrouparbitrary_idx_report_id (`report_id`),
+  PRIMARY KEY (`arbitrary_id`, `report_id`),
+  CONSTRAINT `reportgrouparbitrary_fk_report_id` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportgrouptestrun`;
@@ -151,7 +154,9 @@ CREATE TABLE `reportgrouptestrun` (
   `testrun_id` integer(11) NOT NULL,
   `report_id` integer(11) NOT NULL,
   `primaryreport` integer(11),
-  PRIMARY KEY (`testrun_id`, `report_id`)
+  INDEX reportgrouptestrun_idx_report_id (`report_id`),
+  PRIMARY KEY (`testrun_id`, `report_id`),
+  CONSTRAINT `reportgrouptestrun_fk_report_id` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `suite`;

@@ -62,14 +62,13 @@ CREATE TABLE report (
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL
 );
-CREATE INDEX report_idx_id_report_report ON report (id);
 CREATE INDEX report_idx_suite_id_report_00 ON report (suite_id);
 INSERT INTO report SELECT id, suite_id, suite_version, reportername, peeraddr, peerport, peerhost, tap, tapdom, successgrade, reviewed_successgrade, total, failed, parse_errors, passed, skipped, todo, todo_passed, wait, exit, success_ratio, starttime_test_program, endtime_test_program, machine_name, machine_description, created_at, updated_at FROM report_temp_alter;
 DROP TABLE report_temp_alter;
 
 
 
-DROP INDEX reportgroup_idx_report_id_repo;
+
 CREATE TEMPORARY TABLE reportgrouparbitrary_temp_alter (
   arbitrary_id VARCHAR(255) NOT NULL,
   report_id INT(11) NOT NULL,
@@ -84,11 +83,12 @@ CREATE TABLE reportgrouparbitrary (
   primaryreport INT(11),
   PRIMARY KEY (arbitrary_id, report_id)
 );
+CREATE INDEX reportgrouparbitrary_idx_report_id_reportgrouparbi_ ON reportgrouparbitrary (report_id);
 INSERT INTO reportgrouparbitrary SELECT arbitrary_id, report_id, primaryreport FROM reportgrouparbitrary_temp_alter;
 DROP TABLE reportgrouparbitrary_temp_alter;
 
-DROP INDEX reportgrouptestrun_idx_report_id_reportgrouptest;
-DROP INDEX reportsection_idx_report_id_re;
+
+
 
 
 

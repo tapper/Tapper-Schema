@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Mar 13 08:50:27 2009
+-- Created on Fri Mar 13 09:52:53 2009
 -- 
 BEGIN TRANSACTION;
 
@@ -39,7 +39,6 @@ CREATE TABLE report (
   updated_at DATETIME NOT NULL
 );
 
-CREATE INDEX report_idx_id_report ON report (id);
 CREATE INDEX report_idx_suite_id_report ON report (suite_id);
 
 --
@@ -84,6 +83,7 @@ CREATE TABLE reportgroup (
   report_id INT(11) NOT NULL
 );
 
+CREATE INDEX reportgroup_idx_report_id_repo ON reportgroup (report_id);
 
 --
 -- Table: reportsection
@@ -112,6 +112,7 @@ CREATE TABLE reportsection (
   xen_guest_flags VARCHAR(255)
 );
 
+CREATE INDEX reportsection_idx_report_id_re ON reportsection (report_id);
 
 --
 -- Table: reporttopic
@@ -137,6 +138,7 @@ CREATE TABLE reportgrouparbitrary (
   PRIMARY KEY (arbitrary_id, report_id)
 );
 
+CREATE INDEX reportgrouparbitrary_idx_report_id_reportgrouparbi ON reportgrouparbitrary (report_id);
 
 --
 -- Table: reportgrouptestrun
@@ -149,6 +151,7 @@ CREATE TABLE reportgrouptestrun (
   PRIMARY KEY (testrun_id, report_id)
 );
 
+CREATE INDEX reportgrouptestrun_idx_report_id_reportgrouptest ON reportgrouptestrun (report_id);
 
 --
 -- Table: suite
