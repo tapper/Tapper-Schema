@@ -20,7 +20,6 @@ __PACKAGE__->add_columns
      "hardwaredb_systems_id",     { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11,                            },
      "owner_user_id",             { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11,    is_foreign_key => 1,    },
      "test_program",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 0, size => 255,                           },
-     "timeout_after_testprogram", { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10,                            },
      "wait_after_tests",          { data_type => "INT",      default_value => 0,      is_nullable => 1, size => 1,                             },
      "created_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
      "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                        },
