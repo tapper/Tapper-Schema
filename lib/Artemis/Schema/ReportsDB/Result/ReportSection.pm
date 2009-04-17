@@ -14,7 +14,7 @@ __PACKAGE__->add_columns
      "report_id",               { data_type => "INT",      default_value => undef, is_nullable => 0, size => 11, is_foreign_key => 1, },
      "succession",              { data_type => "INT",      default_value => undef, is_nullable => 1, size => 10,                      },
      "name",                    { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
-     #
+     # machine/os environment
      "osname",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "uname",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 255,                     },
@@ -24,13 +24,12 @@ __PACKAGE__->add_columns
      "lspci",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "lsusb",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "flags",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     # xen info
      "xen_changeset",           { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_hvbits",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 10,                      },
      "xen_dom0_kernel",         { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "xen_base_os_description", { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "xen_guest_description",   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
-     "test_was_on_guest",       { data_type => "INT",      default_value => undef, is_nullable => 1, size => 1,                       },
-     "test_was_on_hv",          { data_type => "INT",      default_value => undef, is_nullable => 1, size => 1,                       },
      "xen_guest_flags",         { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_version",             { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_guest_test",          { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
