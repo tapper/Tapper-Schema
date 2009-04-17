@@ -20,6 +20,7 @@ __PACKAGE__->add_columns
      "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 255,                     },
      "cpuinfo",                 { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "ram",                     { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
+     "uptime",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
      "lspci",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "lsusb",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "flags",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
@@ -31,6 +32,18 @@ __PACKAGE__->add_columns
      "test_was_on_guest",       { data_type => "INT",      default_value => undef, is_nullable => 1, size => 1,                       },
      "test_was_on_hv",          { data_type => "INT",      default_value => undef, is_nullable => 1, size => 1,                       },
      "xen_guest_flags",         { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "xen_version",             { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "xen_guest_test",          { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "xen_guest_start",         { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     # kvm info
+     "kvm_kernel",              { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
+     "kvm_base_os_description", { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
+     "kvm_guest_description",   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
+     "kvm_module_version",      { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "kvm_userspace_version",   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "kvm_guest_flags",         { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "kvm_guest_test",          { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "kvm_guest_start",         { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
     );
 
 __PACKAGE__->set_primary_key("id");
