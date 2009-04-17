@@ -70,8 +70,17 @@ sub some_meta_available
                            xen_base_os_description
                            xen_guest_description
                            xen_guest_flags
-                           test_was_on_guest
-                           test_was_on_hv
+                           xen_version
+                           xen_guest_test
+                           xen_guest_start
+                           kvm_kernel
+                           kvm_base_os_description
+                           kvm_guest_description
+                           kvm_module_version
+                           kvm_userspace_version
+                           kvm_guest_flags
+                           kvm_guest_test
+                           kvm_guest_start
                           /;
         return 1 if grep { defined } @cols{@meta_cols};
         return 0;

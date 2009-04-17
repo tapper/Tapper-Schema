@@ -30,8 +30,6 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
-    test_was_on_guest:
-    test_was_on_hv:
 
 - schema: ReportSection
   name: rs 1
@@ -51,8 +49,6 @@
     xen_dom0_kernel:
     xen_base_os_description:
     xen_guest_description:
-    test_was_on_guest:
-    test_was_on_hv:
 
 - schema: ReportSection
   name: rs 2
@@ -73,8 +69,6 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
-    test_was_on_guest:
-    test_was_on_hv:
 
 - schema: ReportSection
   name: rs 3
@@ -89,14 +83,12 @@
     lspci:
     lsusb:
     flags:
-    xen_changeset:
+    xen_changeset: 0
     xen_hvbits:
     xen_dom0_kernel:
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
-    test_was_on_guest: 0
-    test_was_on_hv:
 
 - schema: ReportSection
   name: rs 4
@@ -112,13 +104,11 @@
     lsusb:
     flags:
     xen_changeset:
-    xen_hvbits:
+    xen_hvbits: 0
     xen_dom0_kernel:
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
-    test_was_on_guest:
-    test_was_on_hv: 0
 
 - schema: ReportSection
   name: rs 5
@@ -139,8 +129,6 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
-    test_was_on_guest:
-    test_was_on_hv:
 
 - schema: ReportSection
   name: rs 6
@@ -161,8 +149,6 @@
     xen_base_os_description:
     xen_guest_description: 0
     xen_guest_flags:
-    test_was_on_guest:
-    test_was_on_hv:
 
 - schema: ReportSection
   name: rs 7
@@ -183,6 +169,4 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags: 0
-    test_was_on_guest:
-    test_was_on_hv:
 
