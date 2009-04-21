@@ -13,6 +13,7 @@ my $builder = Module::Build->new
                         'Test::More'      => 0,
                         'Artemis::Config' => '2.01',
                         'Artemis::Test'   => '2.010005',
+                        'Scalar::Util'    => 0,
                        },
      requires => {
                   'perl'                           => '5.010',
@@ -24,6 +25,8 @@ my $builder = Module::Build->new
                   #'DBIx::Class::TimeStamp '        => 0, # needed but problems on auto installing
                   'DBIx::Class::Schema::Versioned' => 0,
                   'SQL::Translator'                => 0,
+                  'Artemis::TAP::Harness'          => 0,
+                  'TAP::DOM'                       => '0.03',
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],
     );
