@@ -5,6 +5,7 @@
   data:
     id: 21
     tap: |
+      1..4
       OK 1 foo
       OK 2 bar
       OK 3 affe
