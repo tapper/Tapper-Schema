@@ -5,6 +5,8 @@ use 5.010;
 use strict;
 use warnings;
 
+# Only increment this version here on schema changes.
+# For everything else increment Artemis/Schema.pm.
 our $VERSION = '2.010012';
 
 # avoid these warnings

@@ -9,9 +9,11 @@ use Data::Dumper;
 use Artemis::Schema::TestTools;
 use Test::Fixture::DBIC::Schema;
 use Test::More;
+use Test::Deep;
+use Scalar::Util 'reftype';
 
 BEGIN {
-        plan tests => 19;
+        plan tests => 23;
         use_ok( 'Artemis::Schema::ReportsDB' );
 }
 
@@ -59,3 +61,13 @@ like($report->tap, qr/OK 2 bar CCC/ms, "found report");
 my $reportgroup_testrun = $report->reportgrouptestrun;
 ok(defined $reportgroup_testrun, "has according reportgroup testrun");
 
+unlike($report->tapdom, qr/\$VAR1/, "no tapdom yet");
+my $tapdom = $report->_get_cached_tapdom;
+is(reftype($tapdom), "ARRAY", "got tapdom");
+like($report->tapdom, qr/\$VAR1/, "tapdom created on demand looks like Data::Dumper string");
+#diag "tapdom: ".$report->tapdom;
+my $VAR1;
+eval $report->tapdom;
+my $tapdom2 = $VAR1;
+#diag "tapdom2: ".Dumper($tapdom2);
+cmp_bag($tapdom2, $tapdom, "stored tapdom keeps constant");
