@@ -1,10 +1,13 @@
 package Artemis::Schema::ReportsDB::Result::Report;
 
+use 5.010;
 use strict;
 use warnings;
 
 use parent 'DBIx::Class';
 use parent 'Artemis::Schema::Printable';
+
+use Data::Dumper;
 
 __PACKAGE__->load_components(qw(InflateColumn::DateTime TimeStamp Core));
 __PACKAGE__->table("report");
@@ -89,6 +92,39 @@ sub sections_osname
         return @cpus;
 }
 
+sub _get_cached_tapdom
+{
+        my ($report) = @_;
+
+        require Artemis::TAP::Harness;
+        require TAP::DOM;
+
+        my $TAPVERSION = "TAP Version 13";
+        my $tapdom_sections = [];
+        my $tapdom_str = $report->tapdom;
+        # set ARTEMIS_FORCE_NEW_TAPDOM to force the re-generation of the TAP DOM, e.g. when the TAP::DOM module changes
+        if (not $tapdom_str or $ENV{ARTEMIS_FORCE_NEW_TAPDOM})
+        {
+                my $harness = new Artemis::TAP::Harness( tap => $report->tap );
+                $harness->evaluate_report();
+                foreach (@{$harness->parsed_report->{tap_sections}}) {
+                        my $rawtap = $_->{raw};
+                        $rawtap = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
+                        my $tapdom = new TAP::DOM ( tap => $rawtap );
+                        push @$tapdom_sections, { section => { $_->{section_name} => { tap => $tapdom }}};
+                }
+                $tapdom_str = Dumper($tapdom_sections);
+                $report->tapdom ($tapdom_str);
+                $report->update;
+        }
+        else
+        {
+                my $VAR1;
+                eval $tapdom_str;
+                my $tapdom_sections = $VAR1;
+        }
+        return $tapdom_sections;
+}
 
 1;
 
