@@ -62,7 +62,7 @@ my $reportgroup_testrun = $report->reportgrouptestrun;
 ok(defined $reportgroup_testrun, "has according reportgroup testrun");
 
 unlike($report->tapdom, qr/\$VAR1/, "no tapdom yet");
-my $tapdom = $report->_get_cached_tapdom;
+my $tapdom = $report->get_cached_tapdom;
 is(Scalar::Util::reftype($tapdom), "ARRAY", "got tapdom");
 like($report->tapdom, qr/\$VAR1/, "tapdom created on demand looks like Data::Dumper string");
 #diag "tapdom: ".$report->tapdom;
