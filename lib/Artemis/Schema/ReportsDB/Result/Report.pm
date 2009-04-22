@@ -103,11 +103,17 @@ sub _get_cached_tapdom
         my $tapdom_sections = [];
         my $tapdom_str = $report->tapdom;
         # set ARTEMIS_FORCE_NEW_TAPDOM to force the re-generation of the TAP DOM, e.g. when the TAP::DOM module changes
-        if (not $tapdom_str or $ENV{ARTEMIS_FORCE_NEW_TAPDOM})
+        if ($tapdom_str and not $ENV{ARTEMIS_FORCE_NEW_TAPDOM})
+        {
+                say STDERR "***** EVAL tapdom_str";
+                eval '$tapdom_sections = my '.$tapdom_str;
+        }
+        else
         {
                 my $harness = new Artemis::TAP::Harness( tap => $report->tap );
                 $harness->evaluate_report();
-                foreach (@{$harness->parsed_report->{tap_sections}}) {
+                foreach (@{$harness->parsed_report->{tap_sections}})
+                {
                         my $rawtap = $_->{raw};
                         $rawtap = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
                         my $tapdom = new TAP::DOM ( tap => $rawtap );
@@ -116,12 +122,6 @@ sub _get_cached_tapdom
                 $tapdom_str = Dumper($tapdom_sections);
                 $report->tapdom ($tapdom_str);
                 $report->update;
-        }
-        else
-        {
-                my $VAR1;
-                eval $tapdom_str;
-                my $tapdom_sections = $VAR1;
         }
         return $tapdom_sections;
 }

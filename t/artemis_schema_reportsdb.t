@@ -2,7 +2,7 @@
 
 use lib '.';
 
-use  strict;
+use strict;
 use warnings;
 
 use Data::Dumper;
