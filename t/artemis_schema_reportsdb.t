@@ -10,7 +10,7 @@ use Artemis::Schema::TestTools;
 use Test::Fixture::DBIC::Schema;
 use Test::More;
 use Test::Deep;
-use Scalar::Util 'reftype';
+use Scalar::Util;
 
 BEGIN {
         plan tests => 23;
@@ -63,7 +63,7 @@ ok(defined $reportgroup_testrun, "has according reportgroup testrun");
 
 unlike($report->tapdom, qr/\$VAR1/, "no tapdom yet");
 my $tapdom = $report->_get_cached_tapdom;
-is(reftype($tapdom), "ARRAY", "got tapdom");
+is(Scalar::Util::reftype($tapdom), "ARRAY", "got tapdom");
 like($report->tapdom, qr/\$VAR1/, "tapdom created on demand looks like Data::Dumper string");
 #diag "tapdom: ".$report->tapdom;
 my $VAR1;
