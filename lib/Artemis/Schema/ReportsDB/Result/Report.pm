@@ -111,12 +111,19 @@ sub get_cached_tapdom
         else
         {
                 #say STDERR "RUN ARTEMIS::TAP::HARNESS";
-                my $harness = new Artemis::TAP::Harness( tap => $report->tap );
+                my $report_tap = $report->tap;
+
+                # hot fix TAP errors
+                $report_tap = $TAPVERSION."\n".$report_tap unless $report_tap =~ /^TAP Version/ms;
+                $report_tap =~ s/linetail:\w*$/linetail: ~/msg;
+                $report_tap =~ s/(CPU\d+):\w*$/$1: ~/msg;
+                print STDERR "$report_tap\n";
+
+                my $harness = new Artemis::TAP::Harness( tap => $report_tap );
                 $harness->evaluate_report();
                 foreach (@{$harness->parsed_report->{tap_sections}})
                 {
                         my $rawtap = $_->{raw};
-                        $rawtap = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
                         my $tapdom = new TAP::DOM ( tap => $rawtap );
                         push @$tapdom_sections, { section => { $_->{section_name} => { tap => $tapdom }}};
                 }
