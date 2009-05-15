@@ -68,7 +68,7 @@ __PACKAGE__->has_many     ( reportsections => 'Artemis::Schema::ReportsDB::Resul
 
 
 #sub suite_name { shift->suite->name }
-sub suite_name { my ($self, $arg) = @_; return $self->search({ "suite.name" => $arg })};
+#sub suite_name { my ($self, $arg) = @_; return $self->search({ "suite.name" => $arg })};
 
 sub sections_cpuinfo
 {
