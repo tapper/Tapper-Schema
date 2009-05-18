@@ -94,14 +94,17 @@ sub sections_osname
 
 sub get_cached_tapdom
 {
-        my ($report) = @_;
+        my ($r) = @_;
 
         require Artemis::TAP::Harness;
         require TAP::DOM;
 
         my $TAPVERSION = "TAP Version 13";
         my $tapdom_sections = [];
+
+        my $report     = $r->result_source->schema->resultset('Report')->find($r->id);
         my $tapdom_str = $report->tapdom;
+
         # set ARTEMIS_FORCE_NEW_TAPDOM to force the re-generation of the TAP DOM, e.g. when the TAP::DOM module changes
         if ($tapdom_str and not $ENV{ARTEMIS_FORCE_NEW_TAPDOM})
         {
@@ -118,6 +121,7 @@ sub get_cached_tapdom
                 $report_tap =~ s/linetail:\w*$/linetail: ~/msg;
                 $report_tap =~ s/(CPU\d+):\w*$/$1: ~/msg;
 
+                my $report_tap = $report->tap;
                 my $harness = new Artemis::TAP::Harness( tap => $report_tap );
                 $harness->evaluate_report();
                 use Data::Dumper;
@@ -131,7 +135,8 @@ sub get_cached_tapdom
                         push @$tapdom_sections, { section => { $_->{section_name} => { tap => $tapdom }}};
                 }
                 $tapdom_str = Dumper($tapdom_sections);
-                $report->tapdom ($tapdom_str);
+                $report->tapdom( $tapdom_str );
+                #say STDERR "new report: ", Dumper($report);
                 $report->update;
         }
         return $tapdom_sections;
