@@ -128,7 +128,7 @@ sub get_cached_tapdom
                 #print STDERR Dumper($harness->parsed_report->{tap_sections});
                 foreach (@{$harness->parsed_report->{tap_sections}})
                 {
-                        my $rawtap = $_->{raw};
+                        my $rawtap = $_->{raw} || '';
                         #say STDERR "x"x100, "\n", $rawtap, "\n", "x"x 100;
                         $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
                         my $tapdom = new TAP::DOM ( tap => $rawtap );

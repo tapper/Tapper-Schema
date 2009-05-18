@@ -26,7 +26,7 @@ my $builder = Module::Build->new
                   'DBIx::Class::Schema::Versioned' => 0,
                   'SQL::Translator'                => 0,
                   'Artemis::TAP::Harness'          => 0,
-                  'TAP::DOM'                       => '0.03',
+                  'TAP::DOM'                       => '0.04',
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],
     );
