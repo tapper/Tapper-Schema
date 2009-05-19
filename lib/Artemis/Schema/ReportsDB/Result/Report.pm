@@ -108,31 +108,42 @@ sub get_cached_tapdom
         # set ARTEMIS_FORCE_NEW_TAPDOM to force the re-generation of the TAP DOM, e.g. when the TAP::DOM module changes
         if ($tapdom_str and not $ENV{ARTEMIS_FORCE_NEW_TAPDOM})
         {
-                say STDERR "EVAL ", $r->id;#.$tapdom_str;
+                print STDERR "EVAL ", $r->id;
                 eval '$tapdom_sections = my '.$tapdom_str;
         }
         else
         {
-                say STDERR "RUN ARTEMIS::TAP::HARNESS ", $r->id;
+                print STDERR "RUN ARTEMIS::TAP::HARNESS ", $r->id;
 
                 my $report_tap = $report->tap;
-                my $harness = new Artemis::TAP::Harness( tap => $report_tap );
-                $harness->evaluate_report();
-                use Data::Dumper;
-                #print STDERR Dumper($harness->parsed_report->{tap_sections});
-                foreach (@{$harness->parsed_report->{tap_sections}})
-                {
-                        my $rawtap = $_->{raw} || '';
-                        #say STDERR "x"x100, "\n", $rawtap, "\n", "x"x 100;
-                        $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
-                        my $tapdom = new TAP::DOM ( tap => $rawtap );
-                        push @$tapdom_sections, { section => { $_->{section_name} => { tap => $tapdom }}};
+
+                # We got "Out of memory!" with monster TAP reports.
+                if (length $report_tap > 2_000_000) {
+                        warn "Ignore report ".$r->id." due to too large TAP. ";
                 }
-                $tapdom_str = Dumper($tapdom_sections);
-                $report->tapdom( $tapdom_str );
-                #say STDERR "new report: ", Dumper($report);
-                $report->update;
+                else
+                {
+                        my $harness = new Artemis::TAP::Harness( tap => $report_tap );
+                        $harness->evaluate_report();
+                        use Data::Dumper;
+                        #print STDERR Dumper($harness->parsed_report->{tap_sections});
+                        foreach (@{$harness->parsed_report->{tap_sections}})
+                        {
+                                print STDERR ".";
+                                my $rawtap = $_->{raw} || '';
+                                #say STDERR "x"x100, "\n", $rawtap, "\n", "x"x 100;
+                                $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
+                                #say STDERR length($rawtap);
+                                my $tapdom = new TAP::DOM ( tap => $rawtap );
+                                push @$tapdom_sections, { section => { $_->{section_name} => { tap => $tapdom }}};
+                        }
+                        $tapdom_str = Dumper($tapdom_sections);
+                        $report->tapdom( $tapdom_str );
+                        #say STDERR "new report: ", Dumper($report);
+                        $report->update;
+                }
         }
+        print STDERR ".\n";
         return $tapdom_sections;
 }
 
