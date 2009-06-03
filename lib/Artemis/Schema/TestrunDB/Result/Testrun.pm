@@ -39,7 +39,7 @@ sub to_string
 {
         my ($self) = @_;
 
-        my $format = join( $Artemis::Schema::TestrunDB::DELIM, qw/%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s /, '');
+        my $format = join( $Artemis::Schema::TestrunDB::DELIM, qw/%s %s %s %s %s %s %s %s %s %s %s %s %s %s /, '');
         sprintf (
                  $format,
                  map {
