@@ -17,6 +17,9 @@ __PACKAGE__->add_columns
      # machine/os environment
      "osname",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "uname",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "flags",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "changeset",               { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "description",             { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 255,                     },
      "cpuinfo",                 { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "ram",                     { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
