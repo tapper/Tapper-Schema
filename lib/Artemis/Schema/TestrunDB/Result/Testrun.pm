@@ -27,13 +27,11 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to( topic => 'Artemis::Schema::TestrunDB::Result::Topic', { 'foreign.name' => 'self.topic_name' });
-__PACKAGE__->belongs_to( owner => 'Artemis::Schema::TestrunDB::Result::User',  { 'foreign.id'   => 'self.owner_user_id' });
+__PACKAGE__->belongs_to   ( topic                      => 'Artemis::Schema::TestrunDB::Result::Topic',                   { 'foreign.name' => 'self.topic_name'    });
+__PACKAGE__->belongs_to   ( owner                      => 'Artemis::Schema::TestrunDB::Result::User',                    { 'foreign.id'   => 'self.owner_user_id' });
 
-__PACKAGE__->has_many     ( testrun_precondition => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition', { 'foreign.testrun_id' => 'self.id' });
-__PACKAGE__->many_to_many ( preconditions        => 'testrun_precondition', 'precondition' );
-
-
+__PACKAGE__->has_many     ( testrun_precondition       => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition',     { 'foreign.testrun_id' => 'self.id' });
+__PACKAGE__->many_to_many ( preconditions              => 'testrun_precondition',                                        'precondition' );
 
 
 # -------------------- methods on results --------------------
