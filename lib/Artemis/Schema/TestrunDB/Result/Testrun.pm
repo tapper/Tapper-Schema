@@ -33,6 +33,7 @@ __PACKAGE__->belongs_to   ( owner                      => 'Artemis::Schema::Test
 __PACKAGE__->has_many     ( testrun_precondition       => 'Artemis::Schema::TestrunDB::Result::TestrunPrecondition',     { 'foreign.testrun_id' => 'self.id' });
 __PACKAGE__->many_to_many ( preconditions              => 'testrun_precondition',                                        'precondition' );
 
+__PACKAGE__->might_have   ( testrun_scheduling         => 'Artemis::Schema::TestrunDB::Result::TestrunScheduling',       { 'foreign.testrun_id' => 'self.id' });
 
 # -------------------- methods on results --------------------
 
