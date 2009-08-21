@@ -21,7 +21,7 @@ __PACKAGE__->add_columns
 __PACKAGE__->set_primary_key(qw/testrun_id/);
 
 __PACKAGE__->belongs_to( testrun            => 'Artemis::Schema::TestrunDB::Result::Testrun',                 { 'foreign.id'         => 'self.testrun_id' });
-__PACKAGE__->belongs_to( queue              => 'Artemis::Schema::TestrunDB::Result::Testrun',                 { 'foreign.id'         => 'self.queue_id'   });
+__PACKAGE__->belongs_to( queue              => 'Artemis::Schema::TestrunDB::Result::Queue',                   { 'foreign.id'         => 'self.queue_id'   });
 
 __PACKAGE__->has_many  ( requested_features => 'Artemis::Schema::TestrunDB::Result::TestrunRequestedFeature', { 'foreign.testrun_id' => 'self.id'         });
 
