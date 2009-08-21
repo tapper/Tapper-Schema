@@ -2,7 +2,8 @@
 
 use lib '.';
 
-use  strict;
+use 5.010;
+use strict;
 use warnings;
 
 use Data::Dumper;
@@ -80,7 +81,10 @@ is($testrun_preconditions[1]->precondition->shortname, 'artemis-tools', "testrun
 
 # --------------------------------------------------
 
-my @preconditions = sort { $a->parent_testrun_precondition->succession <=> $b->parent_testrun_precondition->succession } $perfmon_run->preconditions;
+my @preconditions =
+    map  { $_->precondition }
+    sort { $a->succession <=> $b->succession }
+    $perfmon_run->testrun_precondition;
 
 is(scalar @preconditions, 2, "testrun->preconditions count");
 is($preconditions[0]->id, 8, "1st precondition");
