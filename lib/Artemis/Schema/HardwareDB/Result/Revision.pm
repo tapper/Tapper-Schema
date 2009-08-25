@@ -33,8 +33,8 @@ __PACKAGE__->set_primary_key("lid");
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-05-22 14:22:46
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3mNIsy5Qoou9679sUbwnYw
 
-__PACKAGE__->has_many     ( cpu       => 'Artemis::Schema::HardwareDB::Result::Cpu',       [ { 'foreign.lid' => 'self.component_id' }, { component => 'cpu' }]);
-__PACKAGE__->has_many     ( mainboard => 'Artemis::Schema::HardwareDB::Result::Mainboard', [ { 'foreign.lid' => 'self.component_id' }, { component => 'mainboard' }]);
+__PACKAGE__->has_many     ( cpu       => 'Artemis::Schema::HardwareDB::Result::Cpu',       [ { 'foreign.lid' => 'self.component_id' }, { component_type => 'cpu' }]);
+__PACKAGE__->has_many     ( mainboard => 'Artemis::Schema::HardwareDB::Result::Mainboard', [ { 'foreign.lid' => 'self.component_id' }, { component_type => 'mainboard' }]);
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;
