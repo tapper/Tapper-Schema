@@ -1,0 +1,51 @@
+---
+
+# -------------------- systems
+
+- schema: Systems
+  name: a system called affe
+  data:
+    lid: 42
+    systemname: affe
+
+- schema: Systems
+  name: a system called iring
+  data:
+    lid: 12
+    systemname: iring
+    revision_id: 112
+    
+- schema: Systems
+  name: a system called bascha
+  data:
+    lid: 15
+    systemname: bascha
+
+- schema: Systems
+  name: a system called bullock
+  data:
+    lid: 8
+    systemname: bullock
+
+
+# ------ revision
+
+- schema: Revision
+  name: iring revisions
+  data:
+    lid: 112
+    component_type: cpu
+    component_id: 3112
+
+# ----- CPU
+
+- schema: Cpu
+  name: iring cpu 3B2
+  data:
+    lid: 3112
+    vendor: AMD
+    family: 10
+    model: 3
+    stepping: 2
+    revision: B
+
