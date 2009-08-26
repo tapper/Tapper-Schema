@@ -83,3 +83,14 @@
     lid: 3213
     size_mbyte: 2048
     vendor: Kingston
+
+# ------ Network
+- schema: Network
+  name: iring network card
+  data:
+    lid: 3311
+    vendor: RealTek
+    chipset: rtl8169
+    mac: 00:18:4d:76:7a:12
+    bus_type: PCI
+    media: RJ45
