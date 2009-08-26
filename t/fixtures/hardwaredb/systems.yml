@@ -14,7 +14,7 @@
     lid: 12
     systemname: iring
     revision_id: 112
-    
+
 - schema: Systems
   name: a system called bascha
   data:
@@ -34,8 +34,27 @@
   name: iring revisions
   data:
     lid: 112
+    revision_id: 112
     component_type: cpu
     component_id: 3112
+
+
+- schema: Revision
+  name: iring revisions
+  data:
+    lid: 113
+    revision_id: 112
+    component_type: Ram
+    component_id: 3212
+
+- schema: Revision
+  name: iring revisions
+  data:
+    lid: 114
+    revision_id: 112
+    component_type: Ram
+    component_id: 3213
+
 
 # ----- CPU
 
@@ -49,3 +68,18 @@
     stepping: 2
     revision: B
 
+
+# ------ RAM
+- schema: Ram
+  name: iring ram
+  data:
+    lid: 3212
+    size_mbyte: 2048
+    vendor: Kingston
+
+- schema: Ram
+  name: second iring ram
+  data:
+    lid: 3213
+    size_mbyte: 2048
+    vendor: Kingston
