@@ -10,8 +10,13 @@ use parent 'DBIx::Class::ResultSet';
 
 
 # (XXX) do it with joins
-sub cpus { shift->_component('cpu') }
-sub rams { shift->_component('ram') }
+sub cpus       { shift->_component('cpu')        }
+sub rams       { shift->_component('ram')        }
+sub mainbords  { shift->_component('mainboard')  }
+sub hdds       { shift->_component('hdd')        }
+sub graphics   { shift->_component('graphic')    }
+sub networks   { shift->_component('network')    }
+sub miscs      { shift->_component('misc')       }
 
 sub mem {
         my $size = 0;
