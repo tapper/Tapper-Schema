@@ -14,11 +14,13 @@ my $builder = Module::Build->new
                         'Artemis::Config' => '2.01',
                         'Artemis::Test'   => '2.010005',
                         'Scalar::Util'    => 0,
+                        'DateTime::Format::SQLite'        => 0,
+
                        },
      requires => {
                   'perl'                           => '5.010',
                   'perl'                           => 0,
-                  'DBIx::Class'                    => "0.08099_04",
+                  'DBIx::Class'                    => "0.08108",
                   'DateTime::Format::Builder'      => 0,
                   'DateTime::Format::Strptime'     => 0,
                   'DateTime::Format::MySQL'        => 0,
