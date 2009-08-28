@@ -1,14 +1,16 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Aug 28 09:14:41 2009
+-- Created on Fri Aug 28 09:47:56 2009
 -- 
-BEGIN TRANSACTION;
 
+
+BEGIN TRANSACTION;
 
 --
 -- Table: precondition
 --
 DROP TABLE precondition;
+
 CREATE TABLE precondition (
   id INTEGER PRIMARY KEY NOT NULL,
   shortname VARCHAR(255) NOT NULL DEFAULT '',
@@ -16,33 +18,33 @@ CREATE TABLE precondition (
   timeout INT(10)
 );
 
-
 --
 -- Table: preconditiontype
 --
 DROP TABLE preconditiontype;
+
 CREATE TABLE preconditiontype (
   name VARCHAR(20) NOT NULL,
   description TEXT NOT NULL DEFAULT '',
   PRIMARY KEY (name)
 );
 
-
 --
 -- Table: topic
 --
 DROP TABLE topic;
+
 CREATE TABLE topic (
   name VARCHAR(20) NOT NULL,
   description TEXT NOT NULL DEFAULT '',
   PRIMARY KEY (name)
 );
 
-
 --
 -- Table: user
 --
 DROP TABLE user;
+
 CREATE TABLE user (
   id INTEGER PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
@@ -50,11 +52,11 @@ CREATE TABLE user (
   password VARCHAR(255)
 );
 
-
 --
 -- Table: pre_precondition
 --
 DROP TABLE pre_precondition;
+
 CREATE TABLE pre_precondition (
   parent_precondition_id INT(11) NOT NULL,
   child_precondition_id INT(11) NOT NULL,
@@ -63,12 +65,14 @@ CREATE TABLE pre_precondition (
 );
 
 CREATE INDEX pre_precondition_idx_child_precondition_id_pre ON pre_precondition (child_precondition_id);
+
 CREATE INDEX pre_precondition_idx_parent_precondition_id_pr ON pre_precondition (parent_precondition_id);
 
 --
 -- Table: testrun
 --
 DROP TABLE testrun;
+
 CREATE TABLE testrun (
   id INTEGER PRIMARY KEY NOT NULL,
   shortname VARCHAR(255) DEFAULT '',
@@ -87,12 +91,14 @@ CREATE TABLE testrun (
 );
 
 CREATE INDEX testrun_idx_owner_user_id_test ON testrun (owner_user_id);
+
 CREATE INDEX testrun_idx_topic_name_testrun ON testrun (topic_name);
 
 --
 -- Table: testrun_precondition
 --
 DROP TABLE testrun_precondition;
+
 CREATE TABLE testrun_precondition (
   testrun_id INT(11) NOT NULL,
   precondition_id INT(11) NOT NULL,
@@ -101,12 +107,14 @@ CREATE TABLE testrun_precondition (
 );
 
 CREATE INDEX testrun_precondition_idx_precondition_id_testrun_p ON testrun_precondition (precondition_id);
+
 CREATE INDEX testrun_precondition_idx_testrun_id_testrun_precon ON testrun_precondition (testrun_id);
 
 --
 -- Table: queue
 --
 DROP TABLE queue;
+
 CREATE TABLE queue (
   id INTEGER PRIMARY KEY NOT NULL,
   name VARCHAR(255) DEFAULT '',
@@ -117,11 +125,11 @@ CREATE TABLE queue (
   updated_at DATETIME
 );
 
-
 --
 -- Table: testrun_requested_feature
 --
 DROP TABLE testrun_requested_feature;
+
 CREATE TABLE testrun_requested_feature (
   id INT NOT NULL,
   testrun_id INTEGER PRIMARY KEY NOT NULL,
@@ -134,6 +142,7 @@ CREATE INDEX testrun_requested_feature_idx_testrun_id_testrun_reques ON testrun_
 -- Table: testrun_scheduling
 --
 DROP TABLE testrun_scheduling;
+
 CREATE TABLE testrun_scheduling (
   id INT NOT NULL,
   testrun_id INTEGER PRIMARY KEY NOT NULL,
@@ -145,6 +154,7 @@ CREATE TABLE testrun_scheduling (
 );
 
 CREATE INDEX testrun_scheduling_idx_queue_id_testrun_scheduli ON testrun_scheduling (queue_id);
+
 CREATE INDEX testrun_scheduling_idx_testrun_id_testrun_schedu ON testrun_scheduling (testrun_id);
 
 COMMIT;

@@ -1,10 +1,11 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Aug 28 09:14:40 2009
+-- Created on Fri Aug 28 09:47:55 2009
 -- 
 SET foreign_key_checks=0;
 
 DROP TABLE IF EXISTS `precondition`;
+
 --
 -- Table: `precondition`
 --
@@ -17,6 +18,7 @@ CREATE TABLE `precondition` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `preconditiontype`;
+
 --
 -- Table: `preconditiontype`
 --
@@ -27,6 +29,7 @@ CREATE TABLE `preconditiontype` (
 );
 
 DROP TABLE IF EXISTS `queue`;
+
 --
 -- Table: `queue`
 --
@@ -42,6 +45,7 @@ CREATE TABLE `queue` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `topic`;
+
 --
 -- Table: `topic`
 --
@@ -52,6 +56,7 @@ CREATE TABLE `topic` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `user`;
+
 --
 -- Table: `user`
 --
@@ -64,6 +69,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `pre_precondition`;
+
 --
 -- Table: `pre_precondition`
 --
@@ -79,6 +85,7 @@ CREATE TABLE `pre_precondition` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun`;
+
 --
 -- Table: `testrun`
 --
@@ -105,6 +112,7 @@ CREATE TABLE `testrun` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun_requested_feature`;
+
 --
 -- Table: `testrun_requested_feature`
 --
@@ -118,6 +126,7 @@ CREATE TABLE `testrun_requested_feature` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun_precondition`;
+
 --
 -- Table: `testrun_precondition`
 --
@@ -133,6 +142,7 @@ CREATE TABLE `testrun_precondition` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun_scheduling`;
+
 --
 -- Table: `testrun_scheduling`
 --
