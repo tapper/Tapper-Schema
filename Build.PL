@@ -19,7 +19,6 @@ my $builder = Module::Build->new
                        },
      requires => {
                   'perl'                           => '5.010',
-                  'perl'                           => 0,
                   'DBIx::Class'                    => "0.08109",
                   'DateTime::Format::Builder'      => 0,
                   'DateTime::Format::Strptime'     => 0,
