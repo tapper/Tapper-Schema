@@ -11,7 +11,7 @@ CREATE TABLE queue (
   producer VARCHAR(255) DEFAULT '',
   priority integer(10) NOT NULL DEFAULT '0',
   runcount integer(10) NOT NULL DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x140ee28)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
@@ -33,7 +33,7 @@ CREATE TABLE testrun_scheduling (
   queue_id integer(11) DEFAULT '0',
   built integer(1) DEFAULT '0',
   active integer(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x138b9b8)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime,
   INDEX testrun_scheduling_idx_queue_id (queue_id),
   INDEX testrun_scheduling_idx_testrun_id (testrun_id),
@@ -46,7 +46,7 @@ CREATE TABLE testrun_scheduling (
 SET foreign_key_checks=1;
 
 
-ALTER TABLE testrun CHANGE COLUMN created_at created_at TIMESTAMP DEFAULT 'SCALAR(0x1433db8)';
+ALTER TABLE testrun CHANGE COLUMN created_at created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE testrun_precondition DROP FOREIGN KEY testrun_precondition_fk_precondition_id;
 ALTER TABLE testrun_precondition ADD CONSTRAINT testrun_precondition_fk_precondition_id FOREIGN KEY (precondition_id) REFERENCES precondition (id) ON DELETE CASCADE ON UPDATE CASCADE;
 

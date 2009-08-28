@@ -36,7 +36,7 @@ CREATE TABLE `queue` (
   `producer` VARCHAR(255) DEFAULT '',
   `priority` integer(10) NOT NULL DEFAULT '0',
   `runcount` integer(10) NOT NULL DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x140ee28)',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
@@ -95,7 +95,7 @@ CREATE TABLE `testrun` (
   `owner_user_id` integer(11),
   `test_program` VARCHAR(255) NOT NULL DEFAULT '',
   `wait_after_tests` integer(1) DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1433db8)',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   INDEX testrun_idx_owner_user_id (`owner_user_id`),
   INDEX testrun_idx_topic_name (`topic_name`),
@@ -142,7 +142,7 @@ CREATE TABLE `testrun_scheduling` (
   `queue_id` integer(11) DEFAULT '0',
   `built` integer(1) DEFAULT '0',
   `active` integer(1) DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x138b9b8)',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   INDEX testrun_scheduling_idx_queue_id (`queue_id`),
   INDEX testrun_scheduling_idx_testrun_id (`testrun_id`),

@@ -82,7 +82,7 @@ CREATE TABLE testrun (
   owner_user_id INT(11),
   test_program VARCHAR(255) NOT NULL DEFAULT '',
   wait_after_tests INT(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x1433db8)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
 
@@ -113,7 +113,7 @@ CREATE TABLE queue (
   producer VARCHAR(255) DEFAULT '',
   priority INT(10) NOT NULL DEFAULT '0',
   runcount INT(10) NOT NULL DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x140ee28)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
 
@@ -140,7 +140,7 @@ CREATE TABLE testrun_scheduling (
   queue_id INT(11) DEFAULT '0',
   built INT(1) DEFAULT '0',
   active INT(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x138b9b8)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
 

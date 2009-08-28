@@ -8,7 +8,7 @@ CREATE TABLE queue (
   producer VARCHAR(255) DEFAULT '',
   priority INT(10) NOT NULL DEFAULT '0',
   runcount INT(10) NOT NULL DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x140ee28)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
 
@@ -27,7 +27,7 @@ CREATE TABLE testrun_scheduling (
   queue_id INT(11) DEFAULT '0',
   built INT(1) DEFAULT '0',
   active INT(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x138b9b8)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
 
@@ -51,7 +51,7 @@ CREATE TEMPORARY TABLE testrun_temp_alter (
   owner_user_id INT(11),
   test_program VARCHAR(255) NOT NULL DEFAULT '',
   wait_after_tests INT(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x1433db8)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
 INSERT INTO testrun_temp_alter SELECT id, shortname, notes, topic_name, starttime_earliest, starttime_testrun, starttime_test_program, endtime_test_program, hardwaredb_systems_id, owner_user_id, test_program, wait_after_tests, created_at, updated_at FROM testrun;
@@ -69,7 +69,7 @@ CREATE TABLE testrun (
   owner_user_id INT(11),
   test_program VARCHAR(255) NOT NULL DEFAULT '',
   wait_after_tests INT(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x1433db8)',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
 CREATE INDEX testrun_idx_owner_user_id_test_testru ON testrun (owner_user_id);
