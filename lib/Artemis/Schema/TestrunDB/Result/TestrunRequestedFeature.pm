@@ -14,7 +14,7 @@ __PACKAGE__->add_columns
      "feature",         { data_type => "VARCHAR", default_value => "",    is_nullable => 1, size => 255,                        },
     );
 
-__PACKAGE__->set_primary_key(qw/id testrun_id/);
+__PACKAGE__->set_primary_key(qw/id/);
 
 __PACKAGE__->belongs_to( testrun => 'Artemis::Schema::TestrunDB::Result::Testrun', { 'foreign.id' => 'self.testrun_id' });
 
