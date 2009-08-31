@@ -46,7 +46,7 @@ CREATE TABLE testrun_scheduling (
 SET foreign_key_checks=1;
 
 
-ALTER TABLE testrun CHANGE COLUMN created_at created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+-- ALTER TABLE testrun CHANGE COLUMN created_at created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE testrun_precondition DROP FOREIGN KEY testrun_precondition_fk_precondition_id;
 ALTER TABLE testrun_precondition ADD CONSTRAINT testrun_precondition_fk_precondition_id FOREIGN KEY (precondition_id) REFERENCES precondition (id) ON DELETE CASCADE ON UPDATE CASCADE;
 

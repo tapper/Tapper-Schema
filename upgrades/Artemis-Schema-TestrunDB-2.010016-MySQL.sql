@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Aug 31 10:34:38 2009
+-- Created on Mon Aug 31 10:37:27 2009
 -- 
 SET foreign_key_checks=0;
 
@@ -36,7 +36,7 @@ CREATE TABLE `queue` (
   `producer` VARCHAR(255) DEFAULT '',
   `priority` integer(10) NOT NULL DEFAULT '0',
   `runcount` integer(10) NOT NULL DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1416880)',
+  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1416970)',
   `updated_at` datetime,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
@@ -95,7 +95,7 @@ CREATE TABLE `testrun` (
   `owner_user_id` integer(11),
   `test_program` VARCHAR(255) NOT NULL DEFAULT '',
   `wait_after_tests` integer(1) DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1438270)',
+  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1438370)',
   `updated_at` datetime,
   INDEX testrun_idx_owner_user_id (`owner_user_id`),
   INDEX testrun_idx_topic_name (`topic_name`),
@@ -113,7 +113,7 @@ CREATE TABLE `testrun_requested_feature` (
   `testrun_id` integer(11) NOT NULL,
   `feature` VARCHAR(255) DEFAULT '',
   INDEX testrun_requested_feature_idx_testrun_id (`testrun_id`),
-  PRIMARY KEY (`testrun_id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `testrun_requested_feature_fk_testrun_id` FOREIGN KEY (`testrun_id`) REFERENCES `testrun` (`id`)
 ) ENGINE=InnoDB;
 
@@ -142,7 +142,7 @@ CREATE TABLE `testrun_scheduling` (
   `queue_id` integer(11) DEFAULT '0',
   `built` integer(1) DEFAULT '0',
   `active` integer(1) DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x13927e0)',
+  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1392860)',
   `updated_at` datetime,
   INDEX testrun_scheduling_idx_queue_id (`queue_id`),
   INDEX testrun_scheduling_idx_testrun_id (`testrun_id`),

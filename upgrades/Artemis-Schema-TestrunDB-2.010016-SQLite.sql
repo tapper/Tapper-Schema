@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Mon Aug 31 10:34:38 2009
+-- Created on Mon Aug 31 10:37:28 2009
 -- 
 BEGIN TRANSACTION;
 
@@ -38,7 +38,7 @@ CREATE TABLE queue (
   producer VARCHAR(255) DEFAULT '',
   priority INT(10) NOT NULL DEFAULT '0',
   runcount INT(10) NOT NULL DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x1416880)',
+  created_at TIMESTAMP DEFAULT 'SCALAR(0x1416970)',
   updated_at DATETIME
 );
 
@@ -97,7 +97,7 @@ CREATE TABLE testrun (
   owner_user_id INT(11),
   test_program VARCHAR(255) NOT NULL DEFAULT '',
   wait_after_tests INT(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x1438270)',
+  created_at TIMESTAMP DEFAULT 'SCALAR(0x1438370)',
   updated_at DATETIME
 );
 
@@ -109,8 +109,8 @@ CREATE INDEX testrun_idx_topic_name_testrun ON testrun (topic_name);
 --
 DROP TABLE testrun_requested_feature;
 CREATE TABLE testrun_requested_feature (
-  id INT NOT NULL,
-  testrun_id INTEGER PRIMARY KEY NOT NULL,
+  id INTEGER PRIMARY KEY NOT NULL,
+  testrun_id INT(11) NOT NULL,
   feature VARCHAR(255) DEFAULT ''
 );
 
@@ -140,7 +140,7 @@ CREATE TABLE testrun_scheduling (
   queue_id INT(11) DEFAULT '0',
   built INT(1) DEFAULT '0',
   active INT(1) DEFAULT '0',
-  created_at TIMESTAMP DEFAULT 'SCALAR(0x13927e0)',
+  created_at TIMESTAMP DEFAULT 'SCALAR(0x1392860)',
   updated_at DATETIME
 );
 
