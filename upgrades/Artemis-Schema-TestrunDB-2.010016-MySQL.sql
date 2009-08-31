@@ -1,10 +1,26 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Aug 31 10:37:27 2009
+-- Created on Mon Aug 31 11:21:36 2009
 -- 
 SET foreign_key_checks=0;
 
+DROP TABLE IF EXISTS `host`;
+
+--
+-- Table: `host`
+--
+CREATE TABLE `host` (
+  `id` integer(11) NOT NULL auto_increment,
+  `name` VARCHAR(255) DEFAULT '',
+  `allowed_context` VARCHAR(255) DEFAULT '',
+  `busy` VARCHAR(255) DEFAULT '',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime,
+  PRIMARY KEY (`id`)
+);
+
 DROP TABLE IF EXISTS `precondition`;
+
 --
 -- Table: `precondition`
 --
@@ -17,6 +33,7 @@ CREATE TABLE `precondition` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `preconditiontype`;
+
 --
 -- Table: `preconditiontype`
 --
@@ -27,6 +44,7 @@ CREATE TABLE `preconditiontype` (
 );
 
 DROP TABLE IF EXISTS `queue`;
+
 --
 -- Table: `queue`
 --
@@ -36,12 +54,13 @@ CREATE TABLE `queue` (
   `producer` VARCHAR(255) DEFAULT '',
   `priority` integer(10) NOT NULL DEFAULT '0',
   `runcount` integer(10) NOT NULL DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1416970)',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `topic`;
+
 --
 -- Table: `topic`
 --
@@ -52,6 +71,7 @@ CREATE TABLE `topic` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `user`;
+
 --
 -- Table: `user`
 --
@@ -64,6 +84,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `pre_precondition`;
+
 --
 -- Table: `pre_precondition`
 --
@@ -79,6 +100,7 @@ CREATE TABLE `pre_precondition` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun`;
+
 --
 -- Table: `testrun`
 --
@@ -95,7 +117,7 @@ CREATE TABLE `testrun` (
   `owner_user_id` integer(11),
   `test_program` VARCHAR(255) NOT NULL DEFAULT '',
   `wait_after_tests` integer(1) DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1438370)',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   INDEX testrun_idx_owner_user_id (`owner_user_id`),
   INDEX testrun_idx_topic_name (`topic_name`),
@@ -105,6 +127,7 @@ CREATE TABLE `testrun` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun_requested_feature`;
+
 --
 -- Table: `testrun_requested_feature`
 --
@@ -118,6 +141,7 @@ CREATE TABLE `testrun_requested_feature` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun_precondition`;
+
 --
 -- Table: `testrun_precondition`
 --
@@ -133,6 +157,7 @@ CREATE TABLE `testrun_precondition` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun_scheduling`;
+
 --
 -- Table: `testrun_scheduling`
 --
@@ -142,7 +167,7 @@ CREATE TABLE `testrun_scheduling` (
   `queue_id` integer(11) DEFAULT '0',
   `built` integer(1) DEFAULT '0',
   `active` integer(1) DEFAULT '0',
-  `created_at` TIMESTAMP DEFAULT 'SCALAR(0x1392860)',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   INDEX testrun_scheduling_idx_queue_id (`queue_id`),
   INDEX testrun_scheduling_idx_testrun_id (`testrun_id`),
