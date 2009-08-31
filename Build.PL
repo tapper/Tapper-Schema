@@ -12,7 +12,7 @@ my $builder = Module::Build->new
      build_requires => {
                         'Test::More'      => 0,
                         'Artemis::Config' => '2.01',
-                        'Artemis::Test'   => '2.010005',
+                        'Artemis::Test'   => '2.010011',
                         'Scalar::Util'    => 0,
                         'DateTime::Format::SQLite'        => 0,
 
