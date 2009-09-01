@@ -24,6 +24,7 @@ my $builder = Module::Build->new
                   'DateTime::Format::MySQL'        => 0,
                   #'DBIx::Class::TimeStamp '        => 0, # needed but problems on auto installing
                   'DBIx::Class::Schema::Versioned' => 0,
+                  'DBIx::Class::InflateColumn::Object::Enum' => 0,
                   'SQL::Translator'                => 0,
                   'Artemis::TAP::Harness'          => 0,
                   'TAP::DOM'                       => '0.04',
