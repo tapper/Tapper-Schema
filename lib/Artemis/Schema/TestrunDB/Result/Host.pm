@@ -41,52 +41,6 @@ sub to_string
                 );
 }
 
-=head2 is_member($head, @tail)
-
-Checks if the first element is already in the list of the remaining
-elements.
-
-=cut
-
-sub is_member
-{
-        my ($head, @tail) = @_;
-        grep { $head->id eq $_->id } @tail;
-}
-
-=head2 ordered_preconditions
-
-Returns all preconditions in the order they need to be installed.
-
-=cut
-
-sub ordered_preconditions
-{
-        my ($self) = @_;
-
-        my @done = ();
-        my %seen = ();
-        my @todo = ();
-
-        @todo = $self->preconditions->search({}, {order_by => 'succession'})->all;
-
-        while (my $head = shift @todo)
-        {
-                if ($seen{$head->id})
-                {
-                        push @done, $head unless is_member($head, @done);
-                }
-                else
-                {
-                        $seen{$head->id} = 1;
-                        my @pre_todo = $head->child_preconditions->search({}, { order_by => 'succession' } )->all;
-                        unshift @todo, @pre_todo, $head;
-                }
-        }
-        return @done;
-}
-
-
 1;
 
 =head1 NAME
