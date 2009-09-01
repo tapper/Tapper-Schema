@@ -1,4 +1,4 @@
-package Artemis::Schema::TestrunDB::Result::TestrunRequestedFeature;
+package Artemis::Schema::TestrunDB::Result::TestrunRequestedHosts;
 
 use strict;
 use warnings;
@@ -6,12 +6,12 @@ use warnings;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components("Core");
-__PACKAGE__->table("testrun_requested_feature");
+__PACKAGE__->table("testrun_requested_host");
 __PACKAGE__->add_columns
     (
      "id",              { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
      "testrun_id",      { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_foreign_key    => 1, },
-     "feature",         { data_type => "VARCHAR", default_value => "",    is_nullable => 1, size => 255,                        },
+     "hostname",        { data_type => "VARCHAR", default_value => "",    is_nullable => 1, size => 255,                        },
     );
 
 __PACKAGE__->set_primary_key(qw/id/);

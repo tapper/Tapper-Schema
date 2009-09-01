@@ -24,22 +24,16 @@ __PACKAGE__->has_many ( testrunschedulings => 'Artemis::Schema::TestrunDB::Resul
 
 # -------------------- methods on results --------------------
 
-
-method produce (TestRequest $request)
+sub queued_testruns
 {
-        if (not $self->producer) {
-                warn "Queue ".$self->name." does not have an associated producer";
-        } else {
-                print STDERR "Queue.produce/producer: ", Dumper($self->producer);
-                return $self->producer->produce($request)
-        }
-}
+        my ($self) = @_;
 
-method producer {
-        my $producer_class = "Artemis::MCP::Scheduler::PreconditionProducer::".$self->producer;
-        eval "use $producer_class";
-        return $producer_class->new unless $@;
-        return undef;
+        $self->testrunschedulings->search({
+                                           status => 'schedule',
+                                          },
+                                          {
+                                           ordered_by => 'testrun_id'
+                                          });
 }
 
 sub to_string

@@ -26,6 +26,7 @@ __PACKAGE__->belongs_to( queue              => 'Artemis::Schema::TestrunDB::Resu
 __PACKAGE__->belongs_to( host               => 'Artemis::Schema::TestrunDB::Result::Host',                    { 'foreign.id'         => 'self.host_id'    });
 
 __PACKAGE__->has_many  ( requested_features => 'Artemis::Schema::TestrunDB::Result::TestrunRequestedFeature', { 'foreign.testrun_id' => 'self.id'         });
+__PACKAGE__->has_many  ( requested_hosts    => 'Artemis::Schema::TestrunDB::Result::TestrunRequestedHost',    { 'foreign.testrun_id' => 'self.id'         });
 
 
 1;
