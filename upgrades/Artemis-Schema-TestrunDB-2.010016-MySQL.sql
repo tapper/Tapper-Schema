@@ -1,8 +1,23 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Aug 31 13:25:12 2009
+-- Created on Mon Aug 31 11:21:36 2009
 -- 
 SET foreign_key_checks=0;
+
+DROP TABLE IF EXISTS `host`;
+
+--
+-- Table: `host`
+--
+CREATE TABLE `host` (
+  `id` integer(11) NOT NULL auto_increment,
+  `name` VARCHAR(255) DEFAULT '',
+  `allowed_context` VARCHAR(255) DEFAULT '',
+  `busy` VARCHAR(255) DEFAULT '',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime,
+  PRIMARY KEY (`id`)
+);
 
 DROP TABLE IF EXISTS `precondition`;
 

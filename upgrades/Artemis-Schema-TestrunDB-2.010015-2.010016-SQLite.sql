@@ -2,6 +2,15 @@
 
 BEGIN;
 
+CREATE TABLE host (
+  id INTEGER PRIMARY KEY NOT NULL,
+  name VARCHAR(255) DEFAULT '',
+  allowed_context VARCHAR(255) DEFAULT '',
+  busy VARCHAR(255) DEFAULT '',
+  created_at TIMESTAMP DEFAULT 'CURRENT_TIMESTAMP',
+  updated_at DATETIME
+);
+
 CREATE TEMPORARY TABLE queue_temp_alter (
   id INTEGER PRIMARY KEY NOT NULL,
   name VARCHAR(255) DEFAULT '',
@@ -68,9 +77,9 @@ CREATE TABLE testrun (
   updated_at DATETIME
 );
 
-CREATE INDEX testrun_idx_owner_user_id03 ON testrun (owner_user_id);
+CREATE INDEX testrun_idx_owner_user_id_test_testru ON testrun (owner_user_id);
 
-CREATE INDEX testrun_idx_topic_name03 ON testrun (topic_name);
+CREATE INDEX testrun_idx_topic_name_testrun_testru ON testrun (topic_name);
 
 INSERT INTO testrun SELECT id, shortname, notes, topic_name, starttime_earliest, starttime_testrun, starttime_test_program, endtime_test_program, hardwaredb_systems_id, owner_user_id, test_program, wait_after_tests, created_at, updated_at FROM testrun_temp_alter;
 
@@ -92,7 +101,7 @@ CREATE TABLE testrun_requested_feature (
   feature VARCHAR(255) DEFAULT ''
 );
 
-CREATE INDEX testrun_requested_feature_i00 ON testrun_requested_feature (testrun_id);
+CREATE INDEX testrun_requested_feature_idx_testrun_id_testrun_reques_ ON testrun_requested_feature (testrun_id);
 
 INSERT INTO testrun_requested_feature SELECT id, testrun_id, feature FROM testrun_requested_feature_temp_alter;
 
@@ -122,9 +131,9 @@ CREATE TABLE testrun_scheduling (
   updated_at DATETIME
 );
 
-CREATE INDEX testrun_scheduling_idx_queu00 ON testrun_scheduling (queue_id);
+CREATE INDEX testrun_scheduling_idx_queue_id_testrun_scheduli_ ON testrun_scheduling (queue_id);
 
-CREATE INDEX testrun_scheduling_idx_test00 ON testrun_scheduling (testrun_id);
+CREATE INDEX testrun_scheduling_idx_testrun_id_testrun_schedu_ ON testrun_scheduling (testrun_id);
 
 INSERT INTO testrun_scheduling SELECT id, testrun_id, queue_id, built, active, created_at, updated_at FROM testrun_scheduling_temp_alter;
 
