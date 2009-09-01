@@ -4,7 +4,7 @@ package Artemis::Schema;
 use warnings;
 use strict;
 
-our $VERSION = '2.010048';
+our $VERSION = '2.010051';
 
 
 =head1 NAME
