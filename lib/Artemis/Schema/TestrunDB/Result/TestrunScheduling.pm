@@ -1,3 +1,5 @@
+# TODO: rename into "(Scheduler|Result)::Job"?
+
 package Artemis::Schema::TestrunDB::Result::TestrunScheduling;
 
 use strict;
