@@ -24,23 +24,6 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many ( testrunschedulings => 'Artemis::Schema::TestrunDB::Result::TestrunScheduling', { 'foreign.host_id' => 'self.id' });
 
-# -------------------- methods on results --------------------
-
-sub to_string
-{
-        my ($self) = @_;
-
-        my $format = join( $Artemis::Schema::TestrunDB::DELIM, qw/%s %s %s %s %s %s %s %s %s %s %s %s %s %s /, '');
-        sprintf (
-                 $format,
-                 map {
-                      defined $self->$_
-                      ? $self->$_
-                      : $Artemis::Schema::TestrunDB::NULL
-                     } @{$self->result_source->{_ordered_columns} }
-                );
-}
-
 1;
 
 =head1 NAME
