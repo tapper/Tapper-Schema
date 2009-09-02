@@ -29,7 +29,8 @@ sub queued_testruns
         my ($self) = @_;
 
         $self->testrunschedulings->search({
-                                           status => 'schedule',
+                                           status          => 'schedule',
+                                           mergedqueue_seq => { -or => [ undef, 0 ] },
                                           },
                                           {
                                            ordered_by => 'testrun_id'
