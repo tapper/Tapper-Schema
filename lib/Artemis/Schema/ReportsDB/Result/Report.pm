@@ -92,6 +92,13 @@ sub sections_osname
         return @cpus;
 }
 
+sub get_section_results
+{
+        my ($section) = @_;
+
+        say STDERR Dumper($section);
+}
+
 sub get_cached_tapdom
 {
         my ($r) = @_;
@@ -126,7 +133,7 @@ sub get_cached_tapdom
                         my $harness = new Artemis::TAP::Harness( tap => $report_tap );
                         $harness->evaluate_report();
                         use Data::Dumper;
-                        #print STDERR Dumper($harness->parsed_report->{tap_sections});
+                        print STDERR Dumper($harness->parsed_report);
                         foreach (@{$harness->parsed_report->{tap_sections}})
                         {
                                 #print STDERR ".";
@@ -135,7 +142,13 @@ sub get_cached_tapdom
                                 $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
                                 #say STDERR length($rawtap);
                                 my $tapdom = new TAP::DOM ( tap => $rawtap );
-                                push @$tapdom_sections, { section => { $_->{section_name} => { tap => $tapdom }}};
+                                my $section_results = get_section_results($_);
+                                push @$tapdom_sections, { section => { $_->{section_name} => { tap     => $tapdom,
+                                                                                               results => $section_results, # HIER_WEITER: evtl. ::Harness ..->{stats}-Generierung auch für sections, dort auslagern in wiederverwendbare sub. Und außerdem (oder nur?) ReportSection.* hier einmischen. Hoffentlich gibt es die in der DB...
+                                                                                               meta => $_->{section_meta},
+                                                                                             }
+                                                                     }
+                                                        };
                         }
                         $tapdom_str = Dumper($tapdom_sections);
                         $report->tapdom( $tapdom_str );
