@@ -25,9 +25,8 @@ our $NULL  = 'NULL';
 our $DELIM = ' | ';
 
 __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
-__PACKAGE__->upgrade_directory('/var/tmp/');
-__PACKAGE__->backup_directory('/var/tmp/');
-
+__PACKAGE__->upgrade_directory('./upgrades/');
+__PACKAGE__->backup_directory('./upgrades/');
 __PACKAGE__->load_namespaces;
 
 
