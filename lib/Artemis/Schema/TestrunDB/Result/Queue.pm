@@ -31,7 +31,7 @@ sub queued_testruns
         $self->testrunschedulings->search({
                                            -and => [
                                                     status          => 'schedule',
-                                                    mergedqueue_seq => { -or => [ undef, 0 ] }
+                                                    mergedqueue_seq => [ -or => [ undef, 0 ] ]
                                                    ],
                                           },
                                           {
