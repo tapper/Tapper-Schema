@@ -98,10 +98,10 @@ use MooseX::Method::Signatures;
         method match_feature($free_hosts)
         {
         HOST:
-                foreach my $host (@$free_hosts)
+                while (my $host = $free_hosts->next)
                 {
                         $_ = $host;
-                        foreach my $this_feature (@{$self->requested_features->all})
+                        while (my $this_feature = $self->requested_features->next)
                         {
                                 my $success = eval $this_feature->feature;
                                 print STDERR "TestRequest.fits: ", $@ if $@;
@@ -118,7 +118,7 @@ use MooseX::Method::Signatures;
                 {
                         return;
                 }
-                elsif ($self->hostnames)
+                elsif ($self->requested_hosts)
                 {
                         my $host = $self->match_host($free_hosts);
                         if ($host)
