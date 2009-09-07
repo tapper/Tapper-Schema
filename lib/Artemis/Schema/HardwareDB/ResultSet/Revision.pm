@@ -5,12 +5,8 @@ use warnings;
 
 use DateTime;
 
-
 use parent 'DBIx::Class::ResultSet';
 
-
-warn "VERY OLD CODE AHEAD";
-# (XXX) do it with joins
 sub cpus       { shift->_component('cpu')        }
 sub rams       { shift->_component('ram')        }
 sub mainboards { shift->_component('mainboard')  }
