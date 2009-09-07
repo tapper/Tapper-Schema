@@ -16,7 +16,9 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/id/);
 
-__PACKAGE__->belongs_to( testrunscheduling => 'Artemis::Schema::TestrunDB::Result::Testrun', { 'foreign.id' => 'self.testrun_id' });
+(my $basepkg = __PACKAGE__) =~ s/::\w+$//;
+
+__PACKAGE__->belongs_to( testrunscheduling => "${basepkg}::Testrun", { 'foreign.id' => 'self.testrun_id' });
 
 1;
 
