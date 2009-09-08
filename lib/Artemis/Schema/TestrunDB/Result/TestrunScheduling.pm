@@ -41,8 +41,9 @@ sub match_host {
 
         foreach my $req_host ($self->requested_hosts->all)
         {
-                while (my $free_host = $free_hosts->next)
-                {
+                while (1) {
+                        my $free_host = $free_hosts->next;
+                        last unless defined $free_host;
                         return $free_host if $free_host->name eq $req_host->host->name;
                 }
         }
