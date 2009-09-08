@@ -137,8 +137,24 @@ method fits ($free_hosts)
         }
         else # free_hosts but no wanted hostnames and no requested_features
         {
-                return shift @$free_hosts;
+                return $free_hosts->first;
         }
+}
+
+sub mark_as_running
+{
+        my ($self) = @_;
+
+        use Data::Dumper;
+
+        # set scheduling info
+        $self->status("running");
+        $self->host->free(0);
+        $self->mergedqueue_seq(undef);
+
+        # sync db
+        $self->host->update;
+        $self->update;
 }
 
 1;
