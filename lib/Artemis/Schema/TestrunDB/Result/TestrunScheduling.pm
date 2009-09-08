@@ -153,6 +153,21 @@ sub mark_as_running
         $self->update;
 }
 
+sub mark_as_finished
+{
+        my ($self) = @_;
+
+        use Data::Dumper;
+
+        # set scheduling info
+        $self->status("finished");
+        $self->host->free(1);
+
+        # sync db
+        $self->host->update;
+        $self->update;
+}
+
 1;
 
 =head1 NAME
