@@ -39,15 +39,11 @@ __PACKAGE__->has_many  ( requested_hosts    => "${basepkg}::TestrunRequestedHost
 
 method match_host ($free_hosts)
 {
-        foreach my $host ($self->requested_hosts->all)
+        foreach my $req_host ($self->requested_hosts->all)
         {
-                for (my $i = 0; $i <=  $#$free_hosts; $i++) {
-                        if ($free_hosts->[$i]->{name} eq $host->hostname) {
-                                my $chosen_host = $free_hosts->[$i];
-                                my @free_hosts = @$free_hosts[0..$i-1, $i+1..$#$free_hosts];
-                                $free_hosts = \@free_hosts;
-                                return $chosen_host;
-                        }
+                while (my $free_host = $free_hosts->next)
+                {
+                        return $free_host if $free_host->name eq $req_host->host->name;
                 }
         }
         return;
