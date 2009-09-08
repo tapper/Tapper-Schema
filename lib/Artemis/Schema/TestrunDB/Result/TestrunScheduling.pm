@@ -6,7 +6,6 @@ use 5.010;
 use strict;
 use warnings;
 
-use MooseX::Method::Signatures;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
@@ -37,8 +36,9 @@ __PACKAGE__->has_many  ( requested_hosts    => "${basepkg}::TestrunRequestedHost
 
 # ----- scheduler related methods -----
 
-method match_host ($free_hosts)
-{
+sub match_host {
+        my ($self, $free_hosts) = @_;
+
         foreach my $req_host ($self->requested_hosts->all)
         {
                 while (my $free_host = $free_hosts->next)
@@ -85,8 +85,9 @@ sub clock(;$)    { _helper($_->features->{cpu},      'clock',    @_) }
 sub l2cache(;$)  { _helper($_->features->{cpu},      'l2cache',  @_) }
 sub l3cache(;$)  { _helper($_->features->{cpu},      'l3cache',  @_) }
 
-method match_feature($free_hosts)
-{
+sub match_feature {
+        my ($self, $free_hosts) = @_;
+
  HOST:
         while (my $host = $free_hosts->next)
         {
@@ -105,8 +106,9 @@ method match_feature($free_hosts)
 # Checks a TestrunScheduling against a list of available hosts
 # returns the matching host
 
-method fits ($free_hosts)
-{
+sub fits {
+        my ($self, $free_hosts) = @_;
+
         if (not $free_hosts)
         {
                 return;
