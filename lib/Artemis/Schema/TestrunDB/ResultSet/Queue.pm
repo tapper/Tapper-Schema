@@ -13,7 +13,6 @@ sub official_queuelist {
         my %queues;
         while (my $q = $self->next) {
                 my %producer;
-                print STDERR "* name: ", Dumper($q->name);
                 $queues{$q->name} = $q;
         }
         return \%queues;

@@ -94,7 +94,7 @@ method match_feature($free_hosts)
                 while (my $this_feature = $self->requested_features->next)
                 {
                         my $success = eval $this_feature->feature;
-                        print STDERR "TestRequest.fits: ", $@ if $@;
+                        print STDERR "Error in TestRequest.fits: ", $@ if $@;
                         next HOST if not $success;
                 }
                 return $host;
