@@ -99,6 +99,29 @@ sub ordered_preconditions
         return @done;
 }
 
+sub producer
+{
+        my ($self) = @_;
+
+        my $producer_class = "Artemis::MCP::Scheduler::PreconditionProducer::".$self->producer;
+        eval "use $producer_class";
+        return $producer_class->new unless $@;
+        return undef;
+}
+
+sub produce
+{
+        my ($self, $request) = @_;
+
+        my $producer = $self->producer;
+
+        if (not $producer) {
+                warn "Queue ".$self->name." does not have an associated producer";
+        } else {
+                print STDERR "Queue.producer: ", Dumper($producer);
+                return $producer->produce($request);
+        }
+}
 
 1;
 
