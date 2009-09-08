@@ -25,16 +25,12 @@ __PACKAGE__->set_primary_key(qw/testrun_id/);
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
-__PACKAGE__->belongs_to( testrun            => 'Artemis::Schema::TestrunDB::Result::Testrun',                 { 'foreign.id'         => 'self.testrun_id' });
-__PACKAGE__->belongs_to( queue              => 'Artemis::Schema::TestrunDB::Result::Queue',                   { 'foreign.id'         => 'self.queue_id'   });
-__PACKAGE__->belongs_to( host               => 'Artemis::Schema::TestrunDB::Result::Host',                    { 'foreign.id'         => 'self.host_id'    });
+__PACKAGE__->belongs_to( testrun            => "${basepkg}::Testrun",                 { 'foreign.id'         => 'self.testrun_id' });
+__PACKAGE__->belongs_to( queue              => "${basepkg}::Queue",                   { 'foreign.id'         => 'self.queue_id'   });
+__PACKAGE__->belongs_to( host               => "${basepkg}::Host",                    { 'foreign.id'         => 'self.host_id'    });
 
-__PACKAGE__->has_many  ( requested_features => 'Artemis::Schema::TestrunDB::Result::TestrunRequestedFeature', { 'foreign.testrun_id' => 'self.id'         });
-__PACKAGE__->has_many  ( requested_hosts    => 'Artemis::Schema::TestrunDB::Result::TestrunRequestedHost',    { 'foreign.testrun_id' => 'self.id'         });
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# START --- Should belong to Artemis::MCP::Scheduler::Schema::TestrunDB::Result::TestrunScheduling
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+__PACKAGE__->has_many  ( requested_features => "${basepkg}::TestrunRequestedFeature", { 'foreign.testrun_id' => 'self.id'         });
+__PACKAGE__->has_many  ( requested_hosts    => "${basepkg}::TestrunRequestedHost",    { 'foreign.testrun_id' => 'self.id'         });
 
 use MooseX::Method::Signatures;
 
