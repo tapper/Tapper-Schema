@@ -39,6 +39,8 @@ __PACKAGE__->might_have   ( testrun_scheduling         => "${basepkg}::TestrunSc
 
 # -------------------- methods on results --------------------
 
+
+
 sub to_string
 {
         my ($self) = @_;
@@ -99,6 +101,86 @@ sub ordered_preconditions
         return @done;
 }
 
+
+sub update_content {
+        my ($self, $args) =@_;
+
+        $self->notes                 ( $args->{notes}                 ) if $args->{notes};
+        $self->shortname             ( $args->{shortname}             ) if $args->{shortname};
+        $self->topic_name            ( $args->{topic}                 ) if $args->{topic};
+        $self->starttime_earliest    ( $args->{date}                  ) if $args->{date};
+        $self->owner_user_id         ( $args->{owner_user_id}         ) if $args->{owner_user_id};
+        $self->hardwaredb_systems_id ( $args->{hardwaredb_systems_id} ) if $args->{hardwaredb_systems_id};
+        $self->update;
+        return $self->id;
+}
+
+sub rerun
+{
+        my ($self, $args) = @_;
+
+        my $testrun_new = $self->result_source->schema->resultset('Testrun')->new
+            ({
+              notes                 => $args->{notes}                 || $self->notes,
+              shortname             => $args->{shortname}             || $self->shortname,
+              topic_name            => $args->{topic_name}            || $self->topic_name,
+              starttime_earliest    => $args->{earliest}              || DateTime->now,
+              test_program          => '',
+              owner_user_id         => $args->{owner_user_id}         || $self->owner_user_id,
+              hardwaredb_systems_id => $args->{hardwaredb_systems_id} || $self->hardwaredb_systems_id,
+             });
+
+        # prepare job scheduling infos
+        my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->search({ testrun_id => $self->id })->first;
+        my $queue_id;
+        my $host_id;
+        if ($testrunscheduling) {
+                $queue_id = $testrunscheduling->queue_id;
+                $host_id  = $testrunscheduling->host_id;
+        } else {
+                my $host  = model('TestrunDB')->resultset('Host')->search({ name => $args->{hostname}} );
+                $host_id  = $host->id;
+                my $queue = model('TestrunDB')->resultset('Queue')->search({ name => "AdHoc"} );
+                $queue_id = $queue->id;
+        }
+
+        # create testrun and job
+        $testrun_new->insert;
+        my $testrunscheduling_new = $self->result_source->schema->resultset('TestrunScheduling')->new
+            ({
+              testrun_id => $testrun_new->id,
+              queue_id   => $args->{queue_id} || $queue_id,
+              host_id    => $args->{host_id}  || $host_id,
+              status     => "schedule",
+             });
+        $testrunscheduling_new->insert;
+
+        # assign preconditions
+        my $preconditions = $self->preconditions->search({}, {order_by => 'succession'});
+        my @preconditions;
+        while (my $precond = $preconditions->next) {
+                push @preconditions, $precond->id;
+        }
+        $self->assign_preconditions($testrun_new->id, @preconditions);
+        return $testrun_new->id;
+}
+
+sub assign_preconditions {
+        my ($self, @preconditions) = @_;
+
+        my $succession = 1;
+        foreach my $precondition_id (@preconditions) {
+                my $testrun_precondition = $self->result_source->schema->resultset('TestrunPrecondition')->new
+                    ({
+                      testrun_id      => $self->id,
+                      precondition_id => $precondition_id,
+                      succession      => $succession,
+                     });
+                $testrun_precondition->insert;
+                $succession++;
+        }
+        return 0; # 0 == success (ask Maik if in doubt! :-)
+}
 
 1;
 

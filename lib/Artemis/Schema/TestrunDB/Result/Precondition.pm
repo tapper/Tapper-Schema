@@ -84,6 +84,22 @@ sub precondition_as_hash {
         Load(shift->precondition);
 }
 
+sub update_content {
+        my ($self, $condition) = @_;
+
+        my $yaml_error = _yaml_ok($condition);
+        die Artemis::Exception::Param->new($yaml_error) if $yaml_error;
+
+        my $cond_hash = Load($condition);
+
+        $self->shortname( $cond_hash->{shortname} ) if $cond_hash->{shortname};
+        $self->precondition( $condition );
+        $self->timeout( $cond_hash->{timeout} ) if $cond_hash->{timeout};
+        $self->update;
+
+        return $self->id;
+}
+
 =head1 NAME
 
 Artemis::Schema::TestrunDB::Result::Precondition - A ResultSet description

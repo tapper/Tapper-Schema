@@ -53,4 +53,35 @@ sub all_testruns {
         shift->search({});
 }
 
+sub add {
+        my ($self, $args) = @_;
+
+        my $testrun =  $self->new
+            ({
+              notes                 => $args->{notes},
+              shortname             => $args->{shortname},
+              topic_name            => $args->{topic_name},
+              starttime_earliest    => $args->{earliest},
+              owner_user_id         => $args->{owner_user_id},
+              hardwaredb_systems_id => $args->{hardwaredb_systems_id},
+             });
+
+        $testrun->insert;
+
+        say STDERR "testrun.id: ", $testrun->id;
+
+        my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->new
+            ({
+              testrun_id => $testrun->id,
+              queue_id   => $args->{queue_id},
+              host_id    => $args->{host_id},
+              status     => "schedule",
+             });
+        $testrunscheduling->insert;
+
+        return $testrun->id;
+}
+
+
+
 1;
