@@ -22,7 +22,7 @@ __PACKAGE__->add_columns
      "updated_at",      { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                                                      },
     );
 
-__PACKAGE__->set_primary_key(qw/testrun_id/);
+__PACKAGE__->set_primary_key(qw/id/);
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
