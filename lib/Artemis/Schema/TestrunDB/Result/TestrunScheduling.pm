@@ -41,6 +41,7 @@ sub match_host {
 
         foreach my $req_host ($self->requested_hosts->all)
         {
+                $free_hosts->cursor->reset();
                 while (1) {
                         my $free_host = $free_hosts->next;
                         last unless defined $free_host;
