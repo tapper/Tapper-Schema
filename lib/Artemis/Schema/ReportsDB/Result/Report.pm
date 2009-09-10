@@ -142,9 +142,7 @@ sub get_cached_tapdom
                                 $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
                                 #say STDERR length($rawtap);
                                 my $tapdom = new TAP::DOM ( tap => $rawtap );
-                                my $section_results = get_section_results($_);
                                 push @$tapdom_sections, { section => { $_->{section_name} => { tap     => $tapdom,
-                                                                                               results => $section_results, # HIER_WEITER: evtl. ::Harness ..->{stats}-Generierung auch für sections, dort auslagern in wiederverwendbare sub. Und außerdem (oder nur?) ReportSection.* hier einmischen. Hoffentlich gibt es die in der DB...
                                                                                                meta => $_->{section_meta},
                                                                                              }
                                                                      }
