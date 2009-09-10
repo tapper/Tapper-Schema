@@ -1,5 +1,6 @@
 package Artemis::Schema::ReportsDB::Result::ReportgroupTestrun;
 
+use 5.010;
 use strict;
 use warnings;
 
