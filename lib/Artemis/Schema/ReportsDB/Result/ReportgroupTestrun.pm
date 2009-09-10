@@ -22,6 +22,16 @@ __PACKAGE__->has_many ( reports => 'Artemis::Schema::ReportsDB::Result::Report',
 
 # -------------------- methods on results --------------------
 
+sub groupreports {
+        my ($self) = @_;
+
+        my @report_ids;
+        my $rg = $self->result_source->schema->resultset('ReportgroupTestrun')->search({ testrun_id => $self->testrun_id });
+        while (my $rg_entry = $rg->next) {
+                push @report_ids, $rg_entry->report_id;
+        }
+        return $self->result_source->schema->resultset('Report')->search({ id => [ -or => [ @report_ids ] ] });
+}
 
 1;
 

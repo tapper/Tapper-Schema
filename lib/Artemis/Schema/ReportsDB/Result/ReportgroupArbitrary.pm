@@ -17,9 +17,20 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/arbitrary_id report_id/);
 
-__PACKAGE__->has_many ( report => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->has_many ( reports => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 # -------------------- methods on results --------------------
+
+sub groupreports {
+        my ($self) = @_;
+
+        my @report_ids;
+        my $rg = $self->result_source->schema->resultset('ReportgroupArbitrary')->search({ arbitrary_id => $self->arbitrary_id });
+        while (my $rg_entry = $rg->next) {
+                push @report_ids, $rg_entry->report_id;
+        }
+        return $self->result_source->schema->resultset('Report')->search({ id => [ -or => [ @report_ids ] ] });
+}
 
 1;
 
