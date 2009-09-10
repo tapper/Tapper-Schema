@@ -92,13 +92,6 @@ sub sections_osname
         return @cpus;
 }
 
-sub get_section_results
-{
-        my ($section) = @_;
-
-        say STDERR Dumper($section);
-}
-
 sub get_cached_tapdom
 {
         my ($r) = @_;
@@ -132,8 +125,7 @@ sub get_cached_tapdom
                 {
                         my $harness = new Artemis::TAP::Harness( tap => $report_tap );
                         $harness->evaluate_report();
-                        use Data::Dumper;
-                        print STDERR Dumper($harness->parsed_report);
+                        #print STDERR Dumper($harness->parsed_report);
                         foreach (@{$harness->parsed_report->{tap_sections}})
                         {
                                 #print STDERR ".";
