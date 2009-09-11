@@ -106,7 +106,7 @@ sub get_cached_tapdom
         my $tapdom_str = $report->tapdom;
 
         # set ARTEMIS_FORCE_NEW_TAPDOM to force the re-generation of the TAP DOM, e.g. when the TAP::DOM module changes
-        if ($tapdom_str and not $ENV{ARTEMIS_FORCE_NEW_TAPDOM})
+        if ($tapdom_str and not -e '/tmp/ARTEMIS_FORCE_NEW_TAPDOM')
         {
                 #print STDERR "EVAL ", $r->id;
                 eval '$tapdom_sections = my '.$tapdom_str;
