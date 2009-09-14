@@ -138,9 +138,10 @@ sub rerun
                 $queue_id = $testrunscheduling->queue_id;
                 $host_id  = $testrunscheduling->host_id;
         } else {
-                my $host  = model('TestrunDB')->resultset('Host')->search({ name => $args->{hostname}} );
+                # TODO: unfinished
+                my $host  = $self->result_source->schema->resultset('Host')->search({ name => $args->{hostname}} )->first;
                 $host_id  = $host->id;
-                my $queue = model('TestrunDB')->resultset('Queue')->search({ name => "AdHoc"} );
+                my $queue = $self->result_source->schema->resultset('Queue')->search({ name => "AdHoc"} )->first;
                 $queue_id = $queue->id;
         }
 
