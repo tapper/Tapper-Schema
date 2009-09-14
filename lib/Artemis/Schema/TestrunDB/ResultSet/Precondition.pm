@@ -45,7 +45,7 @@ sub add {
         my ($self, $yaml) = @_;
 
         $yaml .= "\n" unless $yaml =~ /\n$/;
-        my $yaml_error = _yaml_ok($yaml);
+        my $yaml_error = Artemis::Schema::TestrunDB::_yaml_ok($yaml);
         die Artemis::Exception::Param->new($yaml_error) if $yaml_error;
 
         my @precond_list = Load($yaml);
@@ -66,27 +66,6 @@ sub add {
                 push @precond_ids, $precondition->id;
         }
         return @precond_ids;
-}
-
-=head2 _yaml_ok
-
-Check whether given string is valid yaml.
-
-@param string - yaml
-
-@return success - undef
-@return error   - error string
-
-=cut
-
-sub _yaml_ok {
-        my ($condition) = @_;
-
-        my @res;
-        eval {
-                @res = Load($condition);
-        };
-        return $@;
 }
 
 1;

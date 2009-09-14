@@ -16,6 +16,7 @@ our $VERSION = '2.010016';
 # by forcing correct load order.
 use Class::C3;
 use MRO::Compat;
+use YAML::Syck;
 
 use parent 'DBIx::Class::Schema';
 
@@ -33,6 +34,27 @@ sub backup
 {
         #say STDERR "(TODO: Implement backup method.)";
         1;
+}
+
+=head2 _yaml_ok
+
+Check whether given string is valid yaml.
+
+@param string - yaml
+
+@return success - undef
+@return error   - error string
+
+=cut
+
+sub _yaml_ok {
+        my ($condition) = @_;
+
+        my @res;
+        eval {
+                @res = Load($condition);
+        };
+        return $@;
 }
 
 1;

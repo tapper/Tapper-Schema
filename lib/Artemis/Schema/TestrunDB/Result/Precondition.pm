@@ -87,7 +87,7 @@ sub precondition_as_hash {
 sub update_content {
         my ($self, $condition) = @_;
 
-        my $yaml_error = _yaml_ok($condition);
+        my $yaml_error = Artemis::Schema::TestrunDB::_yaml_ok($condition);
         die Artemis::Exception::Param->new($yaml_error) if $yaml_error;
 
         my $cond_hash = Load($condition);
