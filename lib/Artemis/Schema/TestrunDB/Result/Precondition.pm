@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use YAML::Syck;
 
 __PACKAGE__->load_components("Core");
 __PACKAGE__->table("precondition");
