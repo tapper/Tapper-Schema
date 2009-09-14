@@ -1,9 +1,11 @@
 package Artemis::Schema::TestrunDB::Result::Testrun;
 
+use 5.010;
 use strict;
 use warnings;
 
 use parent 'DBIx::Class';
+use Data::Dumper;
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("testrun");
@@ -139,9 +141,18 @@ sub rerun
                 $host_id  = $testrunscheduling->host_id;
         } else {
                 # TODO: unfinished
+                say STDERR "* hostname: ", $args->{hostname};
                 my $host  = $self->result_source->schema->resultset('Host')->search({ name => $args->{hostname}} )->first;
+                if (not $host) {
+                        warn "No host '".$args->{hostname}."' found.";
+                        return;
+                }
                 $host_id  = $host->id;
                 my $queue = $self->result_source->schema->resultset('Queue')->search({ name => "AdHoc"} )->first;
+                if (not $queue) {
+                        warn "No default queue 'AdHoc' found.";
+                        return;
+                }
                 $queue_id = $queue->id;
         }
 
@@ -162,7 +173,7 @@ sub rerun
         while (my $precond = $preconditions->next) {
                 push @preconditions, $precond->id;
         }
-        $self->assign_preconditions($testrun_new->id, @preconditions);
+        $testrun_new->assign_preconditions(@preconditions);
         return $testrun_new->id;
 }
 
@@ -170,6 +181,8 @@ sub assign_preconditions {
         my ($self, @preconditions) = @_;
 
         my $succession = 1;
+        say STDERR "* testrun_id:    ", $self->id;
+        say STDERR "  preconditions: ", join(", ", @preconditions);
         foreach my $precondition_id (@preconditions) {
                 my $testrun_precondition = $self->result_source->schema->resultset('TestrunPrecondition')->new
                     ({
