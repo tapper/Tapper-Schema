@@ -11,9 +11,8 @@ __PACKAGE__->add_columns
     (
      "id",                        { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,    is_auto_increment => 1, },
      "name",                      { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
-     "producer",                  { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
      "priority",                  { data_type => "INT",       default_value => 0,                    is_nullable => 0, size => 10,                            },
-     "runcount",                  { data_type => "INT",       default_value => 0,                    is_nullable => 0, size => 10,                            },
+     "runcount",                  { data_type => "INT",       default_value => 0,                    is_nullable => 0, size => 10,                            }, # aux for algorithm
      "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
      "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
     );
