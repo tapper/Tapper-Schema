@@ -173,6 +173,34 @@ sub mark_as_finished
         $self->update;
 }
 
+sub produce_preconditions
+{
+        my ($self) = @_;
+        my $testrun = $self->testrun;
+ PRECONDITION:
+        my @new_preconditions;
+        foreach my $precondition($testrun->ordered_preconditions) {
+                my $precond_hash = $precondition->precondition_as_hash;
+                if ( $precond_hash->{precondition_type} eq 'produce' ) {
+                        my $producer_name = $precond_hash->{producer};
+                        if (not $producer_name) {
+                                # TODO: warn here about precondition_type: produce without actual producer
+                                next PRECONDITION;
+                        }
+                        eval "use Artemis::MCP::Scheduler::PreconditionProducer::$producer_name";
+                        my $producer = "Artemis::MCP::Scheduler::PreconditionProducer::$producer_name"->new();
+                        my $new_precondition_yaml = $producer->produce($precond_hash);
+                        my @new_ids = $self->result_source->schema->resultset('Precondition')->add($new_precondition_yaml);
+                        push @new_preconditions, @new_ids;
+                } else {
+                        push @new_preconditions, $precondition->id;
+                }
+
+        }
+        $self->testrun->disassign_preconditions();
+        $self->testrun->assign_preconditions(@new_preconditions);
+}
+
 1;
 
 =head1 NAME
