@@ -68,14 +68,13 @@ sub add {
 
         $testrun->insert;
 
-        say STDERR "testrun.id: ", $testrun->id;
-
         my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->new
             ({
               testrun_id => $testrun->id,
               queue_id   => $args->{queue_id},
               host_id    => $args->{host_id},
               status     => "schedule",
+              auto_rerun => $args->{auto_rerun} || 0,
              });
         $testrunscheduling->insert;
 
