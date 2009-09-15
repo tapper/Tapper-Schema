@@ -136,12 +136,13 @@ sub rerun
         my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->search({ testrun_id => $self->id })->first;
         my $queue_id;
         my $host_id;
+        my $auto_rerun;
         if ($testrunscheduling) {
                 $queue_id = $testrunscheduling->queue_id;
                 $host_id  = $testrunscheduling->host_id;
+                $auto_rerun = $testrunscheduling->auto_rerun;
         } else {
                 # TODO: unfinished
-                say STDERR "* hostname: ", $args->{hostname};
                 my $host  = $self->result_source->schema->resultset('Host')->search({ name => $args->{hostname}} )->first;
                 if (not $host) {
                         warn "No host '".$args->{hostname}."' found.";
@@ -154,6 +155,7 @@ sub rerun
                         return;
                 }
                 $queue_id = $queue->id;
+                $auto_rerun = 0;
         }
 
         # create testrun and job
@@ -164,6 +166,7 @@ sub rerun
               queue_id   => $args->{queue_id} || $queue_id,
               host_id    => $args->{host_id}  || $host_id,
               status     => "schedule",
+              auto_rerun => $args->{host_id}  // $auto_rerun,
              });
         $testrunscheduling_new->insert;
 
@@ -181,8 +184,6 @@ sub assign_preconditions {
         my ($self, @preconditions) = @_;
 
         my $succession = 1;
-        say STDERR "* testrun_id:    ", $self->id;
-        say STDERR "  preconditions: ", join(", ", @preconditions);
         foreach my $precondition_id (@preconditions) {
                 my $testrun_precondition = $self->result_source->schema->resultset('TestrunPrecondition')->new
                     ({
