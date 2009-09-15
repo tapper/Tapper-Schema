@@ -197,6 +197,24 @@ sub assign_preconditions {
         return 0; # 0 == success (ask Maik if in doubt! :-)
 }
 
+sub disassign_preconditions {
+        my ($self, @preconditions) = @_;
+
+        my $preconditions;
+        if (not @preconditions) {
+                $preconditions = $self->result_source->schema->resultset('TestrunPrecondition')->search({testrun_id => $self->id});
+        } else {
+                $preconditions = $self->result_source->schema->resultset('TestrunPrecondition')->search({testrun_id => $self->id, precondition_id => [ -or => [ @preconditions ]]});
+        }
+
+
+        while( my $precondition = $preconditions->next) {
+                $precondition->delete();
+        }
+        return 0;
+}
+
+
 1;
 
 =head1 NAME
