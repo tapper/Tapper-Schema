@@ -30,7 +30,7 @@ SET foreign_key_checks=1;
 ALTER TABLE queue DROP COLUMN producer,
                   ADD UNIQUE unique_queue_name (name);
 
-ALTER TABLE testrun_scheduling DROP INDEX ,
+ALTER TABLE testrun_scheduling 
                                DROP COLUMN built,
                                DROP COLUMN active,
                                ADD COLUMN mergedqueue_seq integer(11),
@@ -40,6 +40,7 @@ ALTER TABLE testrun_scheduling DROP INDEX ,
                                CHANGE COLUMN id id integer(11) NOT NULL auto_increment,
                                CHANGE COLUMN testrun_id testrun_id integer(11) NOT NULL,
                                ADD INDEX testrun_scheduling_idx_host_id (host_id),
+                               DROP PRIMARY KEY,
                                ADD PRIMARY KEY (id),
                                ADD CONSTRAINT testrun_scheduling_fk_host_id FOREIGN KEY (host_id) REFERENCES host (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
