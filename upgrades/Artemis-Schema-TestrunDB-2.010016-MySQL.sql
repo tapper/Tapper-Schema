@@ -4,20 +4,20 @@
 -- 
 SET foreign_key_checks=0;
 
-DROP TABLE IF EXISTS `host`;
-
+--DROP TABLE IF EXISTS `host`;
 --
--- Table: `host`
---
-CREATE TABLE `host` (
-  `id` integer(11) NOT NULL auto_increment,
-  `name` VARCHAR(255) DEFAULT '',
-  `allowed_context` VARCHAR(255) DEFAULT '',
-  `busy` VARCHAR(255) DEFAULT '',
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
-  PRIMARY KEY (`id`)
-);
+----
+---- Table: `host`
+----
+--CREATE TABLE `host` (
+--  `id` integer(11) NOT NULL auto_increment,
+--  `name` VARCHAR(255) DEFAULT '',
+--  `allowed_context` VARCHAR(255) DEFAULT '',
+--  `busy` VARCHAR(255) DEFAULT '',
+--  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--  `updated_at` datetime,
+--  PRIMARY KEY (`id`)
+--);
 
 DROP TABLE IF EXISTS `precondition`;
 

@@ -160,15 +160,15 @@ CREATE INDEX testrun_scheduling_idx_testrun_id_testrun_schedu ON testrun_schedul
 --
 -- Table: host
 --
-DROP TABLE host;
-
-CREATE TABLE host (
-  id INTEGER PRIMARY KEY NOT NULL,
-  name VARCHAR(255) DEFAULT '',
-  allowed_context VARCHAR(255) DEFAULT '',
-  busy VARCHAR(255) DEFAULT '',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
-);
+--DROP TABLE host;
+--
+--CREATE TABLE host (
+--  id INTEGER PRIMARY KEY NOT NULL,
+--  name VARCHAR(255) DEFAULT '',
+--  allowed_context VARCHAR(255) DEFAULT '',
+--  busy VARCHAR(255) DEFAULT '',
+--  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--  updated_at DATETIME
+--);
 
 COMMIT;
