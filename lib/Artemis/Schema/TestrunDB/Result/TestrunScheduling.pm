@@ -189,7 +189,15 @@ sub produce_preconditions
                         }
                         eval "use Artemis::MCP::Scheduler::PreconditionProducer::$producer_name";
                         my $producer = "Artemis::MCP::Scheduler::PreconditionProducer::$producer_name"->new();
-                        my $new_precondition_yaml = $producer->produce($precond_hash);
+                        my $retval = $producer->produce($self, $precond_hash);
+
+                        if ($retval->{error}) {
+                                # TODO: error handling
+                        }
+
+                        my $new_precondition_yaml = $retval->{precondition_yaml};
+                        $self->testrun->topic_name($retval->{topic}) if $retval->{topic};
+
                         my @new_ids = $self->result_source->schema->resultset('Precondition')->add($new_precondition_yaml);
                         push @new_preconditions, @new_ids;
                 } else {
