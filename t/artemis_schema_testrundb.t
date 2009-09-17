@@ -12,7 +12,7 @@ use Test::Fixture::DBIC::Schema;
 use Test::More;
 
 BEGIN {
-        plan tests => 52;
+        plan tests => 50;
         use_ok( 'Artemis::Schema::TestrunDB' );
 }
 
@@ -60,8 +60,8 @@ my $perfmon_run = testrundb_schema->resultset('Testrun')->search({ shortname => 
 is($perfmon_run->id, 23, "testrun id");
 is($perfmon_run->notes, 'perfmon', "testrun notes");
 is($perfmon_run->topic_name, 'Software', "testrun topic_name");
-is($perfmon_run->topic->name, 'Software', "testrun topic->name");
-is($perfmon_run->topic->description, 'any non-kernel software, e.g., libraries, programs', "testrun topic->description");
+#is($perfmon_run->topic->name, 'Software', "testrun topic->name");
+#is($perfmon_run->topic->description, 'any non-kernel software, e.g., libraries, programs', "testrun topic->description");
 is($perfmon_run->test_program, '/usr/local/share/artemis/testsuites/perfmon/t/do_test.sh', "testrun test_program");
 
 is($perfmon_run->owner->name, 'Steffen Schwigon', "testrun user->name");
