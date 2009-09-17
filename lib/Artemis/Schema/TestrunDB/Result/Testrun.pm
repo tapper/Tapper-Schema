@@ -129,7 +129,6 @@ sub rerun
               starttime_earliest    => $args->{earliest}              || DateTime->now,
               test_program          => '',
               owner_user_id         => $args->{owner_user_id}         || $self->owner_user_id,
-              hardwaredb_systems_id => $args->{hardwaredb_systems_id} || $self->hardwaredb_systems_id,
              });
 
         # prepare job scheduling infos
@@ -142,13 +141,6 @@ sub rerun
                 $host_id  = $testrunscheduling->host_id;
                 $auto_rerun = $testrunscheduling->auto_rerun;
         } else {
-                # TODO: unfinished
-                my $host  = $self->result_source->schema->resultset('Host')->search({ name => $args->{hostname}} )->first;
-                if (not $host) {
-                        warn "No host '".$args->{hostname}."' found.";
-                        return;
-                }
-                $host_id  = $host->id;
                 my $queue = $self->result_source->schema->resultset('Queue')->search({ name => "AdHoc"} )->first;
                 if (not $queue) {
                         warn "No default queue 'AdHoc' found.";
@@ -164,7 +156,6 @@ sub rerun
             ({
               testrun_id => $testrun_new->id,
               queue_id   => $args->{queue_id} || $queue_id,
-              host_id    => $args->{host_id}  || $host_id,
               status     => "schedule",
               auto_rerun => $args->{host_id}  // $auto_rerun,
              });
