@@ -31,7 +31,7 @@ __PACKAGE__->set_primary_key("id");
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
-__PACKAGE__->belongs_to   ( topic                      => "${basepkg}::Topic",                   { 'foreign.name' => 'self.topic_name'    });
+#__PACKAGE__->belongs_to   ( topic                      => "${basepkg}::Topic",                   { 'foreign.name' => 'self.topic_name'    });
 __PACKAGE__->belongs_to   ( owner                      => "${basepkg}::User",                    { 'foreign.id'   => 'self.owner_user_id' });
 
 __PACKAGE__->has_many     ( testrun_precondition       => "${basepkg}::TestrunPrecondition",     { 'foreign.testrun_id' => 'self.id' });
