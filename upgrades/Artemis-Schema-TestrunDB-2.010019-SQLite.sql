@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Thu Sep 17 15:25:46 2009
+-- Created on Thu Sep 17 15:29:25 2009
 -- 
 
 
@@ -31,6 +31,21 @@ CREATE TABLE precondition (
   precondition TEXT,
   timeout INT(10)
 );
+
+--
+-- Table: testrun_requested_host
+--
+DROP TABLE testrun_requested_host;
+
+CREATE TABLE testrun_requested_host (
+  id INTEGER PRIMARY KEY NOT NULL,
+  testrun_id INT(11) NOT NULL,
+  host_id INT
+);
+
+CREATE INDEX testrun_requested_host_idx_host_id ON testrun_requested_host (host_id);
+
+CREATE INDEX testrun_requested_host_idx_testrun_id ON testrun_requested_host (testrun_id);
 
 --
 -- Table: preconditiontype
@@ -150,21 +165,6 @@ CREATE TABLE testrun_precondition (
 CREATE INDEX testrun_precondition_idx_precondition_id ON testrun_precondition (precondition_id);
 
 CREATE INDEX testrun_precondition_idx_testrun_id ON testrun_precondition (testrun_id);
-
---
--- Table: testrun_requested_host
---
-DROP TABLE testrun_requested_host;
-
-CREATE TABLE testrun_requested_host (
-  id INTEGER PRIMARY KEY NOT NULL,
-  testrun_id INT(11) NOT NULL,
-  host_id INT
-);
-
-CREATE INDEX testrun_requested_host_idx_host_id ON testrun_requested_host (host_id);
-
-CREATE INDEX testrun_requested_host_idx_testrun_id ON testrun_requested_host (testrun_id);
 
 --
 -- Table: testrun_scheduling
