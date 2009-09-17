@@ -42,10 +42,8 @@ sub match_host {
 
         foreach my $req_host ($self->requested_hosts->all)
         {
-                $free_hosts->cursor->reset();
-                while (1) {
-                        my $free_host = $free_hosts->next;
-                        last unless defined $free_host;
+                no strict 'refs';
+                foreach my $free_host( map {$_->{host} } @$free_hosts) {
                         return $free_host if $free_host->name eq $req_host->host->name;
                 }
         }
@@ -76,32 +74,33 @@ sub _helper {
 # vendor eq "AMD";      # without argument returns the value
 # @_ means this optional param
 # $_ is the current context inside the while-loop (see below) where the eval happens
-sub mem(;$)      { _helper($_->features->{mem},      undef,      @_) }
-sub vendor(;$)   { _helper($_->features->{cpu},      'vendors',  @_) }
-sub family(;$)   { _helper($_->features->{cpu},      'family',   @_) }
-sub model(;$)    { _helper($_->features->{cpu},      'model',    @_) }
-sub stepping(;$) { _helper($_->features->{cpu},      'stepping', @_) }
-sub revision(;$) { _helper($_->features->{cpu},      'revision', @_) }
-sub socket(;$)   { _helper($_->features->{cpu},      'socket',   @_) }
-sub cores(;$)    { _helper($_->features->{cpu},      'cores',    @_) }
-sub clock(;$)    { _helper($_->features->{cpu},      'clock',    @_) }
-sub l2cache(;$)  { _helper($_->features->{cpu},      'l2cache',  @_) }
-sub l3cache(;$)  { _helper($_->features->{cpu},      'l3cache',  @_) }
+sub mem(;$)      { _helper($_->{features}{mem},      undef,      @_) }
+sub vendor(;$)   { _helper($_->{features}{cpu},      'vendors',  @_) }
+sub family(;$)   { _helper($_->{features}{cpu},      'family',   @_) }
+sub model(;$)    { _helper($_->{features}{cpu},      'model',    @_) }
+sub stepping(;$) { _helper($_->{features}{cpu},      'stepping', @_) }
+sub revision(;$) { _helper($_->{features}{cpu},      'revision', @_) }
+sub socket(;$)   { _helper($_->{features}{cpu},      'socket',   @_) }
+sub cores(;$)    { _helper($_->{features}{cpu},      'cores',    @_) }
+sub clock(;$)    { _helper($_->{features}{cpu},      'clock',    @_) }
+sub l2cache(;$)  { _helper($_->{features}{cpu},      'l2cache',  @_) }
+sub l3cache(;$)  { _helper($_->{features}{cpu},      'l3cache',  @_) }
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
 
  HOST:
-        while (my $host = $free_hosts->next)
+        foreach my $host( @$free_hosts )
         {
                 $_ = $host;
+                
                 while (my $this_feature = $self->requested_features->next)
                 {
                         my $success = eval $this_feature->feature;
                         print STDERR "Error in TestRequest.fits: ", $@ if $@;
                         next HOST if not $success;
                 }
-                return $host;
+                return $host->{host};
         }
         return;
 }
@@ -116,21 +115,21 @@ sub fits {
         {
                 return;
         }
-        elsif ($self->requested_hosts)
+        elsif ($self->requested_hosts->count)
         {
                 my $host = $self->match_host($free_hosts);
                 if ($host)
                 {
                         return $host;
                 }
-                elsif ($self->requested_features)
+                elsif ($self->requested_features->count)
                 {
                         $host = $self->match_feature($free_hosts);
                         return $host if $host;
                 }
                 return;
         }
-        elsif ($self->requested_features) # but no wanted hostnames
+        elsif ($self->requested_features->count) # but no wanted hostnames
         {
                 my $host = $self->match_feature($free_hosts);
                 return $host if $host;
@@ -138,7 +137,7 @@ sub fits {
         }
         else # free_hosts but no wanted hostnames and no requested_features
         {
-                return $free_hosts->first;
+                return $free_hosts ? $free_hosts->[0]{host} : undef;
         }
 }
 
