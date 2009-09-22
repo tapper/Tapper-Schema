@@ -18,7 +18,7 @@ __PACKAGE__->set_primary_key(qw/id/);
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
-__PACKAGE__->belongs_to( queue             => "${basepkg}::Testrun", { 'foreign.id' => 'self.queue_id' });
+__PACKAGE__->belongs_to( queue             => "${basepkg}::Queue",   { 'foreign.id' => 'self.queue_id' });
 __PACKAGE__->belongs_to( host              => "${basepkg}::Host",    { 'foreign.id' => 'self.host_id'  });
 
 1;
