@@ -103,10 +103,10 @@ sub match_feature {
         foreach my $host( @$free_hosts )
         {
                 # filter out queuebound hosts
-                if ($host->queuehosts->count){
+                if ($host->{host}->queuehosts->count){
                 QUEUE_CHECK: 
                         {
-                                foreach my $queuehost($host->queuehosts->all) {
+                                foreach my $queuehost($host->{host}->queuehosts->all) {
                                         last QUEUE_CHECK if $queuehost->queue->id == $self->queue->id;
                                 }
                                 next HOST;
