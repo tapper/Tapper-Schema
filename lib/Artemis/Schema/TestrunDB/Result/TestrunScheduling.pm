@@ -76,7 +76,12 @@ sub _helper {
         }
         else
         {
-                $subkey ? $available->[0]->{$subkey} : $available->[0];
+                if (ref($available) eq 'ARRAY') {
+                        $subkey ? $available->[0]->{$subkey} : $available->[0];
+                } else {
+                        return $available;
+                }
+
         }
 }
 
@@ -115,8 +120,9 @@ sub match_feature {
 
                 $_ = $host;
                 
-                while (my $this_feature = $self->requested_features->next)
+                foreach my $this_feature( $self->requested_features->all )
                 {
+                        no warnings 'uninitialized';
                         my $success = eval $this_feature->feature;
                         print STDERR "Error in TestRequest.fits: ", $@ if $@;
                         next HOST if not $success;
