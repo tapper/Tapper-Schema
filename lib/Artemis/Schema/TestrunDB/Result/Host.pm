@@ -26,6 +26,8 @@ __PACKAGE__->set_primary_key("id");
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->has_many ( testrunschedulings => "${basepkg}::TestrunScheduling", { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         { 'foreign.host_id' => 'self.id' });
+
 
 1;
 

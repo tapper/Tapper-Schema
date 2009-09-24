@@ -43,7 +43,17 @@ sub match_host {
         foreach my $req_host ($self->requested_hosts->all)
         {
                 no strict 'refs';
+        FREE_HOST:
                 foreach my $free_host( map {$_->{host} } @$free_hosts) {
+                        if ($free_host->queuehosts->count){
+                                QUEUE_CHECK:
+                                {
+                                        foreach my $queuehost($free_host->queuehosts->all) {
+                                                last QUEUE_CHECK if $queuehost->queue->id == $self->queue->id;
+                                        }
+                                        next FREE_HOST;
+                                }
+                        }
                         return $free_host if $free_host->name eq $req_host->host->name;
                 }
         }
@@ -92,6 +102,17 @@ sub match_feature {
  HOST:
         foreach my $host( @$free_hosts )
         {
+                # filter out queuebound hosts
+                if ($host->{host}->queuehosts->count){
+                QUEUE_CHECK: 
+                        {
+                                foreach my $queuehost($host->{host}->queuehosts->all) {
+                                        last QUEUE_CHECK if $queuehost->queue->id == $self->queue->id;
+                                }
+                                next HOST;
+                        }
+                }
+
                 $_ = $host;
                 
                 while (my $this_feature = $self->requested_features->next)
@@ -127,18 +148,26 @@ sub fits {
                         $host = $self->match_feature($free_hosts);
                         return $host if $host;
                 }
-                return;
         }
         elsif ($self->requested_features->count) # but no wanted hostnames
         {
                 my $host = $self->match_feature($free_hosts);
                 return $host if $host;
-                return;
         }
         else # free_hosts but no wanted hostnames and no requested_features
         {
-                return $free_hosts ? $free_hosts->[0]{host} : undef;
+                foreach my $host (map {$_->{host} } @$free_hosts) {
+                        if ($host->queuehosts->count){
+                                foreach my $queuehost($host->queuehosts->all) {
+                                        return $host if $queuehost->queue->id == $self->queue->id;
+                                }
+                        } else {
+                                return $host;
+                        }
+                        
+                }
         }
+        return;
 }
 
 sub mark_as_running
