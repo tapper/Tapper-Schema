@@ -133,7 +133,9 @@ sub get_cached_tapdom
                                 #say STDERR "x"x100, "\n", $rawtap, "\n", "x"x 100;
                                 $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
                                 #say STDERR length($rawtap);
-                                my $tapdom = new TAP::DOM ( tap => $rawtap );
+                                my $tapdom = new TAP::DOM ( tap    => $rawtap,
+                                                            ignore => [qw( raw as_string )],
+                                                          );
                                 push @$tapdom_sections, { section => { $_->{section_name} => { tap     => $tapdom,
                                                                                                meta => $_->{section_meta},
                                                                                              }
