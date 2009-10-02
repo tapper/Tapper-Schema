@@ -17,9 +17,12 @@ __PACKAGE__->add_columns
      "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
     );
 
+(my $basepkg = __PACKAGE__) =~ s/::\w+$//;
+
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint( unique_queue_name => [ qw/name/ ], );
 __PACKAGE__->has_many ( testrunschedulings => 'Artemis::Schema::TestrunDB::Result::TestrunScheduling', { 'foreign.queue_id' => 'self.id' });
+__PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         { 'foreign.queue_id' => 'self.id' });
 
 # -------------------- methods on results --------------------
 
