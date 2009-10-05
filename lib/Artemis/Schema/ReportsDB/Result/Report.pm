@@ -48,6 +48,7 @@ __PACKAGE__->add_columns
      "starttime_test_program",  { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      "endtime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      #
+     "hardwaredb_systems_id",   { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11,                             },
      "machine_name",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 50,                             },
      "machine_description",     { data_type => "TEXT",     default_value => "",     is_nullable => 1,                                         },
      #
@@ -133,7 +134,9 @@ sub get_cached_tapdom
                                 #say STDERR "x"x100, "\n", $rawtap, "\n", "x"x 100;
                                 $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
                                 #say STDERR length($rawtap);
-                                my $tapdom = new TAP::DOM ( tap => $rawtap );
+                                my $tapdom = new TAP::DOM ( tap    => $rawtap,
+                                                            ignore => [qw( raw as_string )],
+                                                          );
                                 push @$tapdom_sections, { section => { $_->{section_name} => { tap     => $tapdom,
                                                                                                meta => $_->{section_meta},
                                                                                              }
