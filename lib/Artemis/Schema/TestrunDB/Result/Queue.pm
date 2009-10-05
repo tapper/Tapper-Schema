@@ -125,6 +125,15 @@ sub produce
         }
 }
 
+sub update_content {
+        my ($self, $args) =@_;
+
+        $self->priority( $args->{priority} ) if $args->{priority};
+        $self->update;
+        return $self->id;
+}
+
+
 1;
 
 =head1 NAME
