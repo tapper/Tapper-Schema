@@ -7,39 +7,6 @@ use parent 'DBIx::Class::ResultSet';
 use Artemis::Exception::Param;
 use YAML::Syck;
 
-sub lonely_preconditions
-{
-        shift->search({
-                       TODO_NOT_YET_IMPLEMENTED()
-                      }
-                     );
-}
-
-sub primary_preconditions
-{
-        shift->search(
-                      {},
-                      {
-                       join => 'testrun_precondition',
-                      }
-                     );
-
-}
-
-sub pre_preconditions
-{
-        shift->search({
-                       TODO_NOT_YET_IMPLEMENTED()
-                      }
-                     );
-}
-
-sub all_preconditions
-{
-        my ($resultset) = @_;
-
-        $resultset->search({});
-}
 
 sub add {
         my ($self, $yaml) = @_;
