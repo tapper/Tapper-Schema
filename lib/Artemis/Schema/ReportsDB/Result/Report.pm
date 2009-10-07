@@ -68,6 +68,12 @@ __PACKAGE__->has_many     ( files          => 'Artemis::Schema::ReportsDB::Resul
 __PACKAGE__->has_many     ( reportsections => 'Artemis::Schema::ReportsDB::Result::ReportSection', { 'foreign.report_id' => 'self.id' });
 
 
+sub sqlt_deploy_hook
+{
+        my ($self, $sqlt_table) = @_;
+        $sqlt_table->add_index(name => 'report_idx_machine_name', fields => ['machine_name']);
+}
+
 #sub suite_name { shift->suite->name }
 #sub suite_name { my ($self, $arg) = @_; return $self->search({ "suite.name" => $arg })};
 
