@@ -230,7 +230,10 @@ sub produce_preconditions
                         }
 
                         my $new_precondition_yaml = $retval->{precondition_yaml};
-                        $self->testrun->topic_name($retval->{topic}) if $retval->{topic};
+                        if ($retval->{topic}) {
+                                $self->testrun->topic_name($retval->{topic});
+                                $self->testrun->update;
+                        }
 
                         my @new_ids = $self->result_source->schema->resultset('Precondition')->add($new_precondition_yaml);
                         push @new_preconditions, @new_ids;
