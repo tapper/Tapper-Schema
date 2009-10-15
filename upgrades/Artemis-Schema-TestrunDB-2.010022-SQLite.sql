@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Tue Oct  6 16:44:48 2009
+-- Created on Wed Oct 14 12:54:06 2009
 -- 
 
 
@@ -99,21 +99,6 @@ CREATE INDEX pre_precondition_idx_child_precondition_id ON pre_precondition (chi
 CREATE INDEX pre_precondition_idx_parent_precondition_id ON pre_precondition (parent_precondition_id);
 
 --
--- Table: queue_host
---
-DROP TABLE queue_host;
-
-CREATE TABLE queue_host (
-  id INTEGER PRIMARY KEY NOT NULL,
-  queue_id INT(11) NOT NULL,
-  host_id INT
-);
-
-CREATE INDEX queue_host_idx_host_id ON queue_host (host_id);
-
-CREATE INDEX queue_host_idx_queue_id ON queue_host (queue_id);
-
---
 -- Table: testrun
 --
 DROP TABLE testrun;
@@ -137,7 +122,20 @@ CREATE TABLE testrun (
 
 CREATE INDEX testrun_idx_owner_user_id ON testrun (owner_user_id);
 
-CREATE INDEX testrun_idx_topic_name ON testrun (topic_name);
+--
+-- Table: queue_host
+--
+DROP TABLE queue_host;
+
+CREATE TABLE queue_host (
+  id INTEGER PRIMARY KEY NOT NULL,
+  queue_id INT(11) NOT NULL,
+  host_id INT
+);
+
+CREATE INDEX queue_host_idx_host_id ON queue_host (host_id);
+
+CREATE INDEX queue_host_idx_queue_id ON queue_host (queue_id);
 
 --
 -- Table: testrun_requested_feature

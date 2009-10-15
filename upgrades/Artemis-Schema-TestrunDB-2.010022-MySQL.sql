@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Tue Oct  6 16:44:47 2009
+-- Created on Wed Oct 14 12:54:06 2009
 -- 
 SET foreign_key_checks=0;
 
@@ -68,7 +68,7 @@ CREATE TABLE `topic` (
   `name` VARCHAR(20) NOT NULL,
   `description` text NOT NULL DEFAULT '',
   PRIMARY KEY (`name`)
-) ENGINE=InnoDB;
+);
 
 DROP TABLE IF EXISTS `user`;
 
@@ -99,22 +99,6 @@ CREATE TABLE `pre_precondition` (
   CONSTRAINT `pre_precondition_fk_parent_precondition_id` FOREIGN KEY (`parent_precondition_id`) REFERENCES `precondition` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS `queue_host`;
-
---
--- Table: `queue_host`
---
-CREATE TABLE `queue_host` (
-  `id` integer(11) NOT NULL auto_increment,
-  `queue_id` integer(11) NOT NULL,
-  `host_id` integer,
-  INDEX queue_host_idx_host_id (`host_id`),
-  INDEX queue_host_idx_queue_id (`queue_id`),
-  PRIMARY KEY (`id`),
-  CONSTRAINT `queue_host_fk_host_id` FOREIGN KEY (`host_id`) REFERENCES `host` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `queue_host_fk_queue_id` FOREIGN KEY (`queue_id`) REFERENCES `queue` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS `testrun`;
 
 --
@@ -136,10 +120,24 @@ CREATE TABLE `testrun` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   INDEX testrun_idx_owner_user_id (`owner_user_id`),
-  INDEX testrun_idx_topic_name (`topic_name`),
   PRIMARY KEY (`id`),
-  CONSTRAINT `testrun_fk_owner_user_id` FOREIGN KEY (`owner_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `testrun_fk_topic_name` FOREIGN KEY (`topic_name`) REFERENCES `topic` (`name`)
+  CONSTRAINT `testrun_fk_owner_user_id` FOREIGN KEY (`owner_user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS `queue_host`;
+
+--
+-- Table: `queue_host`
+--
+CREATE TABLE `queue_host` (
+  `id` integer(11) NOT NULL auto_increment,
+  `queue_id` integer(11) NOT NULL,
+  `host_id` integer,
+  INDEX queue_host_idx_host_id (`host_id`),
+  INDEX queue_host_idx_queue_id (`queue_id`),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `queue_host_fk_host_id` FOREIGN KEY (`host_id`) REFERENCES `host` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `queue_host_fk_queue_id` FOREIGN KEY (`queue_id`) REFERENCES `queue` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `testrun_requested_feature`;
