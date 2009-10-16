@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Oct 16 15:49:57 2009
+-- Created on Fri Oct 16 15:50:38 2009
 -- 
 
 
@@ -58,6 +58,7 @@ CREATE TABLE reportsection (
   description VARCHAR(255),
   language_description TEXT,
   cpuinfo TEXT,
+  bios TEXT,
   ram VARCHAR(50),
   uptime VARCHAR(50),
   lspci TEXT,

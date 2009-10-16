@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Oct 16 15:49:57 2009
+-- Created on Fri Oct 16 16:14:22 2009
 -- 
 
 
@@ -58,6 +58,7 @@ CREATE TABLE reportsection (
   description VARCHAR(255),
   language_description TEXT,
   cpuinfo TEXT,
+  bios TEXT,
   ram VARCHAR(50),
   uptime VARCHAR(50),
   lspci TEXT,
@@ -189,6 +190,7 @@ CREATE TABLE reportcomment (
   id INTEGER PRIMARY KEY NOT NULL,
   report_id INT(11) NOT NULL,
   user_id INT(11),
+  succession INT(10),
   comment TEXT NOT NULL DEFAULT '',
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL

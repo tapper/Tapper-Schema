@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Oct 16 15:49:55 2009
+-- Created on Fri Oct 16 15:50:37 2009
 -- 
 SET foreign_key_checks=0;
 
@@ -57,6 +57,7 @@ CREATE TABLE `reportsection` (
   `description` VARCHAR(255),
   `language_description` text,
   `cpuinfo` text,
+  `bios` text,
   `ram` VARCHAR(50),
   `uptime` VARCHAR(50),
   `lspci` text,
