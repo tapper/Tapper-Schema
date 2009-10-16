@@ -60,31 +60,16 @@ sub some_meta_available
 {
         my ($self) = @_;
         my %cols = $self->get_columns;
-        my @meta_cols = qw/osname
-                           uname
-                           language_description
-                           cpuinfo
-                           ram
-                           lspci
-                           lsusb
+
+        # this enumeration is a bit lame. anyway: copy the list from Artemis::TAP::Harness.@SECTION_HEADER_KEYS_GENERAL.
+        my @meta_cols = qw/ram cpuinfo bios lspci uname osname uptime language-description
+                           flags changeset description
+                           xen-version xen-changeset xen-dom0-kernel xen-base-os-description
+                           xen-guest-description xen-guest-test xen-guest-start xen-guest-flags
+                           kvm-module-version kvm-userspace-version kvm-kernel
+                           kvm-base-os-description kvm-guest-description
+                           kvm-guest-test kvm-guest-start kvm-guest-flags
                            flags
-                           xen_changeset
-                           xen_hvbits
-                           xen_dom0_kernel
-                           xen_base_os_description
-                           xen_guest_description
-                           xen_guest_flags
-                           xen_version
-                           xen_guest_test
-                           xen_guest_start
-                           kvm_kernel
-                           kvm_base_os_description
-                           kvm_guest_description
-                           kvm_module_version
-                           kvm_userspace_version
-                           kvm_guest_flags
-                           kvm_guest_test
-                           kvm_guest_start
                           /;
         return 1 if grep { defined } @cols{@meta_cols};
         return 0;
