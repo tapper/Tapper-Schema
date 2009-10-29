@@ -11,14 +11,15 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("reportgrouptestrun");
 __PACKAGE__->add_columns
     (
-     "testrun_id",    { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11,                      }, # semi-foreign, into TestrundDB
+     "testrun_id",    { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1, },
      "report_id",     { data_type => "INT",     default_value => undef,  is_nullable => 0, size => 11, is_foreign_key => 1, },
      "primaryreport", { data_type => "INT",     default_value => undef,  is_nullable => 1, size => 11,                      },
     );
 
 __PACKAGE__->set_primary_key(qw/testrun_id report_id/);
 
-__PACKAGE__->has_many ( reports => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->has_many ( reports                 => 'Artemis::Schema::ReportsDB::Result::Report',                  { 'foreign.id'         => 'self.report_id'  });
+__PACKAGE__->might_have ( reportgrouptestrunstats => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrunStats', { 'foreign.testrun_id' => 'self.testrun_id' });
 
 # -------------------- methods on results --------------------
 
