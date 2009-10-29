@@ -72,7 +72,7 @@ sub some_meta_available
                            flags
                           /;
         @meta_cols = map { s/-/_/g; $_ } @meta_cols;
-        return 1 if grep { print "$_\n" if defined ; defined } @cols{@meta_cols};
+        return 1 if grep { defined } @cols{@meta_cols};
         return 0;
 }
 
