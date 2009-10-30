@@ -50,12 +50,21 @@ sub update_failed_passed
         my $wait         = 0;
         my $exit         = 0;
 
-        my $reports_rs = $self->reportgrouptestruns->reports;
+        my $reports_rs = $self->reportgrouptestruns->reports->search({}); HIER WEITER: das liefert irgendwie nur den ersten
+        no strict 'refs';
         while (my $r = $reports_rs->next) {
+                print STDERR "*** update_reportgroup_testrun_stats: r = ", $r->id, "\n";
+
                 # no "exit", that would create wrong SQL
-                ${$_} += $r->$_ foreach qw/failed passed total parse_errors skipped todo todo_passed wait/;
+                foreach (qw/failed passed total parse_errors skipped todo todo_passed wait/) {
+                        ${$_} += ($r->$_ // 0);
+                }
         }
-        $self->$_(${$_}) foreach qw/failed passed total parse_errors skipped todo todo_passed wait/; # no "exit", that would create wrong SQL
+        # no "exit", that would create wrong SQL
+        foreach (qw/failed passed total parse_errors skipped todo todo_passed wait/) {
+                print STDERR "*** ", $self->$_, " + ", ${$_}, "\n";
+                $self->$_($self->$_ + ${$_});
+        }
         return $self;
 }
 
