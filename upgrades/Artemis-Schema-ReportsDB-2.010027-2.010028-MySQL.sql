@@ -14,10 +14,15 @@ CREATE TABLE `reportgrouptestrunstats` (
   `todo` integer(10),
   `todo_passed` integer(10),
   `wait` integer(10),
-  PRIMARY KEY (`testrun_id`)
-);
+  INDEX reportgrouptestrunstats_idx_testrun_id (`testrun_id`),
+  PRIMARY KEY (`testrun_id`),
+  CONSTRAINT `reportgrouptestrunstats_fk_testrun_id` FOREIGN KEY (`testrun_id`) REFERENCES `reportgrouptestrun` (`testrun_id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 SET foreign_key_checks=1;
+
+ALTER TABLE reportgrouptestrun ADD INDEX reportgrouptestrun_idx_testrun_id (testrun_id),
+                               ADD CONSTRAINT reportgrouptestrun_fk_testrun_id FOREIGN KEY (testrun_id) REFERENCES reportgrouptestrunstats (testrun_id);
 
 
 COMMIT;

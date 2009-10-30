@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Oct 30 15:59:22 2009
+-- Created on Fri Oct 30 17:20:12 2009
 -- 
 
 
@@ -34,6 +34,8 @@ CREATE TABLE reportgrouptestrunstats (
   wait INT(10)
 );
 
+CREATE INDEX reportgrouptestrunstats_idx_testrun_id ON reportgrouptestrunstats (testrun_id);
+
 --
 -- Table: reportgrouparbitrary
 --
@@ -44,18 +46,6 @@ CREATE TABLE reportgrouparbitrary (
   report_id INT(11) NOT NULL,
   primaryreport INT(11),
   PRIMARY KEY (arbitrary_id, report_id)
-);
-
---
--- Table: reportgrouptestrun
---
-DROP TABLE reportgrouptestrun;
-
-CREATE TABLE reportgrouptestrun (
-  testrun_id INT(11) NOT NULL,
-  report_id INT(11) NOT NULL,
-  primaryreport INT(11),
-  PRIMARY KEY (testrun_id, report_id)
 );
 
 --
@@ -124,6 +114,20 @@ CREATE TABLE user (
   login VARCHAR(255) NOT NULL,
   password VARCHAR(255)
 );
+
+--
+-- Table: reportgrouptestrun
+--
+DROP TABLE reportgrouptestrun;
+
+CREATE TABLE reportgrouptestrun (
+  testrun_id INT(11) NOT NULL,
+  report_id INT(11) NOT NULL,
+  primaryreport INT(11),
+  PRIMARY KEY (testrun_id, report_id)
+);
+
+CREATE INDEX reportgrouptestrun_idx_testrun_id ON reportgrouptestrun (testrun_id);
 
 --
 -- Table: report

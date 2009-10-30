@@ -18,8 +18,8 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/testrun_id report_id/);
 
-__PACKAGE__->has_many ( reports                 => 'Artemis::Schema::ReportsDB::Result::Report',                  { 'foreign.id'         => 'self.report_id'  });
-__PACKAGE__->many_to_many ( reportgrouptestrunstats => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrunStats', { 'foreign.testrun_id' => 'self.testrun_id' }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->has_many   ( reports                 => 'Artemis::Schema::ReportsDB::Result::Report',                  { 'foreign.id'         => 'self.report_id'  });
+__PACKAGE__->might_have ( reportgrouptestrunstats => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrunStats', { 'foreign.testrun_id' => 'self.testrun_id' });
 
 # -------------------- methods on results --------------------
 

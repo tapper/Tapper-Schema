@@ -26,7 +26,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/testrun_id/);
 
-__PACKAGE__->many_to_many ( reportgrouptestrun => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->belongs_to ( reportgrouptestruns => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, {cascade_delete => 0, cascade_copy => 0 } );
 
 sub success_ratio
 {
@@ -50,7 +50,7 @@ sub update_failed_passed
         my $wait         = 0;
         my $exit         = 0;
 
-        my $reports_rs = $self->reportgrouptestrun->reports;
+        my $reports_rs = $self->reportgrouptestruns->reports;
         while (my $r = $reports_rs->next) {
                 # no "exit", that would create wrong SQL
                 ${$_} += $r->$_ foreach qw/failed passed total parse_errors skipped todo todo_passed wait/;
