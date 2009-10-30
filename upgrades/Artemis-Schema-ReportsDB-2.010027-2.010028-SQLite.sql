@@ -14,8 +14,6 @@ CREATE TABLE reportgrouptestrunstats (
   wait INT(10)
 );
 
-CREATE INDEX reportgrouptestrunstats_idx_testrun_id ON reportgrouptestrunstats (testrun_id);
-
 
 COMMIT;
 

@@ -26,7 +26,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/testrun_id/);
 
-__PACKAGE__->belongs_to ( reportgrouptestrun => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' });
+__PACKAGE__->many_to_many ( reportgrouptestrun => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, { 'join_type' => 'LEFT OUTER' });
 
 sub success_ratio
 {

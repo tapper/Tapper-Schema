@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Thu Oct 29 17:06:55 2009
+-- Created on Fri Oct 30 15:59:22 2009
 -- 
 
 
@@ -33,8 +33,6 @@ CREATE TABLE reportgrouptestrunstats (
   todo_passed INT(10),
   wait INT(10)
 );
-
-CREATE INDEX reportgrouptestrunstats_idx_testrun_id ON reportgrouptestrunstats (testrun_id);
 
 --
 -- Table: reportgrouparbitrary
