@@ -21,9 +21,6 @@ CREATE TABLE `reportgrouptestrunstats` (
 
 SET foreign_key_checks=1;
 
-ALTER TABLE reportgrouptestrun ADD INDEX reportgrouptestrun_idx_testrun_id (testrun_id),
-                               ADD CONSTRAINT reportgrouptestrun_fk_testrun_id FOREIGN KEY (testrun_id) REFERENCES reportgrouptestrunstats (testrun_id);
-
 
 COMMIT;
 

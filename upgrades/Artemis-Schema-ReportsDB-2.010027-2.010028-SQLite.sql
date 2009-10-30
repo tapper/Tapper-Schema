@@ -16,8 +16,6 @@ CREATE TABLE reportgrouptestrunstats (
 
 CREATE INDEX reportgrouptestrunstats_idx_testrun_id ON reportgrouptestrunstats (testrun_id);
 
-CREATE INDEX reportgrouptestrun_idx_test00 ON reportgrouptestrun (testrun_id);
-
 
 COMMIT;
 

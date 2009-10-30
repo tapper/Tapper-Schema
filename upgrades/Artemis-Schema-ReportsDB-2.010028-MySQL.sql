@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Oct 30 17:20:12 2009
+-- Created on Fri Oct 30 17:27:52 2009
 -- 
 SET foreign_key_checks=0;
 
@@ -26,6 +26,18 @@ CREATE TABLE `reportgrouparbitrary` (
   `report_id` integer(11) NOT NULL,
   `primaryreport` integer(11),
   PRIMARY KEY (`arbitrary_id`, `report_id`)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS `reportgrouptestrun`;
+
+--
+-- Table: `reportgrouptestrun`
+--
+CREATE TABLE `reportgrouptestrun` (
+  `testrun_id` integer(11) NOT NULL,
+  `report_id` integer(11) NOT NULL,
+  `primaryreport` integer(11),
+  PRIMARY KEY (`testrun_id`, `report_id`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportsection`;
@@ -95,20 +107,6 @@ CREATE TABLE `user` (
   `login` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS `reportgrouptestrun`;
-
---
--- Table: `reportgrouptestrun`
---
-CREATE TABLE `reportgrouptestrun` (
-  `testrun_id` integer(11) NOT NULL,
-  `report_id` integer(11) NOT NULL,
-  `primaryreport` integer(11),
-  INDEX reportgrouptestrun_idx_testrun_id (`testrun_id`),
-  PRIMARY KEY (`testrun_id`, `report_id`),
-  CONSTRAINT `reportgrouptestrun_fk_testrun_id` FOREIGN KEY (`testrun_id`) REFERENCES `reportgrouptestrunstats` (`testrun_id`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `reportgrouptestrunstats`;
