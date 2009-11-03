@@ -23,28 +23,24 @@ construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb
 is( reportsdb_schema->resultset('ReportgroupTestrun')->count,   3, "reportgrouptestrun count" );
 is( reportsdb_schema->resultset('ReportgroupArbitrary')->count, 3, "reportgrouparbitrary count" );
 
-my $report = reportsdb_schema->resultset('Report')->find(24);
-like($report->tap, qr/OK 2 bar DDD/ms, "found report");
-my $reportgroup_arbitrary = $report->reportgrouparbitrary;
-ok(defined $reportgroup_arbitrary, "has according reportgroup arbitrary");
-
-$report = reportsdb_schema->resultset('Report')->find(23);
+# find report
+my $report = reportsdb_schema->resultset('Report')->find(23);
 like($report->tap, qr/OK 2 bar CCC/ms, "found report");
-my $reportgroup_testrun = $report->reportgrouptestrun;
-ok(defined $reportgroup_testrun, "has according reportgroup testrun");
 
-unlike($report->tapdom, qr/\$VAR1/, "no tapdom yet");
-my $tapdom = $report->get_cached_tapdom;
-is(Scalar::Util::reftype($tapdom), "ARRAY", "got tapdom");
+# find according report group (grouped by testrun)
+my $rgt = $report->reportgrouptestrun;
+ok(defined $rgt, "has according reportgroup testrun");
 
-# get it again
-$report = reportsdb_schema->resultset('Report')->find(23);
-like($report->tapdom, qr/\$VAR1/, "tapdom created on demand looks like Data::Dumper string");
-#diag "tapdom: ".$report->tapdom;
-my $VAR1;
-eval $report->tapdom;
-my $tapdom2 = $VAR1;
-#diag "tapdom2: ".Dumper($tapdom2);
-cmp_bag($tapdom2, $tapdom, "stored tapdom keeps constant");
+# find according report group stats -- should not exist yet
+my $rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->find($rgt->testrun_id);
+is($rgt_stats, undef, "no reportgroup stats yet");
+
+# re-create report group stats
+$rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => $rgt->testrun_id });
+$rgt_stats->insert;
+is($rgt_stats->testrun_id, 753, "reportgroup stats created");
+
+is($rgt_stats->testrun_id, 753, "reportgroup stats created");
+
 
 done_testing;
