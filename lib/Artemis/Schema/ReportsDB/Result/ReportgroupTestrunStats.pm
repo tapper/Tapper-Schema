@@ -26,7 +26,13 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/testrun_id/);
 
-__PACKAGE__->belongs_to ( reportgrouptestruns => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, {cascade_delete => 0, cascade_copy => 0 } );
+__PACKAGE__->has_many ( reportgrouptestruns => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, {cascade_delete => 0, cascade_copy => 0 } );
+
+sub groupreports {
+        my ($self) = @_;
+
+        $self->reportgrouptestruns->groupreports;
+}
 
 sub success_ratio
 {
