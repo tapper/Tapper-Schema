@@ -62,4 +62,14 @@ cmp_bag([ map { $_->id } $reports->all ], [21, 22, 23], "reports via rgt_stats.g
 
 # is($rgt_stats->reports->reportgrouptestruns->search({}), 753, "reportgroup stats created");
 
+# use Artemis::Reports::Receiver;
+# my $receiver = Artemis::Reports::Receiver->new;
+# while (my $r = $reports->next) {
+#         $receiver->refresh_db_report($r->id);
+# }
+
+# $rgt_stats->update_failed_passed;
+# $rgt_stats->update;
+# is( $rgt_stats->total, 12, "rgt.total");
+
 done_testing;
