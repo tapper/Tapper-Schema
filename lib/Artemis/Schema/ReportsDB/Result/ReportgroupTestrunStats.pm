@@ -56,7 +56,7 @@ sub update_failed_passed
         my $wait         = 0;
         my $exit         = 0;
 
-        my $reports_rs = $self->reportgrouptestruns->reports->search({}); # HIER WEITER: das liefert irgendwie nur den ersten
+        my $reports_rs = $self->groupreports;
         no strict 'refs';
         while (my $r = $reports_rs->next) {
                 print STDERR "*** update_reportgroup_testrun_stats: r = ", $r->id, "\n";
