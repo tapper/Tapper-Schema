@@ -59,19 +59,12 @@ sub update_failed_passed
 
         my $reports_rs = $self->groupreports;
         no strict 'refs';
+        my %sums = ();
+        my @stat_fields = (qw/failed passed total parse_errors skipped todo todo_passed wait/); # no "exit", that would create wrong SQL
         while (my $r = $reports_rs->next) {
-                print STDERR "*** update_reportgroup_testrun_stats: r = ", $r->id, "\n";
-
-                # no "exit", that would create wrong SQL
-                foreach (qw/failed passed total parse_errors skipped todo todo_passed wait/) {
-                        ${$_} += ($r->$_ // 0);
-                }
+                $sums{$_} += ($r->$_ // 0) foreach @stat_fields;
         }
-        # no "exit", that would create wrong SQL
-        foreach (qw/failed passed total parse_errors skipped todo todo_passed wait/) {
-                print STDERR "*** ", $self->$_, " + ", ${$_}, "\n";
-                $self->$_($self->$_ + ${$_});
-        }
+        $self->$_($sums{$_}) foreach @stat_fields;
         return $self;
 }
 
