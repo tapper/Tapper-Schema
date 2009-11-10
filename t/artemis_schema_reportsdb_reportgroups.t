@@ -45,15 +45,20 @@ is($rgt_stats->testrun_id, 753, "reportgroup stats created");
 $rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => $rgt->testrun_id });
 
 $rgt = $rgt_stats->reportgrouptestruns;
-diag "rgt testruns: ", Dumper([ map { $_->report_id } $rgt->all]);
+cmp_bag([ map { $_->report_id } $rgt->all], [21, 22, 23], "reports via rgt_stats.reportgrouptestruns");
+#diag "rgt testruns: ", Dumper([ map { $_->report_id } $rgt->all]);
+
 my $reports = $rgt->first->groupreports;
-diag "reports: ", Dumper([ map { $_->id } $reports->all]);
+cmp_bag([ map { $_->id } $reports->all ], [21, 22, 23], "reports via rgt.first.groupreports");
+#diag "reports: ", Dumper([ map { $_->id } $reports->all]);
 
 $reports = $rgt->groupreports;
-diag "reports: ", Dumper([ map { $_->id } $reports->all]);
+cmp_bag([ map { $_->id } $reports->all ], [21, 22, 23], "reports via rgt.groupreports");
+#diag "reports: ", Dumper([ map { $_->id } $reports->all]);
 
 $reports = $rgt_stats->groupreports;
-diag "rgt testruns: ",Dumper([ map { $_->id } $reports->all]);
+cmp_bag([ map { $_->id } $reports->all ], [21, 22, 23], "reports via rgt_stats.groupreports");
+#diag "rgt testruns: ",Dumper([ map { $_->id } $reports->all]);
 
 # is($rgt_stats->reports->reportgrouptestruns->search({}), 753, "reportgroup stats created");
 
