@@ -20,7 +20,7 @@ __PACKAGE__->add_columns
      "flags",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "changeset",               { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "description",             { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
-     "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1, size => 255,                     },
+     "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "cpuinfo",                 { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "bios",                    { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "ram",                     { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
