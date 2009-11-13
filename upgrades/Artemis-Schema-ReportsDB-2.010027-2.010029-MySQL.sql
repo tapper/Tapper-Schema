@@ -1,4 +1,4 @@
--- Convert schema 'upgrades/Artemis-Schema-ReportsDB-2.010027-MySQL.sql' to 'Artemis::Schema::ReportsDB v2.010028':;
+-- Convert schema 'upgrades/Artemis-Schema-ReportsDB-2.010027-MySQL.sql' to 'Artemis::Schema::ReportsDB v2.010029':;
 
 BEGIN;
 
@@ -14,7 +14,8 @@ CREATE TABLE `reportgrouptestrunstats` (
   `todo` integer(10),
   `todo_passed` integer(10),
   `wait` integer(10),
-  PRIMARY KEY (`testrun_id`),
+  `success_ratio` VARCHAR(20),
+  PRIMARY KEY (`testrun_id`)
 ) ENGINE=InnoDB;
 
 SET foreign_key_checks=1;
