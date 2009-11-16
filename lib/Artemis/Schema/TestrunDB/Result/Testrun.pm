@@ -37,6 +37,8 @@ __PACKAGE__->has_many     ( testrun_precondition       => "${basepkg}::TestrunPr
 __PACKAGE__->many_to_many ( preconditions              => "testrun_precondition",                                        'precondition' );
 
 __PACKAGE__->might_have   ( testrun_scheduling         => "${basepkg}::TestrunScheduling",       { 'foreign.testrun_id' => 'self.id' });
+__PACKAGE__->might_have   ( scenario_element           => "${basepkg}::ScenarioElement",         { 'foreign.testrun_id' => 'self.id' });
+
 
 # -------------------- methods on results --------------------
 
