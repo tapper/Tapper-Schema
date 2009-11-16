@@ -20,9 +20,9 @@ __PACKAGE__->set_primary_key(qw/id/);
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
-__PACKAGE__->belongs_to( testrun           => "${basepkg}::Testrun",         { 'foreign.id'  => 'self.testrun_id'            });
-__PACKAGE__->belongs_to( scenario          => "${basepkg}::Scenario",        { 'foreign.id'  => 'self.scenario_id'           });
-__PACKAGE__->has_many  ( scenario_elements => "${basepkg}::ScenarioElement", { 'foreign.scenario_id'   => 'self.scenario_id' });
+__PACKAGE__->belongs_to( testrun       => "${basepkg}::Testrun",         { 'foreign.id'  => 'self.testrun_id'            });
+__PACKAGE__->belongs_to( scenario      => "${basepkg}::Scenario",        { 'foreign.id'  => 'self.scenario_id'           });
+__PACKAGE__->has_many  ( peer_elements => "${basepkg}::ScenarioElement", { 'foreign.scenario_id'   => 'self.scenario_id' });
 
 
 1;
