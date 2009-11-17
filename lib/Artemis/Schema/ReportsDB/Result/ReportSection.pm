@@ -27,7 +27,6 @@ __PACKAGE__->add_columns
      "uptime",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
      "lspci",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "lsusb",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
-     "flags",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      # xen info
      "xen_changeset",           { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_hvbits",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 10,                      },
