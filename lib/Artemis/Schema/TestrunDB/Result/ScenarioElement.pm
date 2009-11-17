@@ -13,7 +13,7 @@ __PACKAGE__->add_columns
      "id",          { data_type => "INT", default_value => undef, is_nullable => 0, size => 11,  is_auto_increment => 1, },
      "testrun_id",  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11,  is_foreign_key => 1,    },
      "scenario_id", { data_type => "INT", default_value => undef, is_nullable => 0, size => 11,  is_foreign_key => 1,    },
-     "is_fitted",   { data_type => "INT", default_value => 0,     is_nullable => 1, size => 1,                           },
+     "is_fitted",   { data_type => "INT", default_value => 0,     is_nullable => 0, size => 1,                           },
     );
 
 __PACKAGE__->set_primary_key(qw/id/);
@@ -36,7 +36,7 @@ set. This count may include $self.
 sub peers_need_fitting
 {
         my ($self) = @_;
-        $self->peer_elements->search({-not =>  { is_fitted => 1,}})->count;
+        return scalar $self->peer_elements->search({is_fitted => { '!=' => 1,}});
 }
 
 1;
