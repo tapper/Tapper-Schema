@@ -24,6 +24,20 @@ __PACKAGE__->belongs_to( testrun       => "${basepkg}::Testrun",         { 'fore
 __PACKAGE__->belongs_to( scenario      => "${basepkg}::Scenario",        { 'foreign.id'  => 'self.scenario_id'           });
 __PACKAGE__->has_many  ( peer_elements => "${basepkg}::ScenarioElement", { 'foreign.scenario_id'   => 'self.scenario_id' });
 
+=head2 peers_need_fitting
+
+Count how many elements of this scenario do not have is_fitted already
+set. This count may include $self.
+
+@return int - number of unfitted elements in same scenario
+
+=cut
+
+sub peers_need_fitting
+{
+        my ($self) = @_;
+        $self->peer_elements->search({-not =>  { is_fitted => 1,}})->count;
+}
 
 1;
 
