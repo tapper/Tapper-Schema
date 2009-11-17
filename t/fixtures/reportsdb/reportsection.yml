@@ -1,6 +1,19 @@
 ---
 
 - schema: Report
+  name: dummy 0
+  data:
+    id: 20
+    tap: |
+      1..5
+      OK 1 einz
+      OK 2 zvei
+      OK 3 trei
+      OK 4 fier
+      OK 4 fümf
+
+
+- schema: Report
   name: dummy 1
   data:
     id: 21
