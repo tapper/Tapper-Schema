@@ -99,6 +99,17 @@ sub sections_osname
         return @cpus;
 }
 
+sub some_meta_available
+{
+        my ($self) = @_;
+
+        my $sections = $self->reportsections;
+        while (my $section = $sections->next) {
+                return 1 if $section->some_meta_available;
+        }
+        return 0;
+}
+
 sub get_cached_tapdom
 {
         my ($r) = @_;

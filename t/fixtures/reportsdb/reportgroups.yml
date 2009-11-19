@@ -6,6 +6,8 @@
     id: 21
     tap: |
       1..4
+      # Artemis-Suite-Name: Hossa
+      # Artemis-Suite-Version: 1.0
       OK 1 foo AAA
       OK 2 bar AAA
       OK 3 affe AAA
@@ -17,9 +19,11 @@
     id: 22
     tap: |
       1..4
+      # Artemis-Suite-Name: Hossa
+      # Artemis-Suite-Version: 1.0
       OK 1 foo BBB
       OK 2 bar BBB
-      OK 3 affe BBB
+      NOT OK 3 affe BBB
       OK 4 zomtec BBB
 
 - schema: Report
@@ -28,6 +32,8 @@
     id: 23
     tap: |
       1..4
+      # Artemis-Suite-Name: Hossa
+      # Artemis-Suite-Version: 1.0
       OK 1 foo CCC
       OK 2 bar CCC
       OK 3 affe CCC
@@ -39,6 +45,8 @@
     id: 24
     tap: |
       1..4
+      # Artemis-Suite-Name: Hossa
+      # Artemis-Suite-Version: 1.0
       OK 1 foo DDD
       OK 2 bar DDD
       OK 3 affe DDD
@@ -50,6 +58,8 @@
     id: 25
     tap: |
       1..4
+      # Artemis-Suite-Name: Hossa
+      # Artemis-Suite-Version: 1.0
       OK 1 foo EEE
       OK 2 bar EEE
       OK 3 affe EEE
@@ -61,6 +71,8 @@
     id: 26
     tap: |
       1..4
+      # Artemis-Suite-Name: Hossa
+      # Artemis-Suite-Version: 1.0
       OK 1 foo FFF
       OK 2 bar FFF
       OK 3 affe FFF

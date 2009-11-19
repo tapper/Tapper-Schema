@@ -13,7 +13,7 @@ use Test::Deep;
 use Scalar::Util;
 
 BEGIN {
-        plan tests => 23;
+        plan tests => 25;
         use_ok( 'Artemis::Schema::ReportsDB' );
 }
 
@@ -35,14 +35,18 @@ is( reportsdb_schema->resultset('ReportSection')->count, 8,  "reportsection coun
 my @reportsections = reportsdb_schema->resultset('ReportSection')->search({report_id => 21})->all;
 is( scalar @reportsections, 8,  "reportsection count" );
 
-is( $reportsections[0]->some_meta_available, 1, "some meta available");
-is( $reportsections[1]->some_meta_available, 1, "some meta available");
-is( $reportsections[2]->some_meta_available, 1, "some meta available");
-is( $reportsections[3]->some_meta_available, 1, "some meta available");
-is( $reportsections[4]->some_meta_available, 1, "some meta available");
-is( $reportsections[5]->some_meta_available, 0, "some meta available");
-is( $reportsections[6]->some_meta_available, 1, "some meta available");
-is( $reportsections[7]->some_meta_available, 1, "some meta available");
+is( $reportsections[0]->some_meta_available, 1, "section - some meta available 0");
+is( $reportsections[1]->some_meta_available, 1, "section - some meta available 1");
+is( $reportsections[2]->some_meta_available, 1, "section - some meta available 2");
+is( $reportsections[3]->some_meta_available, 1, "section - some meta available 3");
+is( $reportsections[4]->some_meta_available, 1, "section - some meta available 4");
+is( $reportsections[5]->some_meta_available, 0, "section - some meta available 5");
+is( $reportsections[6]->some_meta_available, 1, "section - some meta available 6");
+is( $reportsections[7]->some_meta_available, 1, "section - some meta available 7");
+
+is( reportsdb_schema->resultset('Report')->find(20)->some_meta_available, 0, "report - some_meta_available 0");
+is( reportsdb_schema->resultset('Report')->find(21)->some_meta_available, 1, "report - some_meta_available 1");
+
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/reportgroups.yml' );
