@@ -36,7 +36,7 @@ set. This count may include $self.
 sub peers_need_fitting
 {
         my ($self) = @_;
-        return scalar $self->peer_elements->search({is_fitted => { '!=' => 1,}});
+        return $self->peer_elements->search({is_fitted => { '!=' => 1,}})->count;
 }
 
 1;
