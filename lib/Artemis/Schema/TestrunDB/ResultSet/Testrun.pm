@@ -78,6 +78,24 @@ sub add {
              });
         $testrunscheduling->insert;
 
+        if ($args->{scenario_id}) {
+                my $scenario_element = $self->result_source->schema->resultset('ScenarioElement')->new
+                  ({
+                    scenario_id => $args->{scenario_id},
+                    testrun_id  => $testrun->id,
+                   });
+                $scenario_element->insert;
+        }
+
+        foreach my $host_id(@{$args->{requested_host_ids}}) {
+                my $requested_host = $self->result_source->schema->resultset('TestrunRequestedHost')->new
+                  ({
+                    host_id => $host_id,
+                    testrun_id  => $testrun->id,
+                   });
+                $requested_host->insert;
+        }
+
         return $testrun->id;
 }
 
