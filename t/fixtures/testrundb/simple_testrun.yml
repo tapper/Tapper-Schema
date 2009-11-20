@@ -337,3 +337,26 @@
     id: 9
     name: bascha
     free: 1
+# -------------------- scenarios --------------------
+
+- schema: Scenario
+  name: interdep
+  data:
+    id: 1
+    type: interdep
+
+- schema: ScenarioElement
+  name: aaa_interdep
+  data:
+    id: 1
+    scenario_id: 1
+    testrun_id: 1001
+    is_fitted: 0
+
+- schema: ScenarioElement
+  name: aaa2_interdep
+  data:
+    id: 2
+    scenario_id: 1
+    testrun_id: 1002
+    is_fitted: 0
