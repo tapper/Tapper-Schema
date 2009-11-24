@@ -5,7 +5,7 @@ package Artemis::Schema::TestrunDB::Result::TestrunScheduling;
 use 5.010;
 use strict;
 use warnings;
-
+use YAML;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
@@ -235,7 +235,8 @@ sub produce_preconditions
                                 $self->testrun->update;
                         }
 
-                        my @new_ids = $self->result_source->schema->resultset('Precondition')->add($new_precondition_yaml);
+                        my @precond_array = Load($new_precondition_yaml);
+                        my @new_ids = $self->result_source->schema->resultset('Precondition')->add(\@precond_array);
                         push @new_preconditions, @new_ids;
                 } else {
                         push @new_preconditions, $precondition->id;
