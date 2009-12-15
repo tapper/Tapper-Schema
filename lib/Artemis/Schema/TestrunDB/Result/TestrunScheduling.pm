@@ -5,7 +5,7 @@ package Artemis::Schema::TestrunDB::Result::TestrunScheduling;
 use 5.010;
 use strict;
 use warnings;
-use YAML;
+use YAML::Syck;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
