@@ -21,8 +21,8 @@ __PACKAGE__->add_columns
      "endtime_test_program",      { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
      "hardwaredb_systems_id",     { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,                            },
      "owner_user_id",             { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,    is_foreign_key => 1,    },
-     "test_program",              { data_type => "VARCHAR",   default_value => "",                   is_nullable => 0, size => 255,                           },
      "wait_after_tests",          { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 1,                             },
+     "rerun_on_error"             { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 11,                            }, # number of times to rerun this test on error
      "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
      "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
     );
