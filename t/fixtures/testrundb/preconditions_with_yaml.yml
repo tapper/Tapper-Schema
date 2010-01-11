@@ -10,7 +10,6 @@
     shortname: lmbench
     notes: artemis test suite lmbench wrapper
     topic_name: Distribution
-    test_program: /usr/local/share/artemis/testsuites/lmbench/t/do_test.sh
 
 # -------------------- preconditions
 
