@@ -12,7 +12,6 @@ use Test::Fixture::DBIC::Schema;
 use Test::More;
 
 BEGIN {
-        plan tests => 50;
         use_ok( 'Artemis::Schema::TestrunDB' );
 }
 
@@ -62,7 +61,7 @@ is($perfmon_run->notes, 'perfmon', "testrun notes");
 is($perfmon_run->topic_name, 'Software', "testrun topic_name");
 #is($perfmon_run->topic->name, 'Software', "testrun topic->name");
 #is($perfmon_run->topic->description, 'any non-kernel software, e.g., libraries, programs', "testrun topic->description");
-is($perfmon_run->test_program, '/usr/local/share/artemis/testsuites/perfmon/t/do_test.sh', "testrun test_program");
+is($perfmon_run->rerun_on_error, 0, "testrun rerun_on_error");  # default value
 
 is($perfmon_run->owner->name, 'Steffen Schwigon', "testrun user->name");
 is($perfmon_run->owner->login, 'sschwigo', "testrun user->login");
@@ -196,3 +195,5 @@ my $testrun2 = testrundb_schema->resultset('Testrun')->search({ shortname => 'lm
 
 my @filtered_precondition_ids = map { $_->id } grep { $_->precondition_as_hash->{precondition_type} =~ /^image|package$/ } @ordered_preconditions;
 is_deeply(\@filtered_precondition_ids, [ 9, 10, 8, 11, 12 ], "filtered preconditions without artemis-tools");
+
+done_testing();
