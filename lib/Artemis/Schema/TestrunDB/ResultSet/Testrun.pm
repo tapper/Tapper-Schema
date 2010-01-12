@@ -64,6 +64,7 @@ sub add {
               starttime_earliest    => $args->{earliest},
               owner_user_id         => $args->{owner_user_id},
               hardwaredb_systems_id => $args->{hardwaredb_systems_id},
+              rerun_on_error        => $args->{rerun_on_error},
              });
 
         $testrun->insert;
