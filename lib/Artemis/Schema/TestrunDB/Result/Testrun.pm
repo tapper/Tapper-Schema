@@ -128,7 +128,6 @@ sub rerun
               shortname             => $args->{shortname}             || $self->shortname,
               topic_name            => $args->{topic_name}            || $self->topic_name,
               starttime_earliest    => $args->{earliest}              || DateTime->now,
-              test_program          => '',
               owner_user_id         => $args->{owner_user_id}         || $self->owner_user_id,
              });
 
