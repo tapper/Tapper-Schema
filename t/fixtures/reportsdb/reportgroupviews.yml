@@ -9,7 +9,7 @@
     name: "parselogs"
     type: "software"
     description: "parselogs suite"
-    
+
 - schema: Suite
   name: edac
   data:
@@ -43,6 +43,7 @@
   data:
     id: 21
     suite_id: 113
+    machine_name: "machine1a"
     tap: |
       1..4
       # Artemis-Suite-Name: parselogs
@@ -57,6 +58,7 @@
   data:
     id: 22
     suite_id: 116
+    machine_name: "machine1b"
     tap: |
       1..4
       # Artemis-Suite-Name: HWTrack
@@ -71,6 +73,7 @@
   data:
     id: 23
     suite_id: 115
+    machine_name: "machine1c"
     tap: |
       1..4
       # Artemis-Suite-Name: Topic-Hossa
@@ -87,6 +90,7 @@
   data:
     id: 24
     suite_id: 113
+    machine_name: "machine2a"
     tap: |
       1..4
       # Artemis-Suite-Name: parselogs
@@ -101,6 +105,7 @@
   data:
     id: 25
     suite_id: 116
+    machine_name: "machine2b"
     tap: |
       1..4
       # Artemis-Suite-Name: HWTrack
@@ -115,6 +120,7 @@
   data:
     id: 26
     suite_id: 115
+    machine_name: "machine2c"
     tap: |
       1..4
       # Artemis-Suite-Name: Topic-Hossa
