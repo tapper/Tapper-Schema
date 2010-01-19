@@ -7,24 +7,32 @@
   data:
     id: 113
     name: "parselogs"
+    type: "software"
+    description: "parselogs suite"
     
 - schema: Suite
   name: edac
   data:
     id: 114
     name: "EDAC"
+    type: "software"
+    description: "EDAC suite"
     
 - schema: Suite
   name: topic-hossa
   data:
     id: 115
     name: "Topic-Hossa"
+    type: "software"
+    description: "Topic-Hossa suite"
     
 - schema: Suite
   name: mcp-overview
   data:
     id: 116
     name: "HWTrack"
+    type: "software"
+    description: "HWTrack suite"
     
 # ==================== reports ====================
 
