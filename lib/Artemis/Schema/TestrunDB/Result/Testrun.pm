@@ -172,6 +172,15 @@ sub rerun
         return $testrun_new->id;
 }
 
+=head2 assign_preconditions
+
+Assign given preconditions to this testrun.
+
+@return success - 0
+@return error   - error message
+
+=cut
+
 sub assign_preconditions {
         my ($self, @preconditions) = @_;
 
@@ -183,10 +192,13 @@ sub assign_preconditions {
                       precondition_id => $precondition_id,
                       succession      => $succession,
                      });
-                $testrun_precondition->insert;
+                eval {
+                        $testrun_precondition->insert;
+                };
+                return "Can not assign $precondition_id: $@" if $@;
                 $succession++;
         }
-        return 0; # 0 == success (ask Maik if in doubt! :-)
+        return 0; 
 }
 
 sub disassign_preconditions {
