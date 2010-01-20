@@ -146,18 +146,17 @@ sub rerun
 
         # prepare job scheduling infos
         my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->search({ testrun_id => $self->id })->first;
-        my $queue_id;
-        my $host_id;
-        my $auto_rerun;
+        my ($queue_id, $host_id, $auto_rerun, $requested_features, $requested_hosts);
         if ($testrunscheduling) {
-                $queue_id = $testrunscheduling->queue_id;
-                $host_id  = $testrunscheduling->host_id;
-                $auto_rerun = $testrunscheduling->auto_rerun;
+                $queue_id           = $testrunscheduling->queue_id;
+                $host_id            = $testrunscheduling->host_id;
+                $auto_rerun         = $testrunscheduling->auto_rerun;
+                $requested_features = $testrunscheduling->requested_features;
+                $requested_hosts    = $testrunscheduling->requested_hosts;
         } else {
                 my $queue = $self->result_source->schema->resultset('Queue')->search({ name => "AdHoc"} )->first;
                 if (not $queue) {
-                        warn "No default queue 'AdHoc' found.";
-                        return;
+                        die "No default queue 'AdHoc' found.";
                 }
                 $queue_id = $queue->id;
                 $auto_rerun = 0;
@@ -169,11 +168,25 @@ sub rerun
             ({
               testrun_id => $testrun_new->id,
               queue_id   => $args->{queue_id} || $queue_id,
-              status     => "schedule",
+              status     => "prepare",
               auto_rerun => $args->{host_id}  // $auto_rerun,
               host_id    => undef,
              });
         $testrunscheduling_new->insert;
+
+        # assign requested host and features
+        if ($testrunscheduling->requested_features->count) {
+                foreach my $feature (map {$_->feature}$testrunscheduling->requested_features->all) {
+                        my $assigned_feature = $self->result_source->schema->resultset('TestrunRequestedFeature')->new({feature => $feature, testrun_id => $testrun_new->id});
+                        $assigned_feature->insert;
+                }
+        }
+        if ($testrunscheduling->requested_hosts->count) {
+                foreach my $host_id (map {$_->host_id}$testrunscheduling->requested_hosts->all) {
+                        my $assigned_host = $self->result_source->schema->resultset('TestrunRequestedHost')->new({host_id => $host_id, testrun_id => $testrun_new->id});
+                        $assigned_host->insert;
+                }
+        }
 
         # assign preconditions
         my $preconditions = $self->preconditions->search({}, {order_by => 'succession'});
