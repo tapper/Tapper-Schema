@@ -118,6 +118,19 @@ sub update_content {
         return $self->id;
 }
 
+=head2
+
+Insert a new testrun similar to this one. Arguments can be given to overwrite
+some values. All values of the new testrun not given as argument will be taken
+from $self.
+
+@param hash ref - overwrite arguments
+
+@return success - new testrun id
+@return error   - exception
+
+=cut
+
 sub rerun
 {
         my ($self, $args) = @_;
