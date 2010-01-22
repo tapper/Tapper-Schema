@@ -1,10 +1,20 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Tue Jan 19 16:11:28 2010
+-- Created on Wed Jan 20 14:43:35 2010
 -- 
 
 
 BEGIN TRANSACTION;
+
+--
+-- Table: scenario
+--
+DROP TABLE scenario;
+
+CREATE TABLE scenario (
+  id INTEGER PRIMARY KEY NOT NULL,
+  type VARCHAR(255) NOT NULL DEFAULT ''
+);
 
 --
 -- Table: host
@@ -19,6 +29,22 @@ CREATE TABLE host (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME
 );
+
+--
+-- Table: scenario_element
+--
+DROP TABLE scenario_element;
+
+CREATE TABLE scenario_element (
+  id INTEGER PRIMARY KEY NOT NULL,
+  testrun_id INT(11) NOT NULL,
+  scenario_id INT(11) NOT NULL,
+  is_fitted INT(1) NOT NULL DEFAULT '0'
+);
+
+CREATE INDEX scenario_element_idx_scenario_id ON scenario_element (scenario_id);
+
+CREATE INDEX scenario_element_idx_testrun_id ON scenario_element (testrun_id);
 
 --
 -- Table: precondition
@@ -58,16 +84,6 @@ CREATE TABLE queue (
 );
 
 CREATE UNIQUE INDEX unique_queue_name ON queue (name);
-
---
--- Table: scenario
---
-DROP TABLE scenario;
-
-CREATE TABLE scenario (
-  id INTEGER PRIMARY KEY NOT NULL,
-  type VARCHAR(255) NOT NULL DEFAULT ''
-);
 
 --
 -- Table: topic
@@ -159,22 +175,6 @@ CREATE TABLE testrun_requested_feature (
 );
 
 CREATE INDEX testrun_requested_feature_idx_testrun_id ON testrun_requested_feature (testrun_id);
-
---
--- Table: scenario_element
---
-DROP TABLE scenario_element;
-
-CREATE TABLE scenario_element (
-  id INTEGER PRIMARY KEY NOT NULL,
-  testrun_id INT(11) NOT NULL,
-  scenario_id INT(11) NOT NULL,
-  is_fitted INT(1) NOT NULL DEFAULT '0'
-);
-
-CREATE INDEX scenario_element_idx_scenario_id ON scenario_element (scenario_id);
-
-CREATE INDEX scenario_element_idx_testrun_id ON scenario_element (testrun_id);
 
 --
 -- Table: testrun_precondition
