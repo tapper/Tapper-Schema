@@ -94,7 +94,7 @@ my $new_testrun = model->resultset('Testrun')->find($new_testrun_id);
 
 my @new_host = map {$_->host->name} $new_testrun->testrun_scheduling->requested_hosts->all;
 cmp_bag( \@new_host , \@host, 'Requested hosts of rerun test');
-
+is($new_testrun->testrun_scheduling->status, 'schedule','State of rerun test');
 
 done_testing();
 
