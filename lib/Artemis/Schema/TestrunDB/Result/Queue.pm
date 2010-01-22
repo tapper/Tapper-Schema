@@ -130,6 +130,7 @@ sub update_content {
         my ($self, $args) =@_;
 
         $self->priority( $args->{priority} ) if exists($args->{priority});
+        $self->active( $args->{active} ) if exists($args->{active});
         $self->update;
         return $self->id;
 }
