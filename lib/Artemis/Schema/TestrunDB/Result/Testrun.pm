@@ -175,13 +175,13 @@ sub rerun
         $testrunscheduling_new->insert;
 
         # assign requested host and features
-        if ($testrunscheduling->requested_features->count) {
+        if ($testrunscheduling and $testrunscheduling->requested_features->count) {
                 foreach my $feature (map {$_->feature}$testrunscheduling->requested_features->all) {
                         my $assigned_feature = $self->result_source->schema->resultset('TestrunRequestedFeature')->new({feature => $feature, testrun_id => $testrun_new->id});
                         $assigned_feature->insert;
                 }
         }
-        if ($testrunscheduling->requested_hosts->count) {
+        if ($testrunscheduling and $testrunscheduling->requested_hosts->count) {
                 foreach my $host_id (map {$_->host_id}$testrunscheduling->requested_hosts->all) {
                         my $assigned_host = $self->result_source->schema->resultset('TestrunRequestedHost')->new({host_id => $host_id, testrun_id => $testrun_new->id});
                         $assigned_host->insert;
@@ -194,6 +194,8 @@ sub rerun
         while (my $precond = $preconditions->next) {
                 push @preconditions, $precond->id;
         }
+        $testrunscheduling_new->status('schedule');
+        $testrunscheduling_new->update;
         $testrun_new->assign_preconditions(@preconditions);
         return $testrun_new->id;
 }
