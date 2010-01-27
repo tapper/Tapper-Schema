@@ -6,7 +6,6 @@ use strict;
 
 our $VERSION = '2.010075';
 
-
 =head1 NAME
 
 Artemis::Schema - Database schemas for Artemis
