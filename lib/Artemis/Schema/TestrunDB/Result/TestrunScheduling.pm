@@ -15,8 +15,8 @@ __PACKAGE__->add_columns
      "id",              { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,  is_auto_increment => 1,                                 },
      "testrun_id",      { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,  is_foreign_key => 1,                                    },
      "queue_id",        { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 11,  is_foreign_key => 1,                                    },
-     "mergedqueue_seq", { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,                                                          },
      "host_id",         { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,  is_foreign_key => 1,                                    },
+     "prioqueue_seq",   { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,                                                          },
      "status",          { data_type => "VARCHAR",   default_value => "prepare",            is_nullable => 1, size => 255, is_enum => 1, extra => { list => [qw(prepare schedule running finished)] } },
      "auto_rerun",      { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                                                      },
      "created_at",      { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                                                      }, # '
@@ -185,7 +185,7 @@ sub mark_as_running
         # set scheduling info
         $self->status("running");
         $self->host->free(0);
-        $self->mergedqueue_seq(undef);
+        $self->prioqueue_seq(undef);
 
         # sync db
         $self->host->update;
@@ -247,6 +247,8 @@ sub produce_preconditions
         $self->testrun->assign_preconditions(@new_preconditions);
         return 0;
 }
+
+
 
 1;
 
