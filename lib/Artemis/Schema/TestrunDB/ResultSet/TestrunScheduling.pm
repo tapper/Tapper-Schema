@@ -8,7 +8,7 @@ use parent 'DBIx::Class::ResultSet';
 
 sub non_scheduled_jobs
 {
-        shift->search({ mergedqueue_seq => undef, status => "schedule" });
+        shift->search(status => "schedule" );
 }
 
 1;
