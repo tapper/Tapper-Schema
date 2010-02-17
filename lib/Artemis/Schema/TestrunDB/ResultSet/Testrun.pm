@@ -69,6 +69,7 @@ sub add {
 
         $testrun->insert;
 
+
         my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->new
             ({
               testrun_id => $testrun->id,
@@ -77,6 +78,10 @@ sub add {
               status     => "schedule",
               auto_rerun => $args->{auto_rerun} || 0,
              });
+        if ($args->{priority}) {
+                $testrunscheduling->prioqueue_seq($self->result_source->schema->resultset('TestrunScheduling')->max_priority_seq()+1);
+        }
+
         $testrunscheduling->insert;
 
         if ($args->{scenario_id}) {
