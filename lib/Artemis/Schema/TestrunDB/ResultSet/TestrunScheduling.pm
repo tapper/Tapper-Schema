@@ -12,7 +12,9 @@ sub non_scheduled_jobs
 }
 
 sub max_priority_seq {
-        my $job_with_max_seq = model('TestrunDB')->resultset('TestrunScheduling')->search
+        my ($self) = @_;
+
+        my $job_with_max_seq = $self->result_source->schema->resultset('TestrunScheduling')->search
           (
            { prioqueue_seq => { '>', 0 } },
            {
