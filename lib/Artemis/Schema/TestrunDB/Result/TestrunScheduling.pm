@@ -89,6 +89,7 @@ sub _helper {
 # vendor eq "AMD";      # without argument returns the value
 # @_ means this optional param
 # $_ is the current context inside the while-loop (see below) where the eval happens
+sub hostname(;$) { _helper($_->{features}{hostname}, undef,      @_) }
 sub mem(;$)      { _helper($_->{features}{mem},      undef,      @_) }
 sub vendor(;$)   { _helper($_->{features}{cpu},      'vendors',  @_) }
 sub family(;$)   { _helper($_->{features}{cpu},      'family',   @_) }
@@ -122,8 +123,10 @@ sub match_feature {
                 
                 foreach my $this_feature( $self->requested_features->all )
                 {
-                        no warnings 'uninitialized';
+                        no warnings;
+                        no strict 'subs';
                         my $success = eval $this_feature->feature;
+                        use strict;
                         print STDERR "Error in TestRequest.fits: ", $@ if $@;
                         next HOST if not $success;
                 }
