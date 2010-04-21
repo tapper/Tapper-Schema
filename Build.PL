@@ -30,7 +30,7 @@ my $builder = Module::Build->new
                   'SQL::Translator'                => 0,
                   'Artemis::TAP::Harness'          => 0,
                   'Artemis::Exception::Param'      => 0,
-                  'TAP::DOM'                       => '0.05',
+                  'TAP::DOM'                       => '0.07',
                  },
      add_to_cleanup      => [ 'Artemis-Schema-*' ],
     );

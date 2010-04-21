@@ -153,6 +153,7 @@ sub get_cached_tapdom
                                 #say STDERR length($rawtap);
                                 my $tapdom = new TAP::DOM ( tap    => $rawtap,
                                                             ignore => [qw( raw as_string )],
+                                                            ignorelines => qr/^\#\# /,        # mostly used in oprofile
                                                           );
                                 push @$tapdom_sections, { section => { $_->{section_name} => { tap     => $tapdom,
                                                                                                meta => $_->{section_meta},
