@@ -13,7 +13,6 @@ sub official_queuelist {
         my %queues;
         while (my $q = $self->next) {
                 next if not $q->active;
-                my %producer;
                 $queues{$q->name} = $q;
         }
         return \%queues;
