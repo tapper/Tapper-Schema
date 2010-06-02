@@ -19,6 +19,7 @@ __PACKAGE__->add_columns
      "uname",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "flags",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "changeset",               { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "kernel",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "description",             { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "cpuinfo",                 { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
@@ -70,7 +71,7 @@ sub some_meta_available
         # this enumeration is a bit lame. anyway: copy the list from Artemis::TAP::Harness.@SECTION_HEADER_KEYS_GENERAL.
         # TODO: make it so (put list into schema and copy it from schema to Harness)
         my @meta_cols = qw/ram cpuinfo bios lspci lsusb uname osname uptime language-description
-                           flags changeset description
+                           flags kernel changeset description
                            xen-version xen-changeset xen-dom0-kernel xen-base-os-description
                            xen-guest-description xen-guest-test xen-guest-start xen-guest-flags xen-hvbits
                            kvm-module-version kvm-userspace-version kvm-kernel

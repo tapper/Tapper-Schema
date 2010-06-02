@@ -32,6 +32,7 @@
     report_id: 21
     osname: 1
     uname:
+    kernel:
     language_description:
     cpuinfo:
     ram:
@@ -52,6 +53,7 @@
     report_id: 21
     osname:
     uname:
+    kernel:
     language_description: 2
     cpuinfo:
     ram:
@@ -71,6 +73,7 @@
     report_id: 21
     osname:
     uname:
+    kernel:
     language_description:
     cpuinfo:
     ram:
@@ -91,6 +94,7 @@
     report_id: 21
     osname:
     uname:
+    kernel:
     language_description:
     cpuinfo:
     ram:
@@ -111,6 +115,7 @@
     report_id: 21
     osname:
     uname:
+    kernel:
     language_description:
     cpuinfo:
     ram:
@@ -131,6 +136,7 @@
     report_id: 21
     osname:
     uname:
+    kernel:
     language_description:
     cpuinfo:
     ram:
@@ -151,6 +157,7 @@
     report_id: 21
     osname:
     uname:
+    kernel:
     language_description:
     cpuinfo:
     ram:
@@ -171,6 +178,7 @@
     report_id: 21
     osname:
     uname:
+    kernel:
     language_description:
     cpuinfo:
     ram:
