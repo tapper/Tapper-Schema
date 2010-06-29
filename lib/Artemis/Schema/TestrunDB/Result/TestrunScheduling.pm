@@ -93,17 +93,17 @@ sub _helper {
 # $_ is the current context inside the while-loop (see below) where the eval happens
 sub hostname(;$)    { _helper($_->{features}{hostname}, undef,      @_) }
 sub mem(;$)         { _helper($_->{features}{mem},      undef,      @_) }
-sub vendor(;$)      { _helper($_->{features}{cpu},      'vendors',  @_) }
-sub family(;$)      { _helper($_->{features}{cpu},      'family',   @_) }
-sub model(;$)       { _helper($_->{features}{cpu},      'model',    @_) }
-sub stepping(;$)    { _helper($_->{features}{cpu},      'stepping', @_) }
-sub revision(;$)    { _helper($_->{features}{cpu},      'revision', @_) }
-sub socket_type(;$) { _helper($_->{features}{cpu},      'socket',   @_) }
-sub cores(;$)       { _helper($_->{features}{cpu},      'cores',    @_) }
-sub clock(;$)       { _helper($_->{features}{cpu},      'clock',    @_) }
-sub l2cache(;$)     { _helper($_->{features}{cpu},      'l2cache',  @_) }
-sub l3cache(;$)     { _helper($_->{features}{cpu},      'l3cache',  @_) }
-sub has_ecc()       { socket_type($_) eq any('F', 'C32', 'G34') ? 1 : 0 }
+sub vendor(;$)      { _helper($_->{features}{cpus},      'vendors',  @_) }
+sub family(;$)      { _helper($_->{features}{cpus},      'family',   @_) }
+sub model(;$)       { _helper($_->{features}{cpus},      'model',    @_) }
+sub stepping(;$)    { _helper($_->{features}{cpus},      'stepping', @_) }
+sub revision(;$)    { _helper($_->{features}{cpus},      'revision', @_) }
+sub socket_type(;$) { _helper($_->{features}{cpus},      'socket',   @_) }
+sub cores(;$)       { _helper($_->{features}{cpus},      'cores',    @_) }
+sub clock(;$)       { _helper($_->{features}{cpus},      'clock',    @_) }
+sub l2cache(;$)     { _helper($_->{features}{cpus},      'l2cache',  @_) }
+sub l3cache(;$)     { _helper($_->{features}{cpus},      'l3cache',  @_) }
+sub has_ecc()       { socket_type() eq any('F', 'C32', 'G34') ? 1 : 0 }
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
