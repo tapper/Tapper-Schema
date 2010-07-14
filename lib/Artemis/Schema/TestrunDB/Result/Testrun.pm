@@ -14,7 +14,7 @@ __PACKAGE__->add_columns
      "id",                        { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,    is_auto_increment => 1, },
      "shortname",                 { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
      "notes",                     { data_type => "TEXT",      default_value => "",                   is_nullable => 1,                                        },
-     "topic_name",                { data_type => "VARCHAR",   default_value => "",                   is_nullable => 0, size => 20,    is_foreign_key => 1,    },
+     "topic_name",                { data_type => "VARCHAR",   default_value => "",                   is_nullable => 0, size => 255,    is_foreign_key => 1,    },
      "starttime_earliest",        { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
      "starttime_testrun",         { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
      "starttime_test_program",    { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
