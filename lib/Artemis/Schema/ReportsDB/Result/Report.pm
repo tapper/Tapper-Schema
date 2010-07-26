@@ -5,7 +5,6 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use parent 'Artemis::Schema::Printable';
 
 use Data::Dumper;
 
