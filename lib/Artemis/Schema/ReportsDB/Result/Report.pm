@@ -20,12 +20,6 @@ __PACKAGE__->add_columns
      "peerport",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 20,                             },
      "peerhost",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
      #
-     # raw tap
-     #
-     #"tap",                    { data_type => "TEXT",     default_value => "",     is_nullable => 0,                                         },
-     "tap",                     { data_type => "LONGBLOB", default_value => "",     is_nullable => 0,                                         },
-     "tapdom",                  { data_type => "LONGBLOB", default_value => "",     is_nullable => 1,                                         },
-     #
      # tap parse result and its human interpretation
      #
      "successgrade",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 10,                             },
@@ -60,6 +54,7 @@ __PACKAGE__->set_primary_key("id");
 __PACKAGE__->belongs_to   ( suite                => 'Artemis::Schema::ReportsDB::Result::Suite',                { 'foreign.id'        => 'self.suite_id' }, { 'join_type' => 'LEFT OUTER' });
 __PACKAGE__->belongs_to   ( reportgrouparbitrary => 'Artemis::Schema::ReportsDB::Result::ReportgroupArbitrary', { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
 __PACKAGE__->belongs_to   ( reportgrouptestrun   => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun',   { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->belongs_to   ( tap                  => 'Artemis::Schema::ReportsDB::Result::Tap',                 { 'foreign.report_id'        => 'self.id' }, { 'join_type' => 'LEFT OUTER' });
 
 __PACKAGE__->has_many     ( comments       => 'Artemis::Schema::ReportsDB::Result::ReportComment', { 'foreign.report_id' => 'self.id' });
 __PACKAGE__->has_many     ( topics         => 'Artemis::Schema::ReportsDB::Result::ReportTopic',   { 'foreign.report_id' => 'self.id' });
@@ -120,7 +115,7 @@ sub get_cached_tapdom
         my $tapdom_sections = [];
 
         my $report     = $r->result_source->schema->resultset('Report')->find($r->id);
-        my $tapdom_str = $report->tapdom;
+        my $tapdom_str = $report->tap->tapdom;
 
         # set ARTEMIS_FORCE_NEW_TAPDOM to force the re-generation of the TAP DOM, e.g. when the TAP::DOM module changes
         if ($tapdom_str and not -e '/tmp/ARTEMIS_FORCE_NEW_TAPDOM')
@@ -132,7 +127,7 @@ sub get_cached_tapdom
         {
                 # say STDERR "RUN ARTEMIS::TAP::HARNESS ", $r->id;
 
-                my $report_tap = $report->tap;
+                my $report_tap = $report->tap->tap;
 
                 # We got "Out of memory!" with monster TAP reports.
                 if (length $report_tap > 2_000_000) {
@@ -161,8 +156,9 @@ sub get_cached_tapdom
                                                         };
                         }
                         $tapdom_str = Dumper($tapdom_sections);
-                        $report->tapdom( $tapdom_str );
+                        $report->tap->tapdom( $tapdom_str );
                         #say STDERR "new report: ", Dumper($report);
+                        $report->tap->update;
                         $report->update;
                 }
         }

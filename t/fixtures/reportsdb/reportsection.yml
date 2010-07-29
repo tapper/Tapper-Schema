@@ -4,6 +4,12 @@
   name: dummy 0
   data:
     id: 20
+
+- schema: Tap
+  name: tap 0
+  data:
+    id: 10
+    report_id: 20
     tap: |
       1..5
       OK 1 einz
@@ -17,6 +23,12 @@
   name: dummy 1
   data:
     id: 21
+
+- schema: Tap
+  name: tap 1
+  data:
+    id: 11
+    report_id: 21
     tap: |
       1..4
       OK 1 foo
