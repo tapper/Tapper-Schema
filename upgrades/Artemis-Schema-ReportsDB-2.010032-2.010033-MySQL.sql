@@ -25,7 +25,7 @@ ALTER TABLE report DROP INDEX report_idx_id,
                    DROP COLUMN tap,
                    DROP COLUMN tapdom;
 
-DROP TABLE reportgroup;
+DROP TABLE IF EXISTS reportgroup;
 
 
 COMMIT;
