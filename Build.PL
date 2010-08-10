@@ -19,7 +19,7 @@ my $builder = Module::Build->new
                        },
      requires => {
                   'perl'                           => '5.010',
-                  'DBIx::Class'                    => "0.08109",
+                  'DBIx::Class'                    => "0.08123",
                   'Perl6::Junction'                => 0,
 		  'Test::Fixture::DBIC::Schema'    => "0.03",
                   'DateTime::Format::Builder'      => 0,
