@@ -25,7 +25,7 @@ is( reportsdb_schema->resultset('ReportgroupTestrunStats')->count, 2, "reportgro
 
 # find report
 my $report = reportsdb_schema->resultset('Report')->find(23);
-like($report->tap, qr/OK 2 bar CCC/ms, "found report");
+like($report->tap->tap, qr/OK 2 bar CCC/ms, "found report");
 
 # find according report group (grouped by testrun)
 my $rgt = $report->reportgrouptestrun;

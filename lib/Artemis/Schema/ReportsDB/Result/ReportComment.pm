@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use parent 'Artemis::Schema::Printable';
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime TimeStamp Core/);
 __PACKAGE__->table("reportcomment");

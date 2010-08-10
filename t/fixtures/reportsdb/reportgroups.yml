@@ -4,6 +4,12 @@
   name: dummy 1
   data:
     id: 21
+
+- schema: Tap
+  name: tap 1
+  data:
+    id: 1
+    report_id: 21
     tap: |
       1..4
       # Artemis-Suite-Name: Hossa
@@ -17,6 +23,12 @@
   name: dummy 2
   data:
     id: 22
+
+- schema: Tap
+  name: tap 2
+  data:
+    id: 2
+    report_id: 22
     tap: |
       1..4
       # Artemis-Suite-Name: Hossa
@@ -30,6 +42,12 @@
   name: dummy 3
   data:
     id: 23
+
+- schema: Tap
+  name: tap 3
+  data:
+    id: 3
+    report_id: 23
     tap: |
       1..4
       # Artemis-Suite-Name: Hossa
@@ -43,6 +61,12 @@
   name: dummy 4
   data:
     id: 24
+
+- schema: Tap
+  name: tap 4
+  data:
+    id: 4
+    report_id: 24
     tap: |
       1..4
       # Artemis-Suite-Name: Hossa
@@ -56,6 +80,12 @@
   name: dummy 5
   data:
     id: 25
+
+- schema: Tap
+  name: tap 5
+  data:
+    id: 5
+    report_id: 25
     tap: |
       1..4
       # Artemis-Suite-Name: Hossa
@@ -69,6 +99,12 @@
   name: dummy 6
   data:
     id: 26
+
+- schema: Tap
+  name: tap 6
+  data:
+    id: 6
+    report_id: 26
     tap: |
       1..4
       # Artemis-Suite-Name: Hossa

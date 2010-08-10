@@ -6,7 +6,6 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class::Core';
-use Data::Dumper;
 
 __PACKAGE__->table_class('DBIx::Class::ResultSource::View');
 
