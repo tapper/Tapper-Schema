@@ -44,6 +44,12 @@
     id: 21
     suite_id: 113
     machine_name: "machine1a"
+
+- schema: Tap
+  name: tap 1
+  data:
+    id: 1
+    report_id: 21
     tap: |
       1..4
       # Artemis-Suite-Name: parselogs
@@ -59,6 +65,12 @@
     id: 22
     suite_id: 116
     machine_name: "machine1b"
+
+- schema: Tap
+  name: tap 2
+  data:
+    id: 2
+    report_id: 22
     tap: |
       1..4
       # Artemis-Suite-Name: HWTrack
@@ -74,6 +86,12 @@
     id: 23
     suite_id: 115
     machine_name: "machine1c"
+
+- schema: Tap
+  name: tap 3
+  data:
+    id: 3
+    report_id: 23
     tap: |
       1..4
       # Artemis-Suite-Name: Topic-Hossa
@@ -91,6 +109,12 @@
     id: 24
     suite_id: 113
     machine_name: "machine2a"
+
+- schema: Tap
+  name: tap 4
+  data:
+    id: 4
+    report_id: 24
     tap: |
       1..4
       # Artemis-Suite-Name: parselogs
@@ -106,6 +130,12 @@
     id: 25
     suite_id: 116
     machine_name: "machine2b"
+
+- schema: Tap
+  name: tap 5
+  data:
+    id: 5
+    report_id: 25
     tap: |
       1..4
       # Artemis-Suite-Name: HWTrack
@@ -121,6 +151,13 @@
     id: 26
     suite_id: 115
     machine_name: "machine2c"
+
+
+- schema: Tap
+  name: tap 6
+  data:
+    id: 6
+    report_id: 26
     tap: |
       1..4
       # Artemis-Suite-Name: Topic-Hossa

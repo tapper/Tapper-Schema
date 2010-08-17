@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use parent 'Artemis::Schema::Printable';
 
 __PACKAGE__->load_components("Core");
 __PACKAGE__->table("reportsection");
@@ -19,6 +18,7 @@ __PACKAGE__->add_columns
      "uname",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "flags",                   { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "changeset",               { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "kernel",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "description",             { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "cpuinfo",                 { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
@@ -46,6 +46,13 @@ __PACKAGE__->add_columns
      "kvm_guest_flags",         { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "kvm_guest_test",          { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "kvm_guest_start",         { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     # simnow info
+     "simnow_svn_version",              { data_type => "VARCHAR",     default_value => undef, is_nullable => 1, size => 255, },
+     "simnow_version",                  { data_type => "VARCHAR",     default_value => undef, is_nullable => 1, size => 255  },
+     "simnow_svn_repository",           { data_type => "VARCHAR",     default_value => undef, is_nullable => 1, size => 255, },
+     "simnow_device_interface_version", { data_type => "VARCHAR",     default_value => undef, is_nullable => 1, size => 255, },
+     "simnow_bsd_file",                 { data_type => "VARCHAR",     default_value => undef, is_nullable => 1, size => 255, },
+     "simnow_image_file",               { data_type => "VARCHAR",     default_value => undef, is_nullable => 1, size => 255, },
     );
 
 __PACKAGE__->set_primary_key("id");
@@ -61,13 +68,20 @@ sub some_meta_available
         my %cols = $self->get_columns;
 
         # this enumeration is a bit lame. anyway: copy the list from Artemis::TAP::Harness.@SECTION_HEADER_KEYS_GENERAL.
+        # TODO: make it so (put list into schema and copy it from schema to Harness)
         my @meta_cols = qw/ram cpuinfo bios lspci lsusb uname osname uptime language-description
-                           flags changeset description
+                           flags kernel changeset description
                            xen-version xen-changeset xen-dom0-kernel xen-base-os-description
                            xen-guest-description xen-guest-test xen-guest-start xen-guest-flags xen-hvbits
                            kvm-module-version kvm-userspace-version kvm-kernel
                            kvm-base-os-description kvm-guest-description
                            kvm-guest-test kvm-guest-start kvm-guest-flags
+                           simnow-svn-version
+                           simnow-version
+                           simnow-svn-repository
+                           simnow-device-interface-version
+                           simnow-bsd-file
+                           simnow-image-file
                            flags
                           /;
         @meta_cols = map { s/-/_/g; $_ } @meta_cols;
