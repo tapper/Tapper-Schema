@@ -26,4 +26,16 @@ sub max_priority_seq {
 }
 
 
+=head2 running
+
+Get all running jobs.
+
+@return __PACKAGE__ object
+
+=cut
+
+sub running {
+        shift->search(status => 'running');
+}
+
 1;
