@@ -2,11 +2,9 @@
 
 package Artemis::Schema::TestrunDB::Result::TestrunScheduling;
 
-use 5.010;
-use strict;
-use warnings;
 use YAML::Syck;
-use Perl6::Junction qw/ any /;
+use Safe;
+use common::sense;
 
 use parent 'DBIx::Class';
 
@@ -103,7 +101,7 @@ sub cores(;$)       { _helper($_->{features}{cpus},      'cores',    @_) }
 sub clock(;$)       { _helper($_->{features}{cpus},      'clock',    @_) }
 sub l2cache(;$)     { _helper($_->{features}{cpus},      'l2cache',  @_) }
 sub l3cache(;$)     { _helper($_->{features}{cpus},      'l3cache',  @_) }
-sub has_ecc()       { socket_type() eq any('F', 'C32', 'G34') ? 1 : 0 }
+sub has_ecc()       { (socket_type() eq 'F' or socket_type() eq  'C32' or socket_type() eq 'G34') ? 1 : 0 }
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
@@ -123,13 +121,13 @@ sub match_feature {
                 }
 
                 $_ = $host;
+                my $compartment = Safe->new();
+                $compartment->permit(qw(:base_core));
+                $compartment->share(qw(hostname mem vendor family model stepping revision socket_type cores clock l2cache l3cache has_ecc));
                 
                 foreach my $this_feature( $self->requested_features->all )
                 {
-                        no warnings;
-                        no strict 'subs';
-                        my $success = eval $this_feature->feature;
-                        use strict;
+                        my $success = $compartment->reval($this_feature->feature);
                         print STDERR "Error in TestRequest.fits: ", $@ if $@;
                         next HOST if not $success;
                 }
