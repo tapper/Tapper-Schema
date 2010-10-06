@@ -122,9 +122,9 @@ sub producer
         my ($self) = @_;
 
         my $producer_class = "Artemis::MCP::Scheduler::PreconditionProducer::".$self->producer;
-        eval "use $producer_class";
+        eval "use $producer_class"; ## no critic (ProhibitStringyEval)
         return $producer_class->new unless $@;
-        return undef;
+        return;
 }
 
 sub produce

@@ -5,7 +5,7 @@ package Artemis::Schema::TestrunDB::Result::TestrunScheduling;
 use YAML::Syck;
 use Safe;
 use common::sense;
-
+## no critic (RequireUseStrict)
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
@@ -42,7 +42,7 @@ sub match_host {
 
         foreach my $req_host ($self->requested_hosts->all)
         {
-                no strict 'refs';
+                no strict 'refs'; ## no critic (ProhibitNoStrict)
         FREE_HOST:
                 foreach my $free_host( map {$_->{host} } @$free_hosts) {
                         if ($free_host->queuehosts->count){
@@ -89,19 +89,19 @@ sub _helper {
 # vendor eq "AMD";      # without argument returns the value
 # @_ means this optional param
 # $_ is the current context inside the while-loop (see below) where the eval happens
-sub hostname(;$)    { _helper($_->{features}{hostname}, undef,      @_) }
-sub mem(;$)         { _helper($_->{features}{mem},      undef,      @_) }
-sub vendor(;$)      { _helper($_->{features}{cpus},      'vendors',  @_) }
-sub family(;$)      { _helper($_->{features}{cpus},      'family',   @_) }
-sub model(;$)       { _helper($_->{features}{cpus},      'model',    @_) }
-sub stepping(;$)    { _helper($_->{features}{cpus},      'stepping', @_) }
-sub revision(;$)    { _helper($_->{features}{cpus},      'revision', @_) }
-sub socket_type(;$) { _helper($_->{features}{cpus},      'socket',   @_) }
-sub cores(;$)       { _helper($_->{features}{cpus},      'cores',    @_) }
-sub clock(;$)       { _helper($_->{features}{cpus},      'clock',    @_) }
-sub l2cache(;$)     { _helper($_->{features}{cpus},      'l2cache',  @_) }
-sub l3cache(;$)     { _helper($_->{features}{cpus},      'l3cache',  @_) }
-sub has_ecc()       { (socket_type() eq 'F' or socket_type() eq  'C32' or socket_type() eq 'G34') ? 1 : 0 }
+sub hostname(;$)    { _helper($_->{features}{hostname},  undef,      @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub mem(;$)         { _helper($_->{features}{mem},       undef,      @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub vendor(;$)      { _helper($_->{features}{cpus},      'vendors',  @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub family(;$)      { _helper($_->{features}{cpus},      'family',   @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub model(;$)       { _helper($_->{features}{cpus},      'model',    @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub stepping(;$)    { _helper($_->{features}{cpus},      'stepping', @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub revision(;$)    { _helper($_->{features}{cpus},      'revision', @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub socket_type(;$) { _helper($_->{features}{cpus},      'socket',   @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub cores(;$)       { _helper($_->{features}{cpus},      'cores',    @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub clock(;$)       { _helper($_->{features}{cpus},      'clock',    @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub l2cache(;$)     { _helper($_->{features}{cpus},      'l2cache',  @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub l3cache(;$)     { _helper($_->{features}{cpus},      'l3cache',  @_) } ## no critic (ProhibitSubroutinePrototypes)
+sub has_ecc()       { (socket_type() eq 'F' or socket_type() eq  'C32' or socket_type() eq 'G34') ? 1 : 0 } ## no critic (ProhibitSubroutinePrototypes)
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
@@ -225,7 +225,7 @@ sub produce_preconditions
                                 # TODO: warn here about precondition_type: produce without actual producer
                                 next PRECONDITION;
                         }
-                        eval "use Artemis::MCP::Scheduler::PreconditionProducer::$producer_name";
+                        eval "use Artemis::MCP::Scheduler::PreconditionProducer::$producer_name"; ## no critic (ProhibitStringyEval)
                         my $producer = "Artemis::MCP::Scheduler::PreconditionProducer::$producer_name"->new();
                         my $retval = $producer->produce($self, $precond_hash);
 
