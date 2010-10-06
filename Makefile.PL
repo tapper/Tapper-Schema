@@ -8,6 +8,7 @@ all_from 'lib/Artemis/Schema.pm';
 author   'OSRC SysInt Team <osrc-sysint@elbe.amd.com>';
 
 build_requires 'Test::More'               => 0;
+build_requires 'Test::Perl::Critic'       => 0;
 build_requires 'Artemis::Config'          => '2.01';
 build_requires 'Artemis::Test'            => '2.010011';
 build_requires 'Scalar::Util'             => 0;
