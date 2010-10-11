@@ -121,7 +121,7 @@ sub get_cached_tapdom
         if ($tapdom_str and not -e '/tmp/ARTEMIS_FORCE_NEW_TAPDOM')
         {
                 #say STDERR "EVAL ", $r->id;
-                eval '$tapdom_sections = my '.$tapdom_str;
+                eval '$tapdom_sections = my '.$tapdom_str; ## no critic (ProhibitStringyEval)
         }
         else
         {
