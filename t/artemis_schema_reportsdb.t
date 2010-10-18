@@ -72,9 +72,14 @@ is(Scalar::Util::reftype($tapdom), "ARRAY", "got tapdom");
 # get it again
 $report = reportsdb_schema->resultset('Report')->find(23);
 like($report->tap->tapdom, qr/\$VAR1/, "tapdom created on demand looks like Data::Dumper string");
-#diag "tapdom: ".$report->tapdom;
+#diag "tapdom1: ".$report->tap->tapdom;
 my $VAR1;
 eval $report->tap->tapdom;
 my $tapdom2 = $VAR1;
 #diag "tapdom2: ".Dumper($tapdom2);
-cmp_bag($tapdom2, $tapdom, "stored tapdom keeps constant");
+my $tapdom1 = $tapdom;
+
+# don't fiddle with nested qr/(?-xism(?-xism))/ issues
+$tapdom1->[0]{section}{'section-000'}{tap}{tapdom_config}{ignorelines} = 'ignore';
+$tapdom2->[0]{section}{'section-000'}{tap}{tapdom_config}{ignorelines} = 'ignore';
+cmp_bag($tapdom2, $tapdom1, "stored tapdom keeps constant");
