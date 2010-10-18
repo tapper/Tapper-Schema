@@ -28,5 +28,6 @@ requires 'DBIx::Class::InflateColumn::Object::Enum' => 0;
 requires 'SQL::Translator'                          => 0;
 requires 'Artemis::TAP::Harness'                    => 0;
 requires 'TAP::DOM'                                 => '0.07';
+requires 'DBD::Mysql'                                => 0;
 
 WriteAll;
