@@ -17,8 +17,8 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/testrun_id report_id/);
 
-# silly: __PACKAGE__->has_many   ( reports                 => 'Artemis::Schema::ReportsDB::Result::Report',                  { 'foreign.id'         => 'self.report_id'  });
 __PACKAGE__->might_have ( reportgrouptestrunstats => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrunStats', { 'foreign.testrun_id' => 'self.testrun_id' }, { is_foreign_key_constraint => 0 } );
+__PACKAGE__->belongs_to ( report => 'Artemis::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' } );
 
 # -------------------- methods on results --------------------
 
