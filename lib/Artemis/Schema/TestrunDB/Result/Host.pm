@@ -17,8 +17,6 @@ __PACKAGE__->add_columns
      "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
      "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
 
-     # the host's feature set is read dynamically from HardwareDB inside application
-
     );
 
 __PACKAGE__->set_primary_key("id");
