@@ -41,7 +41,6 @@ __PACKAGE__->add_columns
      "starttime_test_program",  { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      "endtime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      #
-     "hardwaredb_systems_id",   { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11,                             },
      "machine_name",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 50,                             },
      "machine_description",     { data_type => "TEXT",     default_value => "",     is_nullable => 1,                                         },
      #
