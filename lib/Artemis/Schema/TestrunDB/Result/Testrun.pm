@@ -19,7 +19,6 @@ __PACKAGE__->add_columns
      "starttime_testrun",         { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
      "starttime_test_program",    { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
      "endtime_test_program",      { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
-     "hardwaredb_systems_id",     { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,                            },
      "owner_user_id",             { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,    is_foreign_key => 1,    },
      "wait_after_tests",          { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 1,                             },
      "rerun_on_error",            { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 11,                            }, # number of times to rerun this test on error
@@ -113,7 +112,6 @@ sub update_content {
         $self->topic_name            ( $args->{topic}                 ) if $args->{topic};
         $self->starttime_earliest    ( $args->{date}                  ) if $args->{date};
         $self->owner_user_id         ( $args->{owner_user_id}         ) if $args->{owner_user_id};
-        $self->hardwaredb_systems_id ( $args->{hardwaredb_systems_id} ) if $args->{hardwaredb_systems_id};
         $self->update;
         return $self->id;
 }
