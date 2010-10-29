@@ -127,7 +127,7 @@ sub get_cached_tapdom
                 # say STDERR "RUN ARTEMIS::TAP::HARNESS ", $r->id;
 
                 my $report_tap     = $report->tap->tap;
-                my $tap_is_archive = $report->tap->tap_is_archive;
+                my $tap_is_archive = $report->tap->tap_is_archive || 0;
 
                 # We got "Out of memory!" with monster TAP reports.
                 if (length $report_tap > 2_000_000) {
