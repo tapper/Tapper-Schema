@@ -126,7 +126,8 @@ sub get_cached_tapdom
         {
                 # say STDERR "RUN ARTEMIS::TAP::HARNESS ", $r->id;
 
-                my $report_tap = $report->tap->tap;
+                my $report_tap     = $report->tap->tap;
+                my $tap_is_archive = $report->tap->tap_is_archive || 0;
 
                 # We got "Out of memory!" with monster TAP reports.
                 if (length $report_tap > 2_000_000) {
@@ -134,7 +135,8 @@ sub get_cached_tapdom
                 }
                 else
                 {
-                        my $harness = new Artemis::TAP::Harness( tap => $report_tap );
+                        my $harness = new Artemis::TAP::Harness( tap            => $report_tap,
+                                                                 tap_is_archive => $tap_is_archive );
                         $harness->evaluate_report();
                         #print STDERR Dumper($harness->parsed_report);
                         foreach (@{$harness->parsed_report->{tap_sections}})

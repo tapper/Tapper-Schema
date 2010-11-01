@@ -26,7 +26,7 @@ requires 'DBIx::Class::TimeStamp'                   => '0.12';
 requires 'DBIx::Class::Schema::Versioned'           => 0;
 requires 'DBIx::Class::InflateColumn::Object::Enum' => 0;
 requires 'SQL::Translator'                          => 0;
-requires 'Artemis::TAP::Harness'                    => 0;
-requires 'TAP::DOM'                                 => '0.07';
+requires 'Artemis::TAP::Harness'                    => '2.010040';
+requires 'TAP::DOM'                                 => '0.10';
 
 WriteAll;

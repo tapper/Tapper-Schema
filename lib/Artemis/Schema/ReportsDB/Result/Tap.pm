@@ -17,6 +17,7 @@ __PACKAGE__->add_columns
      #
      # raw tap
      "tap",                     { data_type => "LONGBLOB", default_value => "",     is_nullable => 0,                                         },
+     "tap_is_archive",          { data_type => "INT",     default_value => undef,   is_nullable => 1, size => 11,                             },
      #
      # parsed tap
      "tapdom",                  { data_type => "LONGBLOB", default_value => "",     is_nullable => 1,                                         },
