@@ -7,7 +7,6 @@ use Safe;
 use common::sense;
 ## no critic (RequireUseStrict)
 use parent 'DBIx::Class';
-our @functions;
 
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
@@ -62,6 +61,19 @@ sub match_host {
         return;
 }
 
+our @functions = ('&hostname');
+
+sub hostname (;$)
+{
+        my ($given) = @_;
+
+        if ($given) {
+                # available
+                return $given ~~ $_->{features}->{hostname};
+        } else {
+                return $_->{features}->{hostname};
+        }
+}
 
 
 sub gen_schema_functions
