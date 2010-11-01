@@ -7,6 +7,8 @@ use Safe;
 use common::sense;
 ## no critic (RequireUseStrict)
 use parent 'DBIx::Class';
+our @functions;
+
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
 __PACKAGE__->table("testrun_scheduling");
@@ -60,48 +62,39 @@ sub match_host {
         return;
 }
 
-# mem(4096);
-# mem > 4000;
-sub _helper {
-        my ($available, $subkey, $given) = @_;
 
-        if ($given)
-        {
-                # available
-                return
-                    grep
-                    {
-                            $given ~~ ($subkey ? $_->{$subkey} : $_)
-                    } @{ $available };
-        }
-        else
-        {
-                if (ref($available) eq 'ARRAY') {
-                        $subkey ? $available->[0]->{$subkey} : $available->[0];
-                } else {
-                        return $available;
-                }
+
+sub gen_schema_functions
+{
+        # vendor("AMD");        # with optional argument the value is checked against available features and returns the matching features
+        # vendor eq "AMD";      # without argument returns the value
+        # $_ is the current context inside the while-loop (see below) where the eval happens
+        my ($self) = @_;
+
+        my $features = $self->result_source->schema->resultset('HostFeature')->search(
+                                                                                            {
+                                                                                            },
+                                                                                            {
+                                                                                             columns => [ qw/entry/ ],
+                                                                                             distinct => 1,
+                                                                                            });
+        while ( my $feature = $features->next ) {
+                push @functions, $feature;
+                ## no critic
+                eval "
+                    sub $feature {
+                            my (\$given) = \@_;
+
+                            if (\$given) {
+                                    # available
+                                    return \$given ~~ \$_->features->{$feature};
+                            } else {
+                                    return \$_->features->{$feature} };
+                    }";
 
         }
 }
 
-# vendor("AMD");        # with optional argument the value is checked against available features and returns the matching features
-# vendor eq "AMD";      # without argument returns the value
-# @_ means this optional param
-# $_ is the current context inside the while-loop (see below) where the eval happens
-sub hostname(;$)    { _helper($_->{features}{hostname},  undef,      @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub mem(;$)         { _helper($_->{features}{mem},       undef,      @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub vendor(;$)      { _helper($_->{features}{cpus},      'vendors',  @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub family(;$)      { _helper($_->{features}{cpus},      'family',   @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub model(;$)       { _helper($_->{features}{cpus},      'model',    @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub stepping(;$)    { _helper($_->{features}{cpus},      'stepping', @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub revision(;$)    { _helper($_->{features}{cpus},      'revision', @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub socket_type(;$) { _helper($_->{features}{cpus},      'socket',   @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub cores(;$)       { _helper($_->{features}{cpus},      'cores',    @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub clock(;$)       { _helper($_->{features}{cpus},      'clock',    @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub l2cache(;$)     { _helper($_->{features}{cpus},      'l2cache',  @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub l3cache(;$)     { _helper($_->{features}{cpus},      'l3cache',  @_) } ## no critic (ProhibitSubroutinePrototypes)
-sub has_ecc()       { (socket_type() eq 'F' or socket_type() eq  'C32' or socket_type() eq 'G34') ? 1 : 0 } ## no critic (ProhibitSubroutinePrototypes)
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
@@ -111,7 +104,7 @@ sub match_feature {
         {
                 # filter out queuebound hosts
                 if ($host->{host}->queuehosts->count){
-                QUEUE_CHECK: 
+                QUEUE_CHECK:
                         {
                                 foreach my $queuehost($host->{host}->queuehosts->all) {
                                         last QUEUE_CHECK if $queuehost->queue->id == $self->queue->id;
@@ -123,8 +116,8 @@ sub match_feature {
                 $_ = $host;
                 my $compartment = Safe->new();
                 $compartment->permit(qw(:base_core));
-                $compartment->share(qw(hostname mem vendor family model stepping revision socket_type cores clock l2cache l3cache has_ecc));
-                
+                $compartment->share(@functions);
+
                 foreach my $this_feature( $self->requested_features->all )
                 {
                         my $success = $compartment->reval($this_feature->feature);
@@ -174,7 +167,7 @@ sub fits {
                         } else {
                                 return $host;
                         }
-                        
+
                 }
         }
         return;
