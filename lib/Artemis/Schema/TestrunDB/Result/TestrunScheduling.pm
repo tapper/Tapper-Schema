@@ -91,26 +91,25 @@ sub gen_schema_functions
                                                                                              distinct => 1,
                                                                                             });
         while ( my $feature = $features->next ) {
-                push @functions, $feature;
-                ## no critic
-                eval "
-                    sub $feature {
+                my $entry = $feature->entry;
+                push @functions, "&".$entry;
+                my $eval_string = "sub $entry (;\$)";
+                $eval_string   .= "{
                             my (\$given) = \@_;
 
                             if (\$given) {
                                     # available
-                                    return \$given ~~ \$_->features->{$feature};
+                                    return \$given ~~ \$_->{features}->{$entry};
                             } else {
-                                    return \$_->features->{$feature} };
+                                    return \$_->{features}->{$entry} };
                     }";
-
+                eval $eval_string;                ## no critic
         }
 }
 
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
-
  HOST:
         foreach my $host( @$free_hosts )
         {
