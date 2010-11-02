@@ -63,7 +63,7 @@ sub match_host {
 
 our @functions = ('&hostname');
 
-sub hostname (;$)
+sub hostname (;$) ## no critic (ProhibitSubroutinePrototypes)
 {
         my ($given) = @_;
 
