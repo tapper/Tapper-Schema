@@ -20,9 +20,6 @@ use Test::Deep;
 # --------------------------------------------------------------------------------
 construct_fixture( schema  => testrundb_schema,  fixture => 't/fixtures/testrundb/simple_testrun.yml' );
 # --------------------------------------------------------------------------------
-# -----------------------------------------------------------------------------------------------------------------
-construct_fixture( schema  => hardwaredb_schema, fixture => 't/fixtures/hardwaredb/systems.yml' );
-# -----------------------------------------------------------------------------------------------------------------
 
 
 sub model
@@ -77,7 +74,6 @@ my $testrun_id = $testrun = model->resultset('Testrun')->add({
                                                               shortname             => 'Short name',
                                                               topic_name            => 'SomeTopic',
                                                               owner_user_id         => 10,
-                                                              hardwaredb_systems_id => 15,
                                                               scenario_id           => 1,
                                                               requested_host_ids    => [ 5, 6, 8,],
                                                              });

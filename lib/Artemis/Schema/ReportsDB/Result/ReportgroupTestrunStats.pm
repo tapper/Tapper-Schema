@@ -57,7 +57,7 @@ sub update_failed_passed
         my $exit         = 0;
 
         my $reports_rs = $self->groupreports;
-        no strict 'refs';
+        no strict 'refs'; ## no critic (ProhibitNoStrict)
         my %sums = ();
         my @stat_fields = (qw/failed passed total parse_errors skipped todo todo_passed wait/); # no "exit", that would create wrong SQL
         while (my $r = $reports_rs->next) {

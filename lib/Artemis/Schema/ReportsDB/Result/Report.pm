@@ -41,7 +41,6 @@ __PACKAGE__->add_columns
      "starttime_test_program",  { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      "endtime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      #
-     "hardwaredb_systems_id",   { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11,                             },
      "machine_name",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 50,                             },
      "machine_description",     { data_type => "TEXT",     default_value => "",     is_nullable => 1,                                         },
      #
@@ -52,8 +51,8 @@ __PACKAGE__->add_columns
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->belongs_to   ( suite                => 'Artemis::Schema::ReportsDB::Result::Suite',                { 'foreign.id'        => 'self.suite_id' }, { 'join_type' => 'LEFT OUTER' });
-__PACKAGE__->belongs_to   ( reportgrouparbitrary => 'Artemis::Schema::ReportsDB::Result::ReportgroupArbitrary', { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
-__PACKAGE__->belongs_to   ( reportgrouptestrun   => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun',   { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->might_have   ( reportgrouparbitrary => 'Artemis::Schema::ReportsDB::Result::ReportgroupArbitrary', { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->might_have   ( reportgrouptestrun   => 'Artemis::Schema::ReportsDB::Result::ReportgroupTestrun',   { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
 __PACKAGE__->might_have      ( tap                  => 'Artemis::Schema::ReportsDB::Result::Tap',                 { 'foreign.report_id'        => 'self.id' }, { 'join_type' => 'LEFT OUTER' });
 
 __PACKAGE__->has_many     ( comments       => 'Artemis::Schema::ReportsDB::Result::ReportComment', { 'foreign.report_id' => 'self.id' });
@@ -121,13 +120,14 @@ sub get_cached_tapdom
         if ($tapdom_str and not -e '/tmp/ARTEMIS_FORCE_NEW_TAPDOM')
         {
                 #say STDERR "EVAL ", $r->id;
-                eval '$tapdom_sections = my '.$tapdom_str;
+                eval '$tapdom_sections = my '.$tapdom_str; ## no critic (ProhibitStringyEval)
         }
         else
         {
                 # say STDERR "RUN ARTEMIS::TAP::HARNESS ", $r->id;
 
-                my $report_tap = $report->tap->tap;
+                my $report_tap     = $report->tap->tap;
+                my $tap_is_archive = $report->tap->tap_is_archive || 0;
 
                 # We got "Out of memory!" with monster TAP reports.
                 if (length $report_tap > 2_000_000) {
@@ -135,7 +135,8 @@ sub get_cached_tapdom
                 }
                 else
                 {
-                        my $harness = new Artemis::TAP::Harness( tap => $report_tap );
+                        my $harness = new Artemis::TAP::Harness( tap            => $report_tap,
+                                                                 tap_is_archive => $tap_is_archive );
                         $harness->evaluate_report();
                         #print STDERR Dumper($harness->parsed_report);
                         foreach (@{$harness->parsed_report->{tap_sections}})

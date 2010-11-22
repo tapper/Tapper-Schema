@@ -2,13 +2,12 @@
 
 package Artemis::Schema::TestrunDB::Result::TestrunScheduling;
 
-use 5.010;
-use strict;
-use warnings;
 use YAML::Syck;
-use Perl6::Junction qw/ any /;
-
+use Safe;
+use common::sense;
+## no critic (RequireUseStrict)
 use parent 'DBIx::Class';
+
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
 __PACKAGE__->table("testrun_scheduling");
@@ -44,7 +43,7 @@ sub match_host {
 
         foreach my $req_host ($self->requested_hosts->all)
         {
-                no strict 'refs';
+                no strict 'refs'; ## no critic (ProhibitNoStrict)
         FREE_HOST:
                 foreach my $free_host( map {$_->{host} } @$free_hosts) {
                         if ($free_host->queuehosts->count){
@@ -62,58 +61,61 @@ sub match_host {
         return;
 }
 
-# mem(4096);
-# mem > 4000;
-sub _helper {
-        my ($available, $subkey, $given) = @_;
+our @functions = ('&hostname');
 
-        if ($given)
-        {
+sub hostname (;$) ## no critic (ProhibitSubroutinePrototypes)
+{
+        my ($given) = @_;
+
+        if ($given) {
                 # available
-                return
-                    grep
-                    {
-                            $given ~~ ($subkey ? $_->{$subkey} : $_)
-                    } @{ $available };
-        }
-        else
-        {
-                if (ref($available) eq 'ARRAY') {
-                        $subkey ? $available->[0]->{$subkey} : $available->[0];
-                } else {
-                        return $available;
-                }
-
+                return $given ~~ $_->{features}->{hostname};
+        } else {
+                return $_->{features}->{hostname};
         }
 }
 
-# vendor("AMD");        # with optional argument the value is checked against available features and returns the matching features
-# vendor eq "AMD";      # without argument returns the value
-# @_ means this optional param
-# $_ is the current context inside the while-loop (see below) where the eval happens
-sub hostname(;$)    { _helper($_->{features}{hostname}, undef,      @_) }
-sub mem(;$)         { _helper($_->{features}{mem},      undef,      @_) }
-sub vendor(;$)      { _helper($_->{features}{cpus},      'vendors',  @_) }
-sub family(;$)      { _helper($_->{features}{cpus},      'family',   @_) }
-sub model(;$)       { _helper($_->{features}{cpus},      'model',    @_) }
-sub stepping(;$)    { _helper($_->{features}{cpus},      'stepping', @_) }
-sub revision(;$)    { _helper($_->{features}{cpus},      'revision', @_) }
-sub socket_type(;$) { _helper($_->{features}{cpus},      'socket',   @_) }
-sub cores(;$)       { _helper($_->{features}{cpus},      'cores',    @_) }
-sub clock(;$)       { _helper($_->{features}{cpus},      'clock',    @_) }
-sub l2cache(;$)     { _helper($_->{features}{cpus},      'l2cache',  @_) }
-sub l3cache(;$)     { _helper($_->{features}{cpus},      'l3cache',  @_) }
-sub has_ecc()       { socket_type() eq any('F', 'C32', 'G34') ? 1 : 0 }
+
+sub gen_schema_functions
+{
+        # vendor("AMD");        # with optional argument the value is checked against available features and returns the matching features
+        # vendor eq "AMD";      # without argument returns the value
+        # $_ is the current context inside the while-loop (see below) where the eval happens
+        my ($self) = @_;
+
+        my $features = $self->result_source->schema->resultset('HostFeature')->search(
+                                                                                            {
+                                                                                            },
+                                                                                            {
+                                                                                             columns => [ qw/entry/ ],
+                                                                                             distinct => 1,
+                                                                                            });
+        while ( my $feature = $features->next ) {
+                my $entry = $feature->entry;
+                push @functions, "&".$entry;
+                my $eval_string = "sub $entry (;\$)";
+                $eval_string   .= "{
+                            my (\$given) = \@_;
+
+                            if (\$given) {
+                                    # available
+                                    return \$given ~~ \$_->{features}->{$entry};
+                            } else {
+                                    return \$_->{features}->{$entry} };
+                    }";
+                eval $eval_string;                ## no critic
+        }
+}
+
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
-
  HOST:
         foreach my $host( @$free_hosts )
         {
                 # filter out queuebound hosts
                 if ($host->{host}->queuehosts->count){
-                QUEUE_CHECK: 
+                QUEUE_CHECK:
                         {
                                 foreach my $queuehost($host->{host}->queuehosts->all) {
                                         last QUEUE_CHECK if $queuehost->queue->id == $self->queue->id;
@@ -123,13 +125,13 @@ sub match_feature {
                 }
 
                 $_ = $host;
-                
+                my $compartment = Safe->new();
+                $compartment->permit(qw(:base_core));
+                $compartment->share(@functions);
+
                 foreach my $this_feature( $self->requested_features->all )
                 {
-                        no warnings;
-                        no strict 'subs';
-                        my $success = eval $this_feature->feature;
-                        use strict;
+                        my $success = $compartment->reval($this_feature->feature);
                         print STDERR "Error in TestRequest.fits: ", $@ if $@;
                         next HOST if not $success;
                 }
@@ -176,7 +178,7 @@ sub fits {
                         } else {
                                 return $host;
                         }
-                        
+
                 }
         }
         return;
@@ -227,7 +229,7 @@ sub produce_preconditions
                                 # TODO: warn here about precondition_type: produce without actual producer
                                 next PRECONDITION;
                         }
-                        eval "use Artemis::MCP::Scheduler::PreconditionProducer::$producer_name";
+                        eval "use Artemis::MCP::Scheduler::PreconditionProducer::$producer_name"; ## no critic (ProhibitStringyEval)
                         my $producer = "Artemis::MCP::Scheduler::PreconditionProducer::$producer_name"->new();
                         my $retval = $producer->produce($self, $precond_hash);
 

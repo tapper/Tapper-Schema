@@ -42,20 +42,20 @@ sub queued_testruns
 sub get_first_fitting
 {
         my ($self, $free_hosts) = @_;
-                my $jobs = $self->queued_testruns;
-                while (my $job = $jobs->next()) {
-                        if (my $host = $job->fits($free_hosts)) {
-                                $job->host_id ($host->id);
+        my $jobs = $self->queued_testruns;
+        while (my $job = $jobs->next()) {
+                if (my $host = $job->fits($free_hosts)) {
+                        $job->host_id ($host->id);
 
-                                if ($job->testrun->scenario_element) {
-                                        $job->testrun->scenario_element->is_fitted(1);
-                                        $job->testrun->scenario_element->update();
-                                }
-                                return $job;
+                        if ($job->testrun->scenario_element) {
+                                $job->testrun->scenario_element->is_fitted(1);
+                                $job->testrun->scenario_element->update();
                         }
+                        return $job;
                 }
-                return;
         }
+        return;
+}
 
 sub to_string
 {
@@ -122,9 +122,9 @@ sub producer
         my ($self) = @_;
 
         my $producer_class = "Artemis::MCP::Scheduler::PreconditionProducer::".$self->producer;
-        eval "use $producer_class";
+        eval "use $producer_class"; ## no critic (ProhibitStringyEval)
         return $producer_class->new unless $@;
-        return undef;
+        return;
 }
 
 sub produce

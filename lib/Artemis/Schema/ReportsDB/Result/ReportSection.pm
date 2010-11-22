@@ -84,7 +84,7 @@ sub some_meta_available
                            simnow-image-file
                            flags
                           /;
-        @meta_cols = map { s/-/_/g; $_ } @meta_cols;
+        @meta_cols = map { my $x = $_; $x =~ s/-/_/g; $x } @meta_cols;
         return 1 if grep { defined } @cols{@meta_cols};
         return 0;
 }

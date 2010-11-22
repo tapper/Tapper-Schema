@@ -12,12 +12,11 @@ __PACKAGE__->add_columns
     (
      "id",                        { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,    is_auto_increment => 1, },
      "name",                      { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
+     "comment",                   { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
      "free",                      { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
      "active",                    { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
      "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
      "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
-
-     # the host's feature set is read dynamically from HardwareDB inside application
 
     );
 
@@ -27,6 +26,7 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many ( testrunschedulings => "${basepkg}::TestrunScheduling", { 'foreign.host_id' => 'self.id' });
 __PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( features           => "${basepkg}::HostFeature",       { 'foreign.host_id' => 'self.id' });
 
 
 1;
