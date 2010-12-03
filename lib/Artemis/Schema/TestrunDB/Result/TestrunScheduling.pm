@@ -40,22 +40,21 @@ __PACKAGE__->has_many  ( requested_hosts    => "${basepkg}::TestrunRequestedHost
 
 sub match_host {
         my ($self, $free_hosts) = @_;
-
         foreach my $req_host ($self->requested_hosts->all)
         {
                 no strict 'refs'; ## no critic (ProhibitNoStrict)
         FREE_HOST:
-                foreach my $free_host( map {$_->{host} } @$free_hosts) {
-                        if ($free_host->queuehosts->count){
+                foreach my $free_host( @$free_hosts) {
+                        if ($free_host->{queues}){
                                 QUEUE_CHECK:
                                 {
-                                        foreach my $queuehost($free_host->queuehosts->all) {
-                                                last QUEUE_CHECK if $queuehost->queue->id == $self->queue->id;
+                                        foreach my $queue_id ( @{$free_host->{queues}} ) {
+                                                last QUEUE_CHECK if $queue_id == $self->queue->id;
                                         }
                                         next FREE_HOST;
                                 }
                         }
-                        return $free_host if $free_host->name eq $req_host->host->name;
+                        return $free_host->{host} if $free_host->{host}->name eq $req_host->host->name;
                 }
         }
         return;
