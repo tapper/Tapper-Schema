@@ -27,6 +27,10 @@ __PACKAGE__->add_columns
      "uptime",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
      "lspci",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "lsusb",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
+     # context
+     "ticket_url",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
+     "wiki_url",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
+     "planning_id",             { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
      # xen info
      "xen_changeset",           { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_hvbits",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 10,                      },
@@ -82,7 +86,7 @@ sub some_meta_available
                            simnow-device-interface-version
                            simnow-bsd-file
                            simnow-image-file
-                           flags
+                           ticket-url wiki-url planning-id
                           /;
         @meta_cols = map { my $x = $_; $x =~ s/-/_/g; $x } @meta_cols;
         return 1 if grep { defined } @cols{@meta_cols};
