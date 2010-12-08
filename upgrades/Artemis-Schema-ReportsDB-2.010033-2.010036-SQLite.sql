@@ -74,11 +74,11 @@ CREATE INDEX reportgrouparbitrary_idx_re00 ON reportgrouparbitrary (report_id);
 
 CREATE INDEX reportgrouptestrun_idx_repo00 ON reportgrouptestrun (report_id);
 
-ALTER TABLE reportsection ADD COLUMN ticket_url VARCHAR(255) DEFAULT '';
+ALTER TABLE reportsection ADD COLUMN ticket_url VARCHAR(255);
 
-ALTER TABLE reportsection ADD COLUMN wiki_url VARCHAR(255) DEFAULT '';
+ALTER TABLE reportsection ADD COLUMN wiki_url VARCHAR(255);
 
-ALTER TABLE reportsection ADD COLUMN planning_id VARCHAR(255) DEFAULT '';
+ALTER TABLE reportsection ADD COLUMN planning_id VARCHAR(255);
 
 ALTER TABLE tap ADD COLUMN tap_is_archive INT(11);
 
