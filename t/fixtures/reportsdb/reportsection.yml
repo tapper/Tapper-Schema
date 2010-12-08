@@ -57,6 +57,10 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
 - schema: ReportSection
   name: rs 1
@@ -77,6 +81,10 @@
     xen_dom0_kernel:
     xen_base_os_description:
     xen_guest_description:
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
 - schema: ReportSection
   name: rs 2
@@ -98,6 +106,10 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
 - schema: ReportSection
   name: rs 3
@@ -119,6 +131,10 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
 - schema: ReportSection
   name: rs 4
@@ -140,6 +156,10 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
 - schema: ReportSection
   name: rs 5
@@ -161,6 +181,10 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags:
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
 - schema: ReportSection
   name: rs 6
@@ -182,6 +206,10 @@
     xen_base_os_description:
     xen_guest_description: 0
     xen_guest_flags:
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
 - schema: ReportSection
   name: rs 7
@@ -203,4 +231,8 @@
     xen_base_os_description:
     xen_guest_description:
     xen_guest_flags: 0
+    ticket_url:
+    wiki_url:
+    planning_id:
+    tags:
 
