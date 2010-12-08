@@ -31,6 +31,7 @@ __PACKAGE__->add_columns
      "ticket_url",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
      "wiki_url",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
      "planning_id",             { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
+     "tags",                    { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
      # xen info
      "xen_changeset",           { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_hvbits",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 10,                      },
@@ -87,6 +88,7 @@ sub some_meta_available
                            simnow-bsd-file
                            simnow-image-file
                            ticket-url wiki-url planning-id
+                           tags
                           /;
         @meta_cols = map { my $x = $_; $x =~ s/-/_/g; $x } @meta_cols;
         return 1 if grep { defined } @cols{@meta_cols};
