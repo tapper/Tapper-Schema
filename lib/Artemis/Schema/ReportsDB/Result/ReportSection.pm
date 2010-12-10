@@ -28,10 +28,10 @@ __PACKAGE__->add_columns
      "lspci",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "lsusb",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      # context
-     "ticket_url",              { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
-     "wiki_url",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
-     "planning_id",             { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
-     "tags",                    { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                    },
+     "ticket_url",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "wiki_url",                { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "planning_id",             { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "tags",                    { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      # xen info
      "xen_changeset",           { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_hvbits",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 10,                      },
