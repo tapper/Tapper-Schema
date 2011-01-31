@@ -25,6 +25,10 @@ sub max_priority_seq {
         return 0;
 }
 
+sub running_jobs
+{
+        shift->search(status => "running" );
+}
 
 =head2 running
 

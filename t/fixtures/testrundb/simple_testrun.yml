@@ -351,3 +351,10 @@
     scenario_id: 1
     testrun_id: 1002
     is_fitted: 0
+
+- schema: Message
+  name: message1
+  data:
+    id: 1
+    testrun_id: 3001
+    message: "state: start-install\ntestrun_id: 3001\n"

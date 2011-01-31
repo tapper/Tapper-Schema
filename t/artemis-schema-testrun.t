@@ -92,5 +92,9 @@ my @new_host = map {$_->host->name} $new_testrun->testrun_scheduling->requested_
 cmp_bag( \@new_host , \@host, 'Requested hosts of rerun test');
 is($new_testrun->testrun_scheduling->status, 'schedule','State of rerun test');
 
+my $message = model->resultset('Message')->first->message;
+is(ref $message, 'HASH', 'Message in YAML format unpacked');
+my $new_message = model->resultset('Message')->new({testrun_id => 3001, message => {state => 'testing'}});
+$new_message->insert;
 done_testing();
 
