@@ -3,15 +3,15 @@ use warnings;
 
 use inc::Module::Install;
 
-name     'Artemis-Schema';
-all_from 'lib/Artemis/Schema.pm';
+name     'Tapper-Schema';
+all_from 'lib/Tapper/Schema.pm';
 author   'OSRC SysInt Team <osrc-sysint@elbe.amd.com>';
 license  'freebsd';
 
 build_requires 'Test::More'               => 0;
 build_requires 'Test::Perl::Critic'       => 0;
-build_requires 'Artemis::Config'          => '2.01';
-build_requires 'Artemis::Test'            => '2.010011';
+build_requires 'Tapper::Config'          => '2.01';
+build_requires 'Tapper::Test'            => '2.010011';
 build_requires 'Scalar::Util'             => 0;
 build_requires 'DateTime::Format::SQLite' => 0;
 
@@ -26,7 +26,7 @@ requires 'DBIx::Class::TimeStamp'                   => '0.12';
 requires 'DBIx::Class::Schema::Versioned'           => 0;
 requires 'DBIx::Class::InflateColumn::Object::Enum' => 0;
 requires 'SQL::Translator'                          => 0;
-requires 'Artemis::TAP::Harness'                    => '2.010040';
+requires 'Tapper::TAP::Harness'                    => '2.010040';
 requires 'TAP::DOM'                                 => '0.10';
 requires 'YAML::XS'                                 => 0;
 

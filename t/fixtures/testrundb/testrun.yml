@@ -18,7 +18,7 @@
     name: Software
     description: any non-kernel software, e.g., libraries, programs
 
-# -------------------- testruns "affe", "zomtec", "perfmon", "lmbench", "artemis", "foo", "bar"
+# -------------------- testruns "affe", "zomtec", "perfmon", "lmbench", "tapper", "foo", "bar"
 
 - schema: Testrun
   name: affe, started
@@ -65,7 +65,7 @@
     id: 24
     owner_user_id: 12
     shortname: lmbench
-    notes: artemis test suite lmbench wrapper
+    notes: tapper test suite lmbench wrapper
     topic_name: Distribution
     # sic!, 3000, to have one in future
     starttime_earliest: 3000-12-27 00:00:01
@@ -74,12 +74,12 @@
     endtime_test_program: 
 
 - schema: Testrun
-  name: artemis
+  name: tapper
   data:
     id: 25
     owner_user_id: 12
-    shortname: artemis-sanity
-    notes: artemis sanity tests
+    shortname: tapper-sanity
+    notes: tapper sanity tests
     topic_name: Distribution
     starttime_earliest: 2008-06-27 00:00:01
     starttime_testrun: 

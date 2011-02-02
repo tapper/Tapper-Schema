@@ -12,8 +12,8 @@
     report_id: 21
     tap: |
       1..4
-      # Artemis-Suite-Name: Hossa
-      # Artemis-Suite-Version: 1.0
+      # Tapper-Suite-Name: Hossa
+      # Tapper-Suite-Version: 1.0
       OK 1 foo AAA
       OK 2 bar AAA
       OK 3 affe AAA
@@ -31,8 +31,8 @@
     report_id: 22
     tap: |
       1..4
-      # Artemis-Suite-Name: Hossa
-      # Artemis-Suite-Version: 1.0
+      # Tapper-Suite-Name: Hossa
+      # Tapper-Suite-Version: 1.0
       OK 1 foo BBB
       OK 2 bar BBB
       NOT OK 3 affe BBB
@@ -50,8 +50,8 @@
     report_id: 23
     tap: |
       1..4
-      # Artemis-Suite-Name: Hossa
-      # Artemis-Suite-Version: 1.0
+      # Tapper-Suite-Name: Hossa
+      # Tapper-Suite-Version: 1.0
       OK 1 foo CCC
       OK 2 bar CCC
       OK 3 affe CCC
@@ -69,8 +69,8 @@
     report_id: 24
     tap: |
       1..4
-      # Artemis-Suite-Name: Hossa
-      # Artemis-Suite-Version: 1.0
+      # Tapper-Suite-Name: Hossa
+      # Tapper-Suite-Version: 1.0
       OK 1 foo DDD
       OK 2 bar DDD
       OK 3 affe DDD
@@ -88,8 +88,8 @@
     report_id: 25
     tap: |
       1..4
-      # Artemis-Suite-Name: Hossa
-      # Artemis-Suite-Version: 1.0
+      # Tapper-Suite-Name: Hossa
+      # Tapper-Suite-Version: 1.0
       OK 1 foo EEE
       OK 2 bar EEE
       OK 3 affe EEE
@@ -107,8 +107,8 @@
     report_id: 26
     tap: |
       1..4
-      # Artemis-Suite-Name: Hossa
-      # Artemis-Suite-Version: 1.0
+      # Tapper-Suite-Name: Hossa
+      # Tapper-Suite-Version: 1.0
       OK 1 foo FFF
       OK 2 bar FFF
       OK 3 affe FFF

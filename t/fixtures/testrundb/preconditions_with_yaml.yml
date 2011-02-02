@@ -8,16 +8,16 @@
     id: 24
     owner_user_id: 12
     shortname: lmbench
-    notes: artemis test suite lmbench wrapper
+    notes: tapper test suite lmbench wrapper
     topic_name: Distribution
 
 # -------------------- preconditions
 
 - schema: Precondition
-  name: artemis-tools
+  name: tapper-tools
   data:
     id: 7
-    shortname: artemis-tools
+    shortname: tapper-tools
     precondition: |
                 name: foobar
                 precondition_type: subdir
@@ -73,7 +73,7 @@
                 precondition_type: package
                 subdir: foobar
 
-# -------------------- "lmbench" <== "perl", "artemis-tools", "gcc", "glibc"
+# -------------------- "lmbench" <== "perl", "tapper-tools", "gcc", "glibc"
 
 - schema: TestrunPrecondition
   name: 1st precondition for lmbench
@@ -119,31 +119,31 @@
     child_precondition_id: 10
     succession: 2
 
-# -------------------- "artemis-tools" <== "gcc", "perl", "mysql", "sqlite3"
+# -------------------- "tapper-tools" <== "gcc", "perl", "mysql", "sqlite3"
 
 - schema: PrePrecondition
-  name: make artemis-tools a parent for gcc
+  name: make tapper-tools a parent for gcc
   data:
     parent_precondition_id: 7
     child_precondition_id: 9
     succession: 1
 
 - schema: PrePrecondition
-  name: make artemis-tools a parent for perl
+  name: make tapper-tools a parent for perl
   data:
     parent_precondition_id: 7
     child_precondition_id: 8
     succession: 2
 
 - schema: PrePrecondition
-  name: make artemis-tools a parent for mysql
+  name: make tapper-tools a parent for mysql
   data:
     parent_precondition_id: 7
     child_precondition_id: 11
     succession: 3
 
 - schema: PrePrecondition
-  name: make artemis-tools a parent for sqlite3
+  name: make tapper-tools a parent for sqlite3
   data:
     parent_precondition_id: 7
     child_precondition_id: 12
