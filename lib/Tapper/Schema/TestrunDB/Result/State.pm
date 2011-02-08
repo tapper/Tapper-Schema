@@ -14,6 +14,10 @@ __PACKAGE__->add_columns
      "created_at", { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1, },
      "updated_at", { data_type => "DATETIME",  default_value => undef,                is_nullable => 1, },
     );
+__PACKAGE__->inflate_column( state => {
+                                       inflate => sub { YAML::XS::Load(shift) },
+                                       deflate => sub { YAML::XS::Dump(shift)},
+                                      });
 
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
