@@ -18,7 +18,6 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->has_many ( testruns => 'Artemis::Schema::TestrunDB::Result::Testrun', { 'foreign.testplan_id' => 'self.id' });
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint( unique_path => [ qw/path/ ], );
 
 1;
 
