@@ -20,6 +20,7 @@ __PACKAGE__->add_columns
      "starttime_test_program",    { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
      "endtime_test_program",      { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
      "owner_user_id",             { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,    is_foreign_key => 1,    },
+     "testplan_id",               { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,    is_foreign_key => 1,    },
      "wait_after_tests",          { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 1,                             },
      "rerun_on_error",            { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 11,                            }, # number of times to rerun this test on error
      "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
@@ -31,6 +32,7 @@ __PACKAGE__->set_primary_key("id");
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->belongs_to   ( owner                      => "${basepkg}::User",                    { 'foreign.id'   => 'self.owner_user_id' });
+__PACKAGE__->belongs_to   ( testplan_instance          => "${basepkg}::TestplanInstance",        { 'foreign.id'   => 'self.testplan_id'   });
 
 __PACKAGE__->has_many     ( testrun_precondition       => "${basepkg}::TestrunPrecondition",     { 'foreign.testrun_id' => 'self.id' });
 __PACKAGE__->many_to_many ( preconditions              => "testrun_precondition",                                        'precondition' );

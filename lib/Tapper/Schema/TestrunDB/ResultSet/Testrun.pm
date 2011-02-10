@@ -58,6 +58,7 @@ sub add {
 
         my $testrun =  $self->new
             ({
+              testplan_id           => $args->{testplan_id},
               notes                 => $args->{notes},
               shortname             => $args->{shortname},
               topic_name            => $args->{topic_name},

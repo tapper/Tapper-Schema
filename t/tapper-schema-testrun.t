@@ -96,5 +96,21 @@ my $message = model->resultset('Message')->first->message;
 is(ref $message, 'HASH', 'Message in YAML format unpacked');
 my $new_message = model->resultset('Message')->new({testrun_id => 3001, message => {state => 'testing'}});
 $new_message->insert;
+
+my $testplan = model->resultset('TestplanInstance')->new({path => 'test.testplan.instance.schema', 
+                                                          evaluated_testplan => 'some text in here',});
+$testplan->insert();
+$testrun = model->resultset('Testrun')->find($testrun_id);
+$testrun->testplan_id($testplan->id);
+$testrun->update;
+
+
+if ($testplan->testruns and $testplan->testruns->first) {
+        is($testplan->testruns->first->id, $testrun->id, 'Testplan has testrun associated');
+} else {
+        fail('Testplan has testrun associated');
+}
+
+
 done_testing();
 
