@@ -8,7 +8,7 @@ use parent 'DBIx::Class::ResultSet';
 
 sub non_scheduled_jobs
 {
-        shift->search(status => "schedule" );
+        shift->search({ status => "schedule" });
 }
 
 sub max_priority_seq {
@@ -27,7 +27,7 @@ sub max_priority_seq {
 
 sub running_jobs
 {
-        shift->search(status => "running" );
+        shift->search({ status => "running" });
 }
 
 =head2 running
@@ -39,7 +39,7 @@ Get all running jobs.
 =cut
 
 sub running {
-        shift->search(status => 'running');
+        shift->search({ status => 'running' });
 }
 
 1;
