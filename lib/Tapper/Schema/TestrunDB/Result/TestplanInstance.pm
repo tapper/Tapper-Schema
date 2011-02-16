@@ -1,4 +1,4 @@
-package Artemis::Schema::TestrunDB::Result::TestplanInstance;
+package Tapper::Schema::TestrunDB::Result::TestplanInstance;
 
 use strict;
 use warnings;
@@ -16,21 +16,21 @@ __PACKAGE__->add_columns
    "updated_at",         { data_type => "DATETIME",  default_value => undef,                is_nullable => 1, },
     );
 
-__PACKAGE__->has_many ( testruns => 'Artemis::Schema::TestrunDB::Result::Testrun', { 'foreign.testplan_id' => 'self.id' });
+__PACKAGE__->has_many ( testruns => 'Tapper::Schema::TestrunDB::Result::Testrun', { 'foreign.testplan_id' => 'self.id' });
 __PACKAGE__->set_primary_key("id");
 
 1;
 
 =head1 NAME
 
-Artemis::Schema::TestrunDB::Testrun - A ResultSet description
+Tapper::Schema::TestrunDB::Testrun - A ResultSet description
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Artemis::Schema::TestrunDB;
+ use Tapper::Schema::TestrunDB;
 
 
 =head1 AUTHOR
