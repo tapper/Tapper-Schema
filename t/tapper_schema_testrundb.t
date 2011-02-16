@@ -114,7 +114,7 @@ is($perl_preconditions[1]->shortname, 'glibc-2.1', "perl pre_preconditions[1]->s
 my @gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ shortname => 'gcc-4.2' })->all;
 is (scalar @gcc_preconditions, 2, "fuzzy gcc parents count");
 my @gcc_parent_shortnames = sort map { $_->parent->shortname} map { $_->parent_pre_precondition } @gcc_preconditions;
-is_deeply(\@gcc_parent_shortnames, [qw/tapper-tools perl-5.10/], "fuzzy gcc parents shortnames");
+is_deeply(\@gcc_parent_shortnames, [qw/perl-5.10 tapper-tools/], "fuzzy gcc parents shortnames");
 
 # same parent dependency check logic as before, but for one particular gcc precondition
 @gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ id => 9 })->all;
@@ -130,7 +130,7 @@ is_deeply(\@gcc_parent_shortnames, [qw/perl-5.10/], "specific gcc parents shortn
 @gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ shortname => 'gcc-4.2' })->all;
 is (scalar @gcc_preconditions, 2, "fuzzy gcc parents count");
 @gcc_parent_shortnames = sort map { $_->shortname} map { $_->parent_preconditions } @gcc_preconditions;
-is_deeply(\@gcc_parent_shortnames, [qw/tapper-tools perl-5.10/], "fuzzy gcc parents shortnames");
+is_deeply(\@gcc_parent_shortnames, [qw/perl-5.10 tapper-tools/], "fuzzy gcc parents shortnames");
 
 # same parent dependency check logic as before, but for one particular gcc precondition
 @gcc_preconditions = testrundb_schema->resultset('Precondition')->search({ id => 9 })->all;
