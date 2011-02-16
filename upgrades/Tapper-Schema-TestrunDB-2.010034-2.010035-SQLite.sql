@@ -1,4 +1,4 @@
--- Convert schema 'upgrades/Artemis-Schema-TestrunDB-2.010034-SQLite.sql' to 'upgrades/Artemis-Schema-TestrunDB-2.010035-SQLite.sql':;
+-- Convert schema 'upgrades/Tapper-Schema-TestrunDB-2.010034-SQLite.sql' to 'upgrades/Tapper-Schema-TestrunDB-2.010035-SQLite.sql':;
 
 BEGIN;
 

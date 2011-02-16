@@ -1,4 +1,4 @@
--- Convert schema 'upgrades/Artemis-Schema-TestrunDB-2.010034-MySQL.sql' to 'Artemis::Schema::TestrunDB v2.010035':;
+-- Convert schema 'upgrades/Tapper-Schema-TestrunDB-2.010034-MySQL.sql' to 'Tapper::Schema::TestrunDB v2.010035':;
 
 BEGIN;
 
