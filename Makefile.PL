@@ -15,6 +15,8 @@ build_requires 'Tapper::Test'            => '2.010011';
 build_requires 'Scalar::Util'             => 0;
 build_requires 'DateTime::Format::SQLite' => 0;
 
+author_requires 'Module::Install::WriteAll';
+
 requires 'perl'                                     => '5.010';
 requires 'DBIx::Class'                              => "0.08123";
 requires 'common::sense'                            => 0;
