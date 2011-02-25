@@ -1,3 +1,4 @@
+^.git
 Tapper-Schema-*.*.tar.gz
 ^Tapper-Schema-*.*$
 _build
