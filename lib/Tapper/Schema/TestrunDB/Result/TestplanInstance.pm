@@ -11,6 +11,7 @@ __PACKAGE__->add_columns
   (
    "id",                 { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11, is_auto_increment => 1, },
    "path",               { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255, },
+   "name",               { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255, },
    "evaluated_testplan", { data_type => "TEXT",      default_value => "",                   is_nullable => 1, },
    "created_at",         { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1, },
    "updated_at",         { data_type => "DATETIME",  default_value => undef,                is_nullable => 1, },
