@@ -5,7 +5,7 @@ use inc::Module::Install;
 
 name     'Tapper-Schema';
 all_from 'lib/Tapper/Schema.pm';
-author   'OSRC SysInt Team <osrc-sysint@elbe.amd.com>';
+author   'AMD OSRC Tapper Team <tapper@amd64.com>';
 license  'freebsd';
 
 build_requires 'Test::More'               => 0;
