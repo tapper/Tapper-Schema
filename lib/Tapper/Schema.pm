@@ -8,7 +8,7 @@ our $VERSION = '3.000001';
 
 =head1 NAME
 
-Tapper::Schema - Database schemas for Tapper
+Tapper::Schema - Tapper - Database schemas for Tapper
 
 =head1 SYNOPSIS
 
