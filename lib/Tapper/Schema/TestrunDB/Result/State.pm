@@ -52,7 +52,7 @@ None.
 
 Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
 
-This program is released under the following license: restrictive
+This program is released under the following license: freebsd
 
 =cut
 
