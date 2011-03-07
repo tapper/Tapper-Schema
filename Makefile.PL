@@ -18,7 +18,7 @@ build_requires 'DateTime::Format::SQLite' => 0;
 author_requires 'Module::Install::WriteAll';
 
 requires 'perl'                                     => '5.010';
-requires 'DBIx::Class'                              => "0.08123";
+requires 'DBIx::Class'                              => "0.08127";
 requires 'common::sense'                            => 0;
 requires 'Test::Fixture::DBIC::Schema'              => "0.03";
 requires 'DateTime::Format::Builder'                => 0;
