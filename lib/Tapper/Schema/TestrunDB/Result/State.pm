@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
+use YAML;
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("state");
@@ -15,8 +16,8 @@ __PACKAGE__->add_columns
      "updated_at", { data_type => "DATETIME",  default_value => undef,                is_nullable => 1, },
     );
 __PACKAGE__->inflate_column( state => {
-                                       inflate => sub { YAML::XS::Load(shift) },
-                                       deflate => sub { YAML::XS::Dump(shift)},
+                                       inflate => sub { Load(shift) },
+                                       deflate => sub { Dump(shift)},
                                       });
 
 

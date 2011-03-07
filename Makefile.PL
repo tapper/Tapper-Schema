@@ -30,6 +30,7 @@ requires 'DBIx::Class::InflateColumn::Object::Enum' => 0;
 requires 'SQL::Translator'                          => 0;
 requires 'Tapper::TAP::Harness'                     => '2.010040';
 requires 'TAP::DOM'                                 => '0.10';
-requires 'YAML::XS'                                 => 0;
+requires 'YAML'                                     => "0.72";
+requires 'YAML::Syck'                               => "1.17";
 
 WriteAll;
