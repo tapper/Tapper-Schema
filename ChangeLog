@@ -1,3 +1,11 @@
+2011-03-08 Steffen Schwigon <steffen.schwigon@amd.com>
+
+	* v3.0.2
+
+	* YAML.pm ins Weltall geschleudert
+
+	* Raise dependency to more stable DBIC
+
 2011-03-02  Steffen Schwigon  <steffen.schwigon@amd.com>
 
 	* v3.0
