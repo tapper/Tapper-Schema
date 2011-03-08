@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use YAML;
+use YAML::Syck;
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("state");
