@@ -10,8 +10,8 @@ license  'freebsd';
 
 build_requires 'Test::More'               => 0;
 build_requires 'Test::Perl::Critic'       => 0;
-build_requires 'Tapper::Config'           => "3.000001";
-build_requires 'Tapper::Test'             => "3.000001";
+build_requires 'Tapper::Config'           => "3.000002";
+build_requires 'Tapper::Test'             => "3.000002";
 build_requires 'Scalar::Util'             => 0;
 build_requires 'DateTime::Format::SQLite' => 0;
 
