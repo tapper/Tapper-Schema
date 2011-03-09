@@ -21,7 +21,7 @@ sub max_priority_seq {
             select => [ { max => 'prioqueue_seq' } ],
             as     => [ 'max_seq' ], }
           )->first;
-        return $job_with_max_seq->get_column('max_seq') if $job_with_max_seq;
+        return $job_with_max_seq->get_column('max_seq') if $job_with_max_seq and $job_with_max_seq->get_column('max_seq');
         return 0;
 }
 
