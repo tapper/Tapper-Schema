@@ -11,20 +11,20 @@ __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("testrun");
 __PACKAGE__->add_columns
     (
-     "id",                        { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,    is_auto_increment => 1, },
-     "shortname",                 { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
-     "notes",                     { data_type => "TEXT",      default_value => "",                   is_nullable => 1,                                        },
-     "topic_name",                { data_type => "VARCHAR",   default_value => "",                   is_nullable => 0, size => 255,    is_foreign_key => 1,    },
-     "starttime_earliest",        { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
-     "starttime_testrun",         { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
-     "starttime_test_program",    { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
-     "endtime_test_program",      { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
-     "owner_user_id",             { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,    is_foreign_key => 1,    },
-     "testplan_id",               { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11,    is_foreign_key => 1,    },
-     "wait_after_tests",          { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 1,                             },
-     "rerun_on_error",            { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 11,                            }, # number of times to rerun this test on error
-     "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
-     "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
+     "id",                        { data_type => "INT",       default_value => undef, is_nullable => 0, size => 11,    is_auto_increment => 1, },
+     "shortname",                 { data_type => "VARCHAR",   default_value => "",    is_nullable => 1, size => 255,                           },
+     "notes",                     { data_type => "TEXT",      default_value => "",    is_nullable => 1,                                        },
+     "topic_name",                { data_type => "VARCHAR",   default_value => "",    is_nullable => 0, size => 255,    is_foreign_key => 1,    },
+     "starttime_earliest",        { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
+     "starttime_testrun",         { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
+     "starttime_test_program",    { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
+     "endtime_test_program",      { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
+     "owner_user_id",             { data_type => "INT",       default_value => undef, is_nullable => 1, size => 11,    is_foreign_key => 1,    },
+     "testplan_id",               { data_type => "INT",       default_value => undef, is_nullable => 1, size => 11,    is_foreign_key => 1,    },
+     "wait_after_tests",          { data_type => "INT",       default_value => 0,     is_nullable => 1, size => 1,                             },
+     "rerun_on_error",            { data_type => "INT",       default_value => 0,     is_nullable => 1, size => 11,                            }, # number of times to rerun this test on error
+     "created_at" ,               { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP',  is_nullable => 0, set_on_create => 1,                     },
+     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, set_on_create => 1, set_on_update => 1, },
     );
 
 __PACKAGE__->set_primary_key("id");
