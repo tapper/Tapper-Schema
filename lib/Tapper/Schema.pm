@@ -4,11 +4,11 @@ package Tapper::Schema;
 use warnings;
 use strict;
 
-our $VERSION = '2.010103';
+our $VERSION = '3.000002';
 
 =head1 NAME
 
-Tapper::Schema - Database schemas for Tapper
+Tapper::Schema - Tapper - Database schemas for Tapper
 
 =head1 SYNOPSIS
 
@@ -18,7 +18,7 @@ Tapper::Schema - Database schemas for Tapper
 
 =head1 AUTHOR
 
-OSRC SysInt Team, C<< <osrc-sysint at elbe.amd.com> >>
+AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
 
 =head1 BUGS
 
@@ -31,9 +31,9 @@ automatically be notified of progress on your bug as I make changes.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008 OSRC SysInt Team, all rights reserved.
+Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
 
-This program is released under the following license: restrictive
+This program is released under the following license: freebsd
 
 
 =cut

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use YAML::XS;
+use YAML::Syck;
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core InflateColumn/);
 __PACKAGE__->table("message");
@@ -16,8 +16,8 @@ __PACKAGE__->add_columns
      "updated_at", { data_type => "DATETIME",  default_value => undef,                is_nullable => 1, },
     );
 __PACKAGE__->inflate_column( message => {
-                                        inflate => sub { YAML::XS::Load(shift) },
-                                        deflate => sub { YAML::XS::Dump(shift)},
+                                        inflate => sub { Load(shift) },
+                                        deflate => sub { Dump(shift)},
  });
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
@@ -39,7 +39,7 @@ Abstraction for the database table.
 
 =head1 AUTHOR
 
-OSRC SysInt Team, C<< <osrc-sysint at elbe.amd.com> >>
+AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
 
 
 =head1 BUGS
@@ -49,9 +49,9 @@ None.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2011 OSRC SysInt Team, all rights reserved.
+Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
 
-This program is released under the following license: restrictive
+This program is released under the following license: freebsd
 
 =cut
 
