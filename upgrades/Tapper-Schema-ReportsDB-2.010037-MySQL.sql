@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Wed Dec  8 10:53:00 2010
+-- Created on Wed Mar  2 15:22:13 2011
 -- 
 SET foreign_key_checks=0;
 
