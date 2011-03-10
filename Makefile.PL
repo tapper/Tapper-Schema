@@ -33,4 +33,7 @@ requires 'TAP::DOM'                                 => '0.10';
 #requires 'YAML'                                     => "0.72"; # we try to focus on one YAML to rule them all.
 requires 'YAML::Syck'                               => "1.17";
 
+repository 'git://github.com/amd/Tapper-Schema.git';
+bugtracker 'http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Tapper-Schema';
+
 WriteAll;
