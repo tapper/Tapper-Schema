@@ -43,7 +43,7 @@ sub get_first_fitting
 {
         my ($self, $free_hosts) = @_;
         my $jobs = $self->queued_testruns;
-        while (my $job = $jobs->next()) {
+        foreach my $job ($jobs->all()) {
                 if (my $host = $job->fits($free_hosts)) {
                         $job->host_id ($host->id);
 
