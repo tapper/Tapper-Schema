@@ -24,7 +24,7 @@ __PACKAGE__->inflate_column( message => {
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->belongs_to( testrun => "${basepkg}::Testrun", { 'foreign.id' => 'self.testrun_id' });
+__PACKAGE__->might_have( testrun => "${basepkg}::Testrun", { 'foreign.id' => 'self.testrun_id' });
 
 =head1 NAME
 
