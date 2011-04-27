@@ -14,6 +14,7 @@ __PACKAGE__->add_columns
      "filename",    { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
      "contenttype", { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
      "filecontent", { data_type => "LONGBLOB", default_value => "",     is_nullable => 0,                                         },
+     "is_compressed",  { data_type => "INT",   default_value => 0,      is_nullable => 0,                                         },
      "created_at",  { data_type => "DATETIME", default_value => undef,  is_nullable => 0, set_on_create => 1,                     },
      "updated_at",  { data_type => "DATETIME", default_value => undef,  is_nullable => 0, set_on_create => 1, set_on_update => 1, },
     );
