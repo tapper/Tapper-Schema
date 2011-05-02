@@ -4,7 +4,7 @@ package Tapper::Schema;
 use warnings;
 use strict;
 
-our $VERSION = '3.000010';
+our $VERSION = '3.000011';
 
 =head1 NAME
 

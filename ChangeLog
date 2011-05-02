@@ -1,3 +1,8 @@
+2011-05-02  Maik Hentsche <maik.hentsche@amd.com>
+	* v3.0.11
+	
+	* lib/auto dir for upgrade scripts
+
 2011-04-07  Steffen Schwigon  <steffen.schwigon@amd.com>
 
 	* v3.0.10
