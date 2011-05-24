@@ -10,7 +10,7 @@ __PACKAGE__->table("user");
 __PACKAGE__->add_columns
     (
      "id",       { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
-     "name",     { data_type => "VARCHAR", default_value => undef, is_nullable => 0, size => 255,                        },
+     "name",     { data_type => "VARCHAR", default_value => undef, is_nullable => 1, size => 255,                        },
      "login",    { data_type => "VARCHAR", default_value => undef, is_nullable => 0, size => 255,                        },
      "password", { data_type => "VARCHAR", default_value => undef, is_nullable => 1, size => 255,                        },
     );
