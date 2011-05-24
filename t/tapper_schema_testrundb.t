@@ -196,4 +196,11 @@ my $testrun2 = testrundb_schema->resultset('Testrun')->search({ shortname => 'lm
 my @filtered_precondition_ids = map { $_->id } grep { $_->precondition_as_hash->{precondition_type} =~ /^image|package$/ } @ordered_preconditions;
 is_deeply(\@filtered_precondition_ids, [ 9, 10, 8, 11, 12 ], "filtered preconditions without tapper-tools");
 
+# -----------------------------------------------------------------------------------------------------------------
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/testruns_with_states.yml' );
+# -----------------------------------------------------------------------------------------------------------------
+
+
+is(testrundb_schema->resultset('Testrun')->status('finished')->count, 1, 'One testrun which is finished in testrun_scheduling');
+
 done_testing();
