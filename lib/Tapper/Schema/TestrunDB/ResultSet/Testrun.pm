@@ -53,6 +53,10 @@ sub all_testruns {
         shift->search({});
 }
 
+sub status {
+        shift->search({'testrun_scheduling.status' => $_[0]}, {join => 'testrun_scheduling'});
+}
+
 sub add {
         my ($self, $args) = @_;
 
