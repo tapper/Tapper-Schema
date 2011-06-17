@@ -227,17 +227,19 @@ sub assign_preconditions {
                 return "Can not assign $precondition_id: $@" if $@;
                 $succession++;
         }
-        return 0; 
+        return 0;
 }
 
 sub disassign_preconditions {
         my ($self, @preconditions) = @_;
 
+        my $table = $self->result_source->schema->resultset('TestrunPrecondition');
         my $preconditions;
         if (not @preconditions) {
-                $preconditions = $self->result_source->schema->resultset('TestrunPrecondition')->search({testrun_id => $self->id});
+                $preconditions = $table->search({testrun_id => $self->id});
         } else {
-                $preconditions = $self->result_source->schema->resultset('TestrunPrecondition')->search({testrun_id => $self->id, precondition_id => [ -or => [ @preconditions ]]});
+                $preconditions = $table->search({testrun_id => $self->id,
+                                                 precondition_id => [ -or => [ @preconditions ]]});
         }
 
 
