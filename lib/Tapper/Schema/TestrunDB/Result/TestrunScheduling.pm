@@ -8,7 +8,6 @@ use common::sense;
 ## no critic (RequireUseStrict)
 use parent 'DBIx::Class';
 
-
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
 __PACKAGE__->table("testrun_scheduling");
 __PACKAGE__->add_columns
@@ -213,47 +212,6 @@ sub mark_as_finished
         # sync db
         $self->host->update;
         $self->update;
-}
-
-sub produce_preconditions
-{
-        my ($self) = @_;
-        my $testrun = $self->testrun;
- PRECONDITION:
-        my @new_preconditions;
-        foreach my $precondition($testrun->ordered_preconditions) {
-                my $precond_hash = $precondition->precondition_as_hash;
-                if ( $precond_hash->{precondition_type} eq 'produce' ) {
-                        my $producer_name = $precond_hash->{producer};
-                        if (not $producer_name) {
-                                # TODO: warn here about precondition_type: produce without actual producer
-                                next PRECONDITION;
-                        }
-                        eval "use Tapper::MCP::Scheduler::PreconditionProducer::$producer_name"; ## no critic (ProhibitStringyEval)
-                        my $producer = "Tapper::MCP::Scheduler::PreconditionProducer::$producer_name"->new();
-                        my $retval = $producer->produce($self, $precond_hash);
-
-                        if ($retval->{error}) {
-                                return $retval->{error};
-                        }
-
-                        my $new_precondition_yaml = $retval->{precondition_yaml};
-                        if ($retval->{topic}) {
-                                $self->testrun->topic_name($retval->{topic});
-                                $self->testrun->update;
-                        }
-
-                        my @precond_array = Load($new_precondition_yaml);
-                        my @new_ids = $self->result_source->schema->resultset('Precondition')->add(\@precond_array);
-                        push @new_preconditions, @new_ids;
-                } else {
-                        push @new_preconditions, $precondition->id;
-                }
-
-        }
-        $self->testrun->disassign_preconditions();
-        $self->testrun->assign_preconditions(@new_preconditions);
-        return 0;
 }
 
 
