@@ -230,6 +230,51 @@ sub assign_preconditions {
         return 0;
 }
 
+=head2 insert_preconditions
+
+Insert given preconditions (as id) starting at given position and push
+all later preconditions to make sure they come after the inserted.
+
+@param      int - starting position
+@param_list list of precondition_ids
+
+@return success - 0
+@return error   - error message
+
+=cut
+
+sub insert_preconditions {
+        my ($self, $position, @preconditions) = @_;
+
+        my $succession = $position;
+        my $testrun_precondition = $self->result_source->schema->resultset('TestrunPrecondition');
+
+        # move existing preconditions
+        my $remaining_preconditions = $testrun_precondition->search({testrun_id => $self->id,
+                                                                     succession => { '>=' => $position }});
+        while (my $remain = $remaining_preconditions->next) {
+                $remain->succession($remain->succession + int @preconditions);
+                $remain->update;
+        }
+
+        # assign new ones
+        foreach my $precondition_id (@preconditions) {
+                my $testrun_precondition = $testrun_precondition->new
+                    ({
+                      testrun_id      => $self->id,
+                      precondition_id => $precondition_id,
+                      succession      => $succession,
+                     });
+                eval {
+                        $testrun_precondition->insert;
+                };
+                return "Can not assign $precondition_id: $@" if $@;
+                $succession++;
+        }
+        return 0;
+}
+
+
 sub disassign_preconditions {
         my ($self, @preconditions) = @_;
 
