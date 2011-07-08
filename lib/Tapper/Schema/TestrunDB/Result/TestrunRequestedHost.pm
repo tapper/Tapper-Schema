@@ -11,7 +11,7 @@ __PACKAGE__->add_columns
     (
      "id",              { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
      "testrun_id",      { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_foreign_key    => 1, },
-     "host_id",         { data_type => "INT",     default_value => undef,    is_nullable => 1,                                     },
+     "host_id",         { data_type => "INT", default_value => undef, is_nullable => 0, size => 11, is_foreign_key    => 1, },
     );
 
 __PACKAGE__->set_primary_key(qw/id/);
