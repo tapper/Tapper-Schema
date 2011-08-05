@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon May  2 12:04:01 2011
+-- Created on Fri Aug  5 15:58:30 2011
 -- 
 SET foreign_key_checks=0;
 
@@ -196,7 +196,6 @@ CREATE TABLE `message` (
   `id` integer(11) NOT NULL auto_increment,
   `testrun_id` integer(11) NOT NULL,
   `message` text,
-  `type` VARCHAR(255),
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime,
   INDEX `message_idx_testrun_id` (`testrun_id`),

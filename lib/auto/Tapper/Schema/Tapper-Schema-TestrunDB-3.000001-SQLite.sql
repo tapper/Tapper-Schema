@@ -1,25 +1,9 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Mon May  2 12:04:02 2011
+-- Created on Fri Aug  5 15:58:30 2011
 -- 
 
 BEGIN TRANSACTION;
-
---
--- Table: host_feature
---
-DROP TABLE host_feature;
-
-CREATE TABLE host_feature (
-  id INTEGER PRIMARY KEY NOT NULL,
-  host_id INT NOT NULL,
-  entry VARCHAR(255) NOT NULL,
-  value VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
-);
-
-CREATE INDEX host_feature_idx_host_id ON host_feature (host_id);
 
 --
 -- Table: host
@@ -49,22 +33,6 @@ CREATE TABLE precondition (
 );
 
 --
--- Table: message
---
-DROP TABLE message;
-
-CREATE TABLE message (
-  id INTEGER PRIMARY KEY NOT NULL,
-  testrun_id INT(11) NOT NULL,
-  message VARCHAR(65000),
-  type VARCHAR(255),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
-);
-
-CREATE INDEX message_idx_testrun_id ON message (testrun_id);
-
---
 -- Table: preconditiontype
 --
 DROP TABLE preconditiontype;
@@ -73,37 +41,6 @@ CREATE TABLE preconditiontype (
   name VARCHAR(20) NOT NULL,
   description TEXT NOT NULL DEFAULT '',
   PRIMARY KEY (name)
-);
-
---
--- Table: state
---
-DROP TABLE state;
-
-CREATE TABLE state (
-  id INTEGER PRIMARY KEY NOT NULL,
-  testrun_id INT(11) NOT NULL,
-  state VARCHAR(65000),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
-);
-
-CREATE INDEX state_idx_testrun_id ON state (testrun_id);
-
-CREATE UNIQUE INDEX unique_testrun_id ON state (testrun_id);
-
---
--- Table: testplan_instance
---
-DROP TABLE testplan_instance;
-
-CREATE TABLE testplan_instance (
-  id INTEGER PRIMARY KEY NOT NULL,
-  path VARCHAR(255) DEFAULT '',
-  name VARCHAR(255) DEFAULT '',
-  evaluated_testplan TEXT DEFAULT '',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
 );
 
 --
@@ -134,6 +71,20 @@ CREATE TABLE scenario (
 );
 
 --
+-- Table: testplan_instance
+--
+DROP TABLE testplan_instance;
+
+CREATE TABLE testplan_instance (
+  id INTEGER PRIMARY KEY NOT NULL,
+  path VARCHAR(255) DEFAULT '',
+  name VARCHAR(255) DEFAULT '',
+  evaluated_testplan TEXT DEFAULT '',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME
+);
+
+--
 -- Table: topic
 --
 DROP TABLE topic;
@@ -155,6 +106,22 @@ CREATE TABLE user (
   login VARCHAR(255) NOT NULL,
   password VARCHAR(255)
 );
+
+--
+-- Table: host_feature
+--
+DROP TABLE host_feature;
+
+CREATE TABLE host_feature (
+  id INTEGER PRIMARY KEY NOT NULL,
+  host_id INT NOT NULL,
+  entry VARCHAR(255) NOT NULL,
+  value VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME
+);
+
+CREATE INDEX host_feature_idx_host_id ON host_feature (host_id);
 
 --
 -- Table: pre_precondition
@@ -212,6 +179,38 @@ CREATE TABLE testrun (
 CREATE INDEX testrun_idx_owner_user_id ON testrun (owner_user_id);
 
 CREATE INDEX testrun_idx_testplan_id ON testrun (testplan_id);
+
+--
+-- Table: message
+--
+DROP TABLE message;
+
+CREATE TABLE message (
+  id INTEGER PRIMARY KEY NOT NULL,
+  testrun_id INT(11) NOT NULL,
+  message VARCHAR(65000),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME
+);
+
+CREATE INDEX message_idx_testrun_id ON message (testrun_id);
+
+--
+-- Table: state
+--
+DROP TABLE state;
+
+CREATE TABLE state (
+  id INTEGER PRIMARY KEY NOT NULL,
+  testrun_id INT(11) NOT NULL,
+  state VARCHAR(65000),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME
+);
+
+CREATE INDEX state_idx_testrun_id ON state (testrun_id);
+
+CREATE UNIQUE INDEX unique_testrun_id ON state (testrun_id);
 
 --
 -- Table: testrun_requested_feature
