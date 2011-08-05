@@ -2,9 +2,9 @@
 
 BEGIN;
 
-ALTER TABLE message CHANGE COLUMN testrun_id testrun_id integer(11),
-                    CHANGE COLUMN message message text,
-                    CHANGE COLUMN type type VARCHAR(255);
+ALTER TABLE message ADD COLUMN type VARCHAR(255),
+                    CHANGE COLUMN testrun_id testrun_id integer(11),
+                    CHANGE COLUMN message message text;
 
 ALTER TABLE queue_host CHANGE COLUMN host_id host_id integer(11) NOT NULL;
 
