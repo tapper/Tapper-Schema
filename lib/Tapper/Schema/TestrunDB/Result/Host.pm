@@ -10,14 +10,14 @@ __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table("host");
 __PACKAGE__->add_columns
     (
-     "id",                        { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,    is_auto_increment => 1, },
-     "name",                      { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
-     "comment",                   { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
-     "free",                      { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
-     "active",                    { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
-     "is_deleted",                { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        }, # deleted hosts need to be kept in db to show old testruns correctly
-     "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
-     "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
+     "id",         { data_type => "INT",       default_value => undef,                is_nullable => 0, size => 11,    is_auto_increment => 1, },
+     "name",       { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
+     "comment",    { data_type => "VARCHAR",   default_value => "",                   is_nullable => 1, size => 255,                           },
+     "free",       { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
+     "active",     { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
+     "is_deleted", { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        }, # deleted hosts need to be kept in db to show old testruns correctly
+     "created_at", { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
+     "updated_at", { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
 
     );
 
