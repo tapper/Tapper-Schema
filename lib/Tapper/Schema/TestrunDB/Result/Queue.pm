@@ -14,6 +14,7 @@ __PACKAGE__->add_columns
      "priority",                  { data_type => "INT",       default_value => 0,                    is_nullable => 0, size => 10,                            },
      "runcount",                  { data_type => "INT",       default_value => 0,                    is_nullable => 0, size => 10,                            }, # aux for algorithm
      "active",                    { data_type => "INT",       default_value => 0,                    is_nullable => 1, size => 1,                             },
+     "is_deleted",                { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        }, # deleted queues need to be kept in db to show old testruns correctly
      "created_at",                { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, #' emacs highlight bug
      "updated_at",                { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
     );
