@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Thu Aug 25 09:54:12 2011
+-- Created on Fri Nov 11 13:28:04 2011
 -- 
 
 BEGIN TRANSACTION;
@@ -120,7 +120,8 @@ CREATE TABLE host_feature (
   entry VARCHAR(255) NOT NULL,
   value VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
+  updated_at DATETIME,
+  FOREIGN KEY(host_id) REFERENCES host(id)
 );
 
 CREATE INDEX host_feature_idx_host_id ON host_feature (host_id);
@@ -134,7 +135,9 @@ CREATE TABLE pre_precondition (
   parent_precondition_id INT(11) NOT NULL,
   child_precondition_id INT(11) NOT NULL,
   succession INT(10) NOT NULL,
-  PRIMARY KEY (parent_precondition_id, child_precondition_id)
+  PRIMARY KEY (parent_precondition_id, child_precondition_id),
+  FOREIGN KEY(child_precondition_id) REFERENCES precondition(id),
+  FOREIGN KEY(parent_precondition_id) REFERENCES precondition(id)
 );
 
 CREATE INDEX pre_precondition_idx_child_precondition_id ON pre_precondition (child_precondition_id);
@@ -149,7 +152,9 @@ DROP TABLE queue_host;
 CREATE TABLE queue_host (
   id INTEGER PRIMARY KEY NOT NULL,
   queue_id INT(11) NOT NULL,
-  host_id INT(11) NOT NULL
+  host_id INT(11) NOT NULL,
+  FOREIGN KEY(host_id) REFERENCES host(id),
+  FOREIGN KEY(queue_id) REFERENCES queue(id)
 );
 
 CREATE INDEX queue_host_idx_host_id ON queue_host (host_id);
@@ -175,7 +180,9 @@ CREATE TABLE testrun (
   wait_after_tests INT(1) DEFAULT 0,
   rerun_on_error INT(11) DEFAULT 0,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
+  updated_at DATETIME,
+  FOREIGN KEY(owner_user_id) REFERENCES user(id),
+  FOREIGN KEY(testplan_id) REFERENCES testplan_instance(id)
 );
 
 CREATE INDEX testrun_idx_owner_user_id ON testrun (owner_user_id);
@@ -193,7 +200,8 @@ CREATE TABLE message (
   message VARCHAR(65000),
   type VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
+  updated_at DATETIME,
+  FOREIGN KEY(testrun_id) REFERENCES testrun(id)
 );
 
 CREATE INDEX message_idx_testrun_id ON message (testrun_id);
@@ -208,7 +216,8 @@ CREATE TABLE state (
   testrun_id INT(11) NOT NULL,
   state VARCHAR(65000),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
+  updated_at DATETIME,
+  FOREIGN KEY(testrun_id) REFERENCES testrun(id)
 );
 
 CREATE INDEX state_idx_testrun_id ON state (testrun_id);
@@ -223,7 +232,8 @@ DROP TABLE testrun_requested_feature;
 CREATE TABLE testrun_requested_feature (
   id INTEGER PRIMARY KEY NOT NULL,
   testrun_id INT(11) NOT NULL,
-  feature VARCHAR(255) DEFAULT ''
+  feature VARCHAR(255) DEFAULT '',
+  FOREIGN KEY(testrun_id) REFERENCES testrun(id)
 );
 
 CREATE INDEX testrun_requested_feature_idx_testrun_id ON testrun_requested_feature (testrun_id);
@@ -237,7 +247,9 @@ CREATE TABLE scenario_element (
   id INTEGER PRIMARY KEY NOT NULL,
   testrun_id INT(11) NOT NULL,
   scenario_id INT(11) NOT NULL,
-  is_fitted INT(1) NOT NULL DEFAULT 0
+  is_fitted INT(1) NOT NULL DEFAULT 0,
+  FOREIGN KEY(scenario_id) REFERENCES scenario(id),
+  FOREIGN KEY(testrun_id) REFERENCES testrun(id)
 );
 
 CREATE INDEX scenario_element_idx_scenario_id ON scenario_element (scenario_id);
@@ -253,7 +265,9 @@ CREATE TABLE testrun_precondition (
   testrun_id INT(11) NOT NULL,
   precondition_id INT(11) NOT NULL,
   succession INT(10),
-  PRIMARY KEY (testrun_id, precondition_id)
+  PRIMARY KEY (testrun_id, precondition_id),
+  FOREIGN KEY(precondition_id) REFERENCES precondition(id),
+  FOREIGN KEY(testrun_id) REFERENCES testrun(id)
 );
 
 CREATE INDEX testrun_precondition_idx_precondition_id ON testrun_precondition (precondition_id);
@@ -268,7 +282,9 @@ DROP TABLE testrun_requested_host;
 CREATE TABLE testrun_requested_host (
   id INTEGER PRIMARY KEY NOT NULL,
   testrun_id INT(11) NOT NULL,
-  host_id INT(11) NOT NULL
+  host_id INT(11) NOT NULL,
+  FOREIGN KEY(host_id) REFERENCES host(id),
+  FOREIGN KEY(testrun_id) REFERENCES testrun(id)
 );
 
 CREATE INDEX testrun_requested_host_idx_host_id ON testrun_requested_host (host_id);
@@ -289,7 +305,10 @@ CREATE TABLE testrun_scheduling (
   status VARCHAR(255) DEFAULT 'prepare',
   auto_rerun TINYINT DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
+  updated_at DATETIME,
+  FOREIGN KEY(host_id) REFERENCES host(id),
+  FOREIGN KEY(queue_id) REFERENCES queue(id),
+  FOREIGN KEY(testrun_id) REFERENCES testrun(id)
 );
 
 CREATE INDEX testrun_scheduling_idx_host_id ON testrun_scheduling (host_id);
