@@ -17,7 +17,7 @@ __PACKAGE__->add_columns
    "updated_at",         { data_type => "DATETIME",  default_value => undef,                is_nullable => 1, },
     );
 
-__PACKAGE__->has_many ( testruns => 'Tapper::Schema::TestrunDB::Result::Testrun', { 'foreign.testplan_id' => 'self.id' });
+__PACKAGE__->has_many ( testruns => 'Tapper::Schema::TestrunDB::Result::Testrun', { 'foreign.testplan_id' => 'self.id'}, {cascade_delete => 0 });
 __PACKAGE__->set_primary_key("id");
 
 1;
