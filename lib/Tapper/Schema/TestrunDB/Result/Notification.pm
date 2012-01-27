@@ -22,7 +22,7 @@ __PACKAGE__->add_columns
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->belongs_to( testrun => "${basepkg}::Notification", { 'foreign.id' => 'self.notification_id' });
+__PACKAGE__->belongs_to( user => "${basepkg}::User", { 'foreign.id' => 'self.user_id' });
 
 =head1 NAME
 
