@@ -15,8 +15,6 @@ __PACKAGE__->add_columns
      "password", { data_type => "VARCHAR", default_value => undef, is_nullable => 1, size => 255,                        },
     );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->has_many( contacts => "${basepkg}::Contact", { 'foreign.user_id' => 'self.id' });
-__PACKAGE__->has_many( notifications => "${basepkg}::Notification", { 'foreign.user_id' => 'self.id' });
 
 1;
 
