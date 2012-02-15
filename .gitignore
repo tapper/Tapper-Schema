@@ -16,7 +16,7 @@ t/tapper_schema_hardwaredb_test.sqlite
 t/tapper_schema_testrundb_test.sqlite-journal
 MANIFEST
 META.yml
-MYMETA.yml
+MYMETA*
 Makefile
 inc/
 
