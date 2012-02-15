@@ -1,4 +1,4 @@
-package Tapper::Schema::TestrunDB::Result::Notification;
+package Tapper::Schema::ReportsDB::Result::Notification;
 
 use strict;
 use warnings;
@@ -26,14 +26,14 @@ __PACKAGE__->belongs_to( user => "${basepkg}::User", { 'foreign.id' => 'self.use
 
 =head1 NAME
 
-Tapper::Schema::TestrunDB::Result::Notification - Keep data about notification subscriptions
+Tapper::Schema::ReportsDB::Result::Notification - Keep data about notification subscriptions
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Tapper::Schema::TestrunDB;
+ use Tapper::Schema::ReportsDB;
 
 
 =head1 AUTHOR
