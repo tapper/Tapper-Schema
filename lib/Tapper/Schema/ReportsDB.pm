@@ -7,7 +7,7 @@ use warnings;
 
 # Only increment this version here on schema changes.
 # For everything else increment Tapper/Schema.pm.
-our $VERSION = '3.000005';
+our $VERSION = '3.000006';
 
 # avoid these warnings
 #   Subroutine initialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 70.
