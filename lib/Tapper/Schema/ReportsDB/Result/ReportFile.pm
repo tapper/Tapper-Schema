@@ -4,8 +4,9 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
+use Compress::Bzip2;
 
-__PACKAGE__->load_components(qw/InflateColumn::DateTime TimeStamp Core/);
+__PACKAGE__->load_components(qw/FilterColumn InflateColumn::DateTime TimeStamp Core/);
 __PACKAGE__->table("reportfile");
 __PACKAGE__->add_columns
     (
@@ -20,7 +21,11 @@ __PACKAGE__->add_columns
     );
 
 __PACKAGE__->set_primary_key("id");
-
+__PACKAGE__->filter_column('filecontent', {
+                                           filter_from_storage => sub { my ($row, $element) = @_; return $row->is_compressed ? memBunzip( $element ) : $element },
+                                           filter_to_storage =>   sub { my ($row, $element) = @_; $row->is_compressed( 1 ); memBzip( $element ); },
+                                           }
+                           );
 __PACKAGE__->belongs_to   ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 
