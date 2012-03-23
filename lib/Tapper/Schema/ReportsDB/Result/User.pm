@@ -18,6 +18,7 @@ __PACKAGE__->add_columns
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint( unique_login => [ qw/login/ ], );
 __PACKAGE__->has_many( contacts => "${basepkg}::Contact", { 'foreign.user_id' => 'self.id' });
 __PACKAGE__->has_many( notifications => "${basepkg}::Notification", { 'foreign.user_id' => 'self.id' });
 
