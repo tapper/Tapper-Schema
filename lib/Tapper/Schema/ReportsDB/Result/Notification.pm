@@ -13,7 +13,7 @@ __PACKAGE__->add_columns
       "user_id",    { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 11, is_foreign_key    => 1, },
       "persist",    { data_type => "INT",       default_value => undef,                is_nullable => 1, size => 1, },
       "event",      { data_type => "VARCHAR",   default_value => undef,                is_nullable => 0, size => 255, },    # subscribe to this event type
-      "condition",  { data_type => "TEXT",      default_value => undef,                is_nullable => 0,  },  # data for check handler
+      "filter",     { data_type => "TEXT",      default_value => undef,                is_nullable => 0,  },  # data for check handler
       "comment",    { data_type => "VARCHAR",   default_value => undef,                is_nullable => 1, size => 255, },    # what shall we send
       "created_at", { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1, },
       "updated_at", { data_type => "DATETIME",  default_value => undef,                is_nullable => 1, },
