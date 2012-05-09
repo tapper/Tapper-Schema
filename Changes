@@ -1,3 +1,8 @@
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
+        - big Dist::Zilla roundhouse kick
+
 2011-05-02  Maik Hentsche <maik.hentsche@amd.com>
 	* v3.0.11
 	
