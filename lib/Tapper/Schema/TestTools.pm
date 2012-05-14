@@ -19,42 +19,35 @@ use Tapper::Config;
 my $testrundb_schema;
 my $reportsdb_schema;
 
-sub setup_testrundb {
-
+sub setup_db
+{
         # explicitely prefix into {test} subhash of the config file,
         # to avoid painful mistakes with deploy
 
-        my $dsn = Tapper::Config->subconfig->{test}{database}{TestrunDB}{dsn};
+        my ($cfg) = @_;
+        my $dsn = $cfg->{dsn};
 
         my ($tmpfname) = $dsn =~ m,dbi:SQLite:dbname=([\w./]+),i;
         unlink $tmpfname;
 
-        $testrundb_schema = Tapper::Schema::TestrunDB->connect($dsn,
-                                                                Tapper::Config->subconfig->{test}{database}{TestrunDB}{username},
-                                                                Tapper::Config->subconfig->{test}{database}{TestrunDB}{password},
+        my $schema = Tapper::Schema::TestrunDB->connect($dsn,
+                                                                $cfg->{username},
+                                                                $cfg->{password},
                                                                 { ignore_version => 1 }
                                                                );
-        $testrundb_schema->deploy;
-        $testrundb_schema->upgrade;
+        $schema->deploy;
+        if ($schema->schema_version > $schema->get_db_version) {
+                $schema->upgrade;
+        }
+        return $schema;
+}
+
+sub setup_testrundb {
+        $testrundb_schema = setup_db(Tapper::Config->subconfig->{test}{database}{TestrunDB});
 }
 
 sub setup_reportsdb {
-
-        # explicitely prefix into {test} subhash of the config file,
-        # to avoid painful mistakes with deploy
-
-        my $dsn = Tapper::Config->subconfig->{test}{database}{ReportsDB}{dsn};
-
-        my ($tmpfname) = $dsn =~ m,dbi:SQLite:dbname=([\w./]+),i;
-        unlink $tmpfname;
-
-        $reportsdb_schema = Tapper::Schema::ReportsDB->connect($dsn,
-                                                                Tapper::Config->subconfig->{test}{database}{ReportsDB}{username},
-                                                                Tapper::Config->subconfig->{test}{database}{ReportsDB}{password},
-                                                                { ignore_version => 1 }
-                                                               );
-        $reportsdb_schema->deploy;
-        $reportsdb_schema->upgrade;
+        $reportsdb_schema = setup_db(Tapper::Config->subconfig->{test}{database}{ReportsDB});
 }
 
 
