@@ -24,30 +24,25 @@ sub setup_db
         # explicitely prefix into {test} subhash of the config file,
         # to avoid painful mistakes with deploy
 
-        my ($cfg) = @_;
-        my $dsn = $cfg->{dsn};
+        my ($db, $cfgbase) = @_;
 
+        my $cfg = $cfgbase->{$db};
+        my $dsn = $cfg->{dsn};
         my ($tmpfname) = $dsn =~ m,dbi:SQLite:dbname=([\w./]+),i;
         unlink $tmpfname;
-
-        my $schema = Tapper::Schema::TestrunDB->connect($dsn,
-                                                                $cfg->{username},
-                                                                $cfg->{password},
-                                                                { ignore_version => 1 }
-                                                               );
+        my $schema = $db eq "ReportsDB" ? Tapper::Schema::ReportsDB->connect($dsn, $cfg->{username}, $cfg->{password}, { ignore_version => 1 })
+                                        : Tapper::Schema::TestrunDB->connect($dsn, $cfg->{username}, $cfg->{password}, { ignore_version => 1 });
         $schema->deploy;
-        if ($schema->schema_version > $schema->get_db_version) {
-                $schema->upgrade;
-        }
+        $schema->upgrade if $schema->schema_version > $schema->get_db_version;
         return $schema;
 }
 
 sub setup_testrundb {
-        $testrundb_schema = setup_db(Tapper::Config->subconfig->{test}{database}{TestrunDB});
+        $testrundb_schema = setup_db("TestrunDB", Tapper::Config->subconfig->{test}{database});
 }
 
 sub setup_reportsdb {
-        $reportsdb_schema = setup_db(Tapper::Config->subconfig->{test}{database}{ReportsDB});
+        $reportsdb_schema = setup_db("ReportsDB", Tapper::Config->subconfig->{test}{database});
 }
 
 
