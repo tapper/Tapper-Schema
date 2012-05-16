@@ -1,6 +1,14 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - add transparently compressed reportfiles
+        - add notification info
+        - add deleted flag for queue and host
+        - add owner field for report groups
+        - add filter testruns by status
+        - add type to state messages
+        - remove producer from scheduler
+        - Moved schema upgrade files to lib/auto/
         - big Dist::Zilla roundhouse kick
 
 2011-05-02  Maik Hentsche <maik.hentsche@amd.com>
