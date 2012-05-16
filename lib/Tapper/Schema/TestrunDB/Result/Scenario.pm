@@ -25,7 +25,7 @@ __PACKAGE__->has_many  ( scenario_elements => "${basepkg}::ScenarioElement", { '
 
 =head1 NAME
 
-Tapper::Schema::TestrunDB::Result::Testgroup - Grouping of interdependent tests  
+Tapper::Schema::TestrunDB::Result::Testgroup - Grouping of interdependent tests
 
 
 =head1 SYNOPSIS
