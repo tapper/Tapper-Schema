@@ -23,6 +23,12 @@ __PACKAGE__->belongs_to ( report => 'Tapper::Schema::ReportsDB::Result::Report',
 
 # -------------------- methods on results --------------------
 
+=head2 groupreports
+
+Return group of all reports belonging to this same testrun.
+
+=cut
+
 sub groupreports {
         my ($self) = @_;
 
@@ -35,32 +41,3 @@ sub groupreports {
 }
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::ReportsDB::ReportGroup - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::ReportsDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

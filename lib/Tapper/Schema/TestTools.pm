@@ -19,6 +19,12 @@ use Tapper::Config;
 my $testrundb_schema;
 my $reportsdb_schema;
 
+=head2 setup_db
+
+Setup and connect a test database using SQLite.
+
+=cut
+
 sub setup_db
 {
         # explicitely prefix into {test} subhash of the config file,
@@ -37,9 +43,21 @@ sub setup_db
         return $schema;
 }
 
+=head2 setup_testrundb
+
+Setup and connect a test TestrunDB using SQLite.
+
+=cut
+
 sub setup_testrundb {
         $testrundb_schema = setup_db("TestrunDB", Tapper::Config->subconfig->{test}{database});
 }
+
+=head2 setup_reportsdb
+
+Setup and connect a test ReportsDB using SQLite.
+
+=cut
 
 sub setup_reportsdb {
         $reportsdb_schema = setup_db("ReportsDB", Tapper::Config->subconfig->{test}{database});

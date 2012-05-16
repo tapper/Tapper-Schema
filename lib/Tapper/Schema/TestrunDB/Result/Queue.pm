@@ -28,6 +28,12 @@ __PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         {
 
 # -------------------- methods on results --------------------
 
+=head2 queued_testruns
+
+Return all scheduled testruns in current queue.
+
+=cut
+
 sub queued_testruns
 {
         my ($self) = @_;
@@ -39,6 +45,12 @@ sub queued_testruns
                                            ordered_by => 'testrun_id'
                                           });
 }
+
+=head2 get_first_fitting
+
+Return first fitting testrun according to the scheduling rules.
+
+=cut
 
 sub get_first_fitting
 {
@@ -57,6 +69,12 @@ sub get_first_fitting
         }
         return;
 }
+
+=head2 to_string
+
+Return a readable repesentation of Queue.
+
+=cut
 
 sub to_string
 {
@@ -118,6 +136,13 @@ sub ordered_preconditions
         return @done;
 }
 
+=head2 producer
+
+Return instance of PreconditionProducer according to associated
+producer.
+
+=cut
+
 sub producer
 {
         my ($self) = @_;
@@ -127,6 +152,12 @@ sub producer
         return $producer_class->new unless $@;
         return;
 }
+
+=head2 produce
+
+Return associated producer.
+
+=cut
 
 sub produce
 {
@@ -142,6 +173,12 @@ sub produce
         }
 }
 
+=head2 update_content
+
+Update I<priority> and I<active> flags.
+
+=cut
+
 sub update_content {
         my ($self, $args) =@_;
 
@@ -151,34 +188,4 @@ sub update_content {
         return $self->id;
 }
 
-
 1;
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Testrun - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

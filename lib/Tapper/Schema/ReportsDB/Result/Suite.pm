@@ -19,6 +19,13 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many   ( reports => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.suite_id'        => 'self.id' });
 
+
+=head2 sqlt_deploy_hook
+
+Add an index over I<name> on deploy.
+
+=cut
+
 sub sqlt_deploy_hook
 {
         my ($self, $sqlt_table) = @_;
@@ -26,32 +33,3 @@ sub sqlt_deploy_hook
 }
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::ReportsDB::Result::User - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::ReportsDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

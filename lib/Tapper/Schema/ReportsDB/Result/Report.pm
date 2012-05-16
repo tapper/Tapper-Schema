@@ -61,6 +61,12 @@ __PACKAGE__->has_many     ( files          => 'Tapper::Schema::ReportsDB::Result
 __PACKAGE__->has_many     ( reportsections => 'Tapper::Schema::ReportsDB::Result::ReportSection', { 'foreign.report_id' => 'self.id' });
 
 
+=head2 sqlt_deploy_hook
+
+Add an index over I<machine_name> on deploy.
+
+=cut
+
 sub sqlt_deploy_hook
 {
         my ($self, $sqlt_table) = @_;
@@ -69,6 +75,13 @@ sub sqlt_deploy_hook
 
 #sub suite_name { shift->suite->name }
 #sub suite_name { my ($self, $arg) = @_; return $self->search({ "suite.name" => $arg })};
+
+
+=head2 sections_cpuinfo
+
+Return list of I<cpuinfo> of all report sections.
+
+=cut
 
 sub sections_cpuinfo
 {
@@ -81,6 +94,12 @@ sub sections_cpuinfo
         return @cpus;
 }
 
+=head2 sections_osname
+
+Return list of I<osname> of all report sections.
+
+=cut
+
 sub sections_osname
 {
         my ($self) = @_;
@@ -92,6 +111,12 @@ sub sections_osname
         return @cpus;
 }
 
+=head2 some_meta_available
+
+Return list of I<some_meta_available> of all report sections.
+
+=cut
+
 sub some_meta_available
 {
         my ($self) = @_;
@@ -102,6 +127,12 @@ sub some_meta_available
         }
         return 0;
 }
+
+=head2 get_cached_tapdom
+
+Return a TAP-DOM of the report, creating it on demand.
+
+=cut
 
 sub get_cached_tapdom
 {
@@ -168,34 +199,3 @@ sub get_cached_tapdom
 }
 
 1;
-
-__END__
-
-=head1 NAME
-
-Tapper::Schema::ReportsDB::Report - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::ReportsDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

@@ -28,11 +28,24 @@ __PACKAGE__->set_primary_key(qw/testrun_id/);
 
 __PACKAGE__->has_many ( reportgrouptestruns => 'Tapper::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, {cascade_delete => 0, cascade_copy => 0 } );
 
+
+=head2 groupreports
+
+Return all reports of this testrun report group.
+
+=cut
+
 sub groupreports {
         my ($self) = @_;
 
         $self->reportgrouptestruns->groupreports;
 }
+
+=head2 _success_ratio
+
+Return this reports success ratio of passed vs. total.
+
+=cut
 
 sub _success_ratio
 {
@@ -41,6 +54,12 @@ sub _success_ratio
         my $ratio = sprintf("%02.2f", $self->total ? ($self->passed / $self->total * 100) : 100 );
         return $ratio;
 }
+
+=head2 update_failed_passed
+
+Update reportgroup details, eg. on incoming new reports of this group.
+
+=cut
 
 sub update_failed_passed
 {
@@ -69,31 +88,3 @@ sub update_failed_passed
 }
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::ReportsDB::ReportgroupTestrunMeta.pm -  Meta info for Reports grouped by Testrun
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::ReportsDB::ReportgroupTestrunMeta;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

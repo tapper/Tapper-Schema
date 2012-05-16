@@ -6,10 +6,22 @@ use warnings;
 
 use parent 'DBIx::Class::ResultSet';
 
+=head2 non_scheduled_jobs
+
+Return due testruns.
+
+=cut
+
 sub non_scheduled_jobs
 {
         shift->search({ status => "schedule" });
 }
+
+=head2 max_priority_seq
+
+Search for queue with highhest C<max_seq>.
+
+=cut
 
 sub max_priority_seq {
         my ($self) = @_;
@@ -24,6 +36,12 @@ sub max_priority_seq {
         return $job_with_max_seq->get_column('max_seq') if $job_with_max_seq and $job_with_max_seq->get_column('max_seq');
         return 0;
 }
+
+=head2 running_jobs
+
+Return all currently running testruns.
+
+=cut
 
 sub running_jobs
 {

@@ -31,7 +31,12 @@ __PACKAGE__->many_to_many ( parent_testruns             => 'testrun_precondition
 
 # -------------------- methods in results --------------------
 
-# make a string with newlines to one line inserting \n
+=head2 one_line
+
+Make a string with newlines to one line inserting C<\n>.
+
+=cut
+
 sub one_line {
         my ($str) = @_;
 
@@ -40,12 +45,24 @@ sub one_line {
         $str;
 }
 
+=head2 quote
+
+Quote a string according to Perl eval rules.
+
+=cut
+
 sub quote {
         my ($str) = @_;
 
         my $d = Data::Dumper->new([$str])->Terse(1)->Indent(0);
         $d->Dump;
 }
+
+=head2 quote_and_one_line
+
+Combine C<quote> and C<one_line>.
+
+=cut
 
 sub quote_and_one_line {
         my ($str) = @_;
@@ -54,6 +71,12 @@ sub quote_and_one_line {
         $str =~ s/\n/\\n/msg;
         $str;
 }
+
+=head2 to_string
+
+Return printable representation.
+
+=cut
 
 sub to_string
 {
@@ -80,9 +103,21 @@ sub to_string
         return $str;
 }
 
+=head2 precondition_as_hash
+
+Provide the precondition YAML as actual data structure.
+
+=cut
+
 sub precondition_as_hash {
         Load(shift->precondition);
 }
+
+=head2 update_content
+
+Update precondition from given params.
+
+=cut
 
 sub update_content {
         my ($self, $condition) = @_;
@@ -100,31 +135,6 @@ sub update_content {
         return $self->id;
 }
 
-=head1 NAME
+1;
 
-Tapper::Schema::TestrunDB::Result::Precondition - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
 

@@ -6,6 +6,12 @@ use warnings;
 use parent 'DBIx::Class::ResultSet';
 use YAML::Syck;
 
+=head2 add
+
+Create (add) a list of preconditions and return them with their now
+associated db data (eg. ID).
+
+=cut
 
 sub add {
         my ($self, $preconditions) = @_;

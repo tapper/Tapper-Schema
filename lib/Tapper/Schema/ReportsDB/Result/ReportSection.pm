@@ -68,6 +68,13 @@ __PACKAGE__->has_many   ( report => 'Tapper::Schema::ReportsDB::Result::Report',
 
 # -------------------- methods on results --------------------
 
+=head2 some_meta_available
+
+Return whether there is at least one of the standard meta info headers
+contained.
+
+=cut
+
 sub some_meta_available
 {
         my ($self) = @_;

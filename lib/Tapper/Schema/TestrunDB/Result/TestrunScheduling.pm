@@ -37,6 +37,12 @@ __PACKAGE__->has_many  ( requested_hosts    => "${basepkg}::TestrunRequestedHost
 
 # ----- scheduler related methods -----
 
+=head2 match_host
+
+Return hosts that match scheduler criteria.
+
+=cut
+
 sub match_host {
         my ($self, $free_hosts) = @_;
 
@@ -62,6 +68,13 @@ sub match_host {
 
 our @functions = ('&hostname');
 
+=head2 hostname
+
+Utility function in requested features to match against current or
+specified hostname.
+
+=cut
+
 sub hostname (;$) ## no critic (ProhibitSubroutinePrototypes)
 {
         my ($given) = @_;
@@ -74,6 +87,12 @@ sub hostname (;$) ## no critic (ProhibitSubroutinePrototypes)
         }
 }
 
+=head2 gen_schema_functions
+
+Generate utility function to be used by expressions in
+requested_features.
+
+=cut
 
 sub gen_schema_functions
 {
@@ -106,6 +125,11 @@ sub gen_schema_functions
         }
 }
 
+=head2 match_feature
+
+Match list of free hosts against requested_features.
+
+=cut
 
 sub match_feature {
         my ($self, $free_hosts) = @_;
@@ -139,8 +163,12 @@ sub match_feature {
         return;
 }
 
-# Checks a TestrunScheduling against a list of available hosts
-# returns the matching host
+=head2 fits
+
+Checks a TestrunScheduling against a list of available hosts and
+returns the matching host.
+
+=cut
 
 sub fits {
         my ($self, $free_hosts) = @_;
@@ -183,6 +211,12 @@ sub fits {
         return;
 }
 
+=head2 mark_as_running
+
+Mark a testrun as currently I<running>.
+
+=cut
+
 sub mark_as_running
 {
         my ($self) = @_;
@@ -199,6 +233,12 @@ sub mark_as_running
         $self->update;
 }
 
+=head2 mark_as_finished
+
+Mark a testrun as I<finished>.
+
+=cut
+
 sub mark_as_finished
 {
         my ($self) = @_;
@@ -214,35 +254,4 @@ sub mark_as_finished
         $self->update;
 }
 
-
-
 1;
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Result::PrePrecondition - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

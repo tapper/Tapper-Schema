@@ -45,7 +45,11 @@ __PACKAGE__->has_many     ( message                    => "${basepkg}::Message",
 
 # -------------------- methods on results --------------------
 
+=head2 to_string
 
+Return printable representation.
+
+=cut
 
 sub to_string
 {
@@ -107,6 +111,11 @@ sub ordered_preconditions
         return @done;
 }
 
+=head2 update_content
+
+Update precondition from given params.
+
+=cut
 
 sub update_content {
         my ($self, $args) =@_;
@@ -120,7 +129,7 @@ sub update_content {
         return $self->id;
 }
 
-=head2
+=head2 rerun
 
 Insert a new testrun similar to this one. Arguments can be given to overwrite
 some values. All values of the new testrun not given as argument will be taken
@@ -275,6 +284,11 @@ sub insert_preconditions {
         return 0;
 }
 
+=head2 disassign_preconditions
+
+Disconnect list of preconditions from a testrun.
+
+=cut
 
 sub disassign_preconditions {
         my ($self, @preconditions) = @_;
@@ -294,6 +308,5 @@ sub disassign_preconditions {
         }
         return 0;
 }
-
 
 1;

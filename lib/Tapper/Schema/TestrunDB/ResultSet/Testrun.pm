@@ -8,6 +8,12 @@ use DateTime;
 
 use parent 'DBIx::Class::ResultSet';
 
+=head2 queued_testruns
+
+Search for queued testruns.
+
+=cut
+
 sub queued_testruns
 {
         shift->search({
@@ -15,6 +21,12 @@ sub queued_testruns
                       }
                      );
 }
+
+=head2 running_testruns
+
+Search for running testruns.
+
+=cut
 
 sub running_testruns
 {
@@ -25,6 +37,12 @@ sub running_testruns
                      );
 }
 
+=head2 finished_testruns
+
+Search for finished testruns.
+
+=cut
+
 sub finished_testruns
 {
         shift->search({
@@ -32,6 +50,12 @@ sub finished_testruns
                       }
                      );
 }
+
+=head2 due_testruns
+
+Search for due testruns.
+
+=cut
 
 sub due_testruns
 {
@@ -49,13 +73,32 @@ sub due_testruns
                             );
 }
 
+=head2 all_testruns
+
+Search for all testruns.
+
+=cut
+
 sub all_testruns {
         shift->search({});
 }
 
+=head2 status
+
+Search for testrun with given status.
+
+=cut
+
 sub status {
         shift->search({'testrun_scheduling.status' => $_[0]}, {join => 'testrun_scheduling'});
 }
+
+=head2 add
+
+Insert (add) a new testrun into DB, assign it with other typical also
+inserted db rows, and return it.
+
+=cut
 
 sub add {
         my ($self, $args) = @_;
@@ -108,7 +151,5 @@ sub add {
 
         return $testrun->id;
 }
-
-
 
 1;
