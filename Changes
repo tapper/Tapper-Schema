@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+4.0.1     2012-05-16
         - add transparently compressed reportfiles
         - add notification info
         - add deleted flag for queue and host
