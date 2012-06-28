@@ -6,7 +6,7 @@ use warnings;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components("Core");
-__PACKAGE__->table("user");
+__PACKAGE__->table("user_table");
 __PACKAGE__->add_columns
     (
      "id",       { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
