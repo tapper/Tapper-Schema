@@ -1,6 +1,6 @@
 ---
 
-- schema: User
+- schema: Owner
   name: the_affe_user
   data:
     id: 1
@@ -8,7 +8,7 @@
     login: zomtec
     password: verysecret
 
-- schema: User
+- schema: Owner
   name: ss5
   data:
     id: 2
@@ -16,7 +16,7 @@
     login: ss5
     password: verysecret
 
-- schema: User
+- schema: Owner
   name: sschwigo
   data:
     id: 3

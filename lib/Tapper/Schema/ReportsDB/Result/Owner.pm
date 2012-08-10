@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::User;
+package Tapper::Schema::ReportsDB::Result::Owner;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use warnings;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components(qw(Core));
-__PACKAGE__->table("user");
+__PACKAGE__->table("owner");
 __PACKAGE__->add_columns
     (
      "id",       { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
@@ -19,14 +19,14 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint( unique_login => [ qw/login/ ], );
-__PACKAGE__->has_many( contacts => "${basepkg}::Contact", { 'foreign.user_id' => 'self.id' });
-__PACKAGE__->has_many( notifications => "${basepkg}::Notification", { 'foreign.user_id' => 'self.id' });
+__PACKAGE__->has_many( contacts => "${basepkg}::Contact", { 'foreign.owner_id' => 'self.id' });
+__PACKAGE__->has_many( notifications => "${basepkg}::Notification", { 'foreign.owner_id' => 'self.id' });
 
 1;
 
 =head1 NAME
 
-Tapper::Schema::ReportsDB::Result::User - A ResultSet description
+Tapper::Schema::ReportsDB::Result::Owner - A ResultSet description
 
 
 =head1 SYNOPSIS

@@ -1,4 +1,4 @@
-package Tapper::Schema::TestrunDB::Result::User;
+package Tapper::Schema::TestrunDB::Result::Owner;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use warnings;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components("Core");
-__PACKAGE__->table("user");
+__PACKAGE__->table("owner");
 __PACKAGE__->add_columns
     (
      "id",       { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
@@ -21,7 +21,7 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 NAME
 
-Tapper::Schema::TestrunDB::Result::User - A ResultSet description
+Tapper::Schema::TestrunDB::Result::Owner - A ResultSet description
 
 
 =head1 SYNOPSIS
