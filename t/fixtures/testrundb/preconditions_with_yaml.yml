@@ -6,7 +6,7 @@
   name: lmbench
   data:
     id: 24
-    owner_user_id: 12
+    owner_id: 12
     shortname: lmbench
     notes: tapper test suite lmbench wrapper
     topic_name: Distribution

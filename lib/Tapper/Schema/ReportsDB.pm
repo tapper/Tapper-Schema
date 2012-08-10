@@ -7,7 +7,7 @@ use warnings;
 
 # Only increment this version here on schema changes.
 # For everything else increment Tapper/Schema.pm.
-our $VERSION = '3.000007';
+our $VERSION = '4.001001';
 
 # avoid these warnings
 #   Subroutine initialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 70.
@@ -42,24 +42,24 @@ __END__
 
 # ------------------------------------------------------------
 
-# Verzeichnisse erstellen
+# Create subdir
 mkdir -p reportdb/upgrades reportdb/backups
 
-# aktuellen Stand als SQL dumpen, dabei
-# *kein* arg4 mit Previous-Versionsnummer angeben
-perl -Ilib -MTapper::Schema::ReportsDB -MTapper::Model=model -e 'model("ReportsDB")->create_ddl_dir([qw/MySQL SQLite/], undef, "reportdb/upgrades/")'
+# dump current SQL
+# no *not* provide arg4 with previous version number
+perl -Ilib -MTapper::Schema::ReportsDB -MTapper::Model=model -e 'model("ReportsDB")->create_ddl_dir([qw/MySQL SQLite Pg/], undef, "reportdb/upgrades/")'
 
 
-# Schema und Versionsnummer ändern
+# change Schema and Version number
 
 #    tapper-db-deploy makeschemadiffs --db=ReportsDB --fromversion=2.010013 --upgradedir=./
 #    tapper-db-deploy upgrade         --db=ReportsDB
 
-# aktuelle Version und Diff erzeugen zur gewünschten vorherigen
-# Version erzeugen (diesmal arg4)
-perl -Ilib -MTapper::Schema::ReportsDB -e 'Tapper::Schema::ReportsDB->connect("DBI:SQLite:foo")->create_ddl_dir([qw/MySQL SQLite/], undef, "upgrades/", "2.010012") or die'
+# create diff from requested old to current version
+# create version erzeugen (now ith arg4)
+perl -Ilib -MTapper::Schema::ReportsDB -e 'Tapper::Schema::ReportsDB->connect("DBI:SQLite:foo")->create_ddl_dir([qw/MySQL SQLite Pg/], undef, "upgrades/", "2.010012") or die'
 
-# Das connectede Schema von bisheriger Version auf aktuelle Version bringen.
-# Dazu die vorher angelegten Diffs in upgrade_directory() verwenden und
-# Backups in backup_directory() erzeugen.
+# Upgrade currently connected old Schema to current version
+# For this the earlier created diffs in upgrade_directory() are used and
+# Backups are put into backup_directory()
 perl -I. -MReportDB -e 'my $s = ReportDB->connect("DBI:SQLite:foo"); $s->upgrade or die'

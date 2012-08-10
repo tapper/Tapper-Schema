@@ -1,8 +1,8 @@
 ---
 
-# -------------------- users
+# -------------------- owners
 
-- schema: User
+- schema: Owner
   name: sschwigo
   data:
     id: 12
@@ -44,7 +44,7 @@
   name: ccc-kernel
   data:
     id: 3001
-    owner_user_id: 12
+    owner_id: 12
     shortname: ccc-kernel
     notes: ccc
     topic_name: old_topic
@@ -64,7 +64,7 @@
   name: ccc2-kernel
   data:
     id: 3002
-    owner_user_id: 12
+    owner_id: 12
     shortname: ccc2-kernel
     notes: ccc2
     topic_name: old_topic
@@ -83,7 +83,7 @@
   name: ccc-kernel
   data:
     id: 3003
-    owner_user_id: 12
+    owner_id: 12
     shortname: ccc-kernel
     notes: ccc
     topic_name: old_topic
