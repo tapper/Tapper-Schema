@@ -4,14 +4,7 @@ BEGIN;
 
 SET foreign_key_checks=0;
 
-CREATE TABLE owner (
-  id integer(11) NOT NULL auto_increment,
-  name VARCHAR(255),
-  login VARCHAR(255) NOT NULL,
-  password VARCHAR(255),
-  PRIMARY KEY (id)
-) ENGINE=InnoDB;
-
+ALTER TABLE user RENAME TO owner;
 
 ALTER TABLE message CHANGE COLUMN message message text,
                     CHANGE COLUMN type type VARCHAR(255);
@@ -25,9 +18,8 @@ ALTER TABLE testrun DROP FOREIGN KEY testrun_fk_owner_user_id,
                     ADD CONSTRAINT testrun_fk_owner_id FOREIGN KEY (owner_id) REFERENCES owner (id);
 
 ALTER TABLE testrun_scheduling CHANGE COLUMN status status VARCHAR(255) DEFAULT 'prepare';
-SET foreign_key_checks=1;
 
-DROP TABLE user;
+SET foreign_key_checks=1;
 
 
 COMMIT;
