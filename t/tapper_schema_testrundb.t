@@ -203,4 +203,17 @@ construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb
 
 is(testrundb_schema->resultset('Testrun')->status('finished')->count, 1, 'One testrun which is finished in testrun_scheduling');
 
+# -----------------------------------------------------------------------------------------------------------------
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/denyhost.yaml' );
+# -----------------------------------------------------------------------------------------------------------------
+
+
+my $queue = testrundb_schema->resultset('Queue')->find({name => 'queue_with_deny'});
+
+my @host_names = map {$_->host->name} $queue->queuehosts->all;
+is_deeply(\@host_names, ['iring', 'bullock'], 'Expected hosts bound to queue');
+@host_names = map {$_->host->name} $queue->deniedhosts->all;
+is_deeply(\@host_names, ['dickstone', 'athene'], 'Expected hosts denied from queue');
+
+
 done_testing();
