@@ -27,6 +27,7 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many ( testrunschedulings => "${basepkg}::TestrunScheduling", { 'foreign.host_id' => 'self.id' });
 __PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( denied_from_queue  => "${basepkg}::DeniedHost",        { 'foreign.host_id' => 'self.id' });
 __PACKAGE__->has_many ( features           => "${basepkg}::HostFeature",       { 'foreign.host_id' => 'self.id' });
 
 
