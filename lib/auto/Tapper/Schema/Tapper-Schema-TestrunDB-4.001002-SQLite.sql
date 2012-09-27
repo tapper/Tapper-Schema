@@ -1,26 +1,9 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Thu Sep 20 09:45:25 2012
+-- Created on Mon Sep 24 13:11:32 2012
 -- 
 
 BEGIN TRANSACTION;
-
---
--- Table: denied_host
---
-DROP TABLE denied_host;
-
-CREATE TABLE denied_host (
-  id INTEGER PRIMARY KEY NOT NULL,
-  queue_id INT(11) NOT NULL,
-  host_id INT(11) NOT NULL,
-  FOREIGN KEY (host_id) REFERENCES host(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (queue_id) REFERENCES queue(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE INDEX denied_host_idx_host_id ON denied_host (host_id);
-
-CREATE INDEX denied_host_idx_queue_id ON denied_host (queue_id);
 
 --
 -- Table: host
@@ -160,6 +143,23 @@ CREATE TABLE pre_precondition (
 CREATE INDEX pre_precondition_idx_child_precondition_id ON pre_precondition (child_precondition_id);
 
 CREATE INDEX pre_precondition_idx_parent_precondition_id ON pre_precondition (parent_precondition_id);
+
+--
+-- Table: denied_host
+--
+DROP TABLE denied_host;
+
+CREATE TABLE denied_host (
+  id INTEGER PRIMARY KEY NOT NULL,
+  queue_id INT(11) NOT NULL,
+  host_id INT(11) NOT NULL,
+  FOREIGN KEY (host_id) REFERENCES host(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (queue_id) REFERENCES queue(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE INDEX denied_host_idx_host_id ON denied_host (host_id);
+
+CREATE INDEX denied_host_idx_queue_id ON denied_host (queue_id);
 
 --
 -- Table: queue_host

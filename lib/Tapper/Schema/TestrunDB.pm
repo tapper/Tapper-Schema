@@ -24,8 +24,8 @@ our $NULL  = 'NULL';
 our $DELIM = ' | ';
 
 __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
-__PACKAGE__->upgrade_directory('./upgrades/');
-__PACKAGE__->backup_directory('./upgrades/');
+__PACKAGE__->upgrade_directory('./lib/auto/Tapper/Schema/');
+__PACKAGE__->backup_directory('./lib/auto/Tapper/Schema/');
 
 __PACKAGE__->load_namespaces;
 

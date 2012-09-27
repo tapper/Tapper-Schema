@@ -1,9 +1,22 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Wed Aug 15 14:58:43 2012
+-- Created on Mon Sep 24 13:07:00 2012
 -- 
 
 BEGIN TRANSACTION;
+
+--
+-- Table: notification_event
+--
+DROP TABLE notification_event;
+
+CREATE TABLE notification_event (
+  id INTEGER PRIMARY KEY NOT NULL,
+  message VARCHAR(255),
+  type VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME
+);
 
 --
 -- Table: owner
@@ -18,19 +31,6 @@ CREATE TABLE owner (
 );
 
 CREATE UNIQUE INDEX unique_login ON owner (login);
-
---
--- Table: notification_event
---
-DROP TABLE notification_event;
-
-CREATE TABLE notification_event (
-  id INTEGER PRIMARY KEY NOT NULL,
-  message VARCHAR(255),
-  type VARCHAR(255),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME
-);
 
 --
 -- Table: reportgrouptestrunstats

@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Thu Sep 20 09:45:24 2012
+-- Created on Mon Sep 24 13:11:32 2012
 -- 
 SET foreign_key_checks=0;
 
@@ -11,13 +11,13 @@ DROP TABLE IF EXISTS `host`;
 --
 CREATE TABLE `host` (
   `id` integer(11) NOT NULL auto_increment,
-  `name` VARCHAR(255) DEFAULT '',
-  `comment` VARCHAR(255) DEFAULT '',
-  `free` TINYINT DEFAULT 0,
-  `active` TINYINT DEFAULT 0,
-  `is_deleted` TINYINT DEFAULT 0,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `name` VARCHAR(255) NULL DEFAULT '',
+  `comment` VARCHAR(255) NULL DEFAULT '',
+  `free` TINYINT NULL DEFAULT 0,
+  `active` TINYINT NULL DEFAULT 0,
+  `is_deleted` TINYINT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -28,9 +28,9 @@ DROP TABLE IF EXISTS `owner`;
 --
 CREATE TABLE `owner` (
   `id` integer(11) NOT NULL auto_increment,
-  `name` VARCHAR(255),
+  `name` VARCHAR(255) NULL,
   `login` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(255),
+  `password` VARCHAR(255) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -42,8 +42,8 @@ DROP TABLE IF EXISTS `precondition`;
 CREATE TABLE `precondition` (
   `id` integer(11) NOT NULL auto_increment,
   `shortname` VARCHAR(255) NOT NULL DEFAULT '',
-  `precondition` text,
-  `timeout` integer(10),
+  `precondition` text NULL,
+  `timeout` integer(10) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -65,13 +65,13 @@ DROP TABLE IF EXISTS `queue`;
 --
 CREATE TABLE `queue` (
   `id` integer(11) NOT NULL auto_increment,
-  `name` VARCHAR(255) DEFAULT '',
+  `name` VARCHAR(255) NULL DEFAULT '',
   `priority` integer(10) NOT NULL DEFAULT 0,
   `runcount` integer(10) NOT NULL DEFAULT 0,
-  `active` integer(1) DEFAULT 0,
-  `is_deleted` TINYINT DEFAULT 0,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `active` integer(1) NULL DEFAULT 0,
+  `is_deleted` TINYINT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL,
   PRIMARY KEY (`id`),
   UNIQUE `unique_queue_name` (`name`)
 ) ENGINE=InnoDB;
@@ -94,11 +94,11 @@ DROP TABLE IF EXISTS `testplan_instance`;
 --
 CREATE TABLE `testplan_instance` (
   `id` integer(11) NOT NULL auto_increment,
-  `path` VARCHAR(255) DEFAULT '',
-  `name` VARCHAR(255) DEFAULT '',
-  `evaluated_testplan` text DEFAULT '',
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `path` VARCHAR(255) NULL DEFAULT '',
+  `name` VARCHAR(255) NULL DEFAULT '',
+  `evaluated_testplan` text NULL DEFAULT '',
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -123,8 +123,8 @@ CREATE TABLE `host_feature` (
   `host_id` integer NOT NULL,
   `entry` VARCHAR(255) NOT NULL,
   `value` VARCHAR(255) NOT NULL,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL,
   INDEX `host_feature_idx_host_id` (`host_id`),
   PRIMARY KEY (`id`),
   CONSTRAINT `host_feature_fk_host_id` FOREIGN KEY (`host_id`) REFERENCES `host` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -185,19 +185,19 @@ DROP TABLE IF EXISTS `testrun`;
 --
 CREATE TABLE `testrun` (
   `id` integer(11) NOT NULL auto_increment,
-  `shortname` VARCHAR(255) DEFAULT '',
-  `notes` text DEFAULT '',
+  `shortname` VARCHAR(255) NULL DEFAULT '',
+  `notes` text NULL DEFAULT '',
   `topic_name` VARCHAR(255) NOT NULL DEFAULT '',
-  `starttime_earliest` datetime,
-  `starttime_testrun` datetime,
-  `starttime_test_program` datetime,
-  `endtime_test_program` datetime,
-  `owner_id` integer(11),
-  `testplan_id` integer(11),
-  `wait_after_tests` integer(1) DEFAULT 0,
-  `rerun_on_error` integer(11) DEFAULT 0,
+  `starttime_earliest` datetime NULL,
+  `starttime_testrun` datetime NULL,
+  `starttime_test_program` datetime NULL,
+  `endtime_test_program` datetime NULL,
+  `owner_id` integer(11) NULL,
+  `testplan_id` integer(11) NULL,
+  `wait_after_tests` integer(1) NULL DEFAULT 0,
+  `rerun_on_error` integer(11) NULL DEFAULT 0,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `updated_at` datetime NULL,
   INDEX `testrun_idx_owner_id` (`owner_id`),
   INDEX `testrun_idx_testplan_id` (`testplan_id`),
   PRIMARY KEY (`id`),
@@ -212,11 +212,11 @@ DROP TABLE IF EXISTS `message`;
 --
 CREATE TABLE `message` (
   `id` integer(11) NOT NULL auto_increment,
-  `testrun_id` integer(11),
-  `message` text,
-  `type` VARCHAR(255),
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `testrun_id` integer(11) NULL,
+  `message` text NULL,
+  `type` VARCHAR(255) NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL,
   INDEX `message_idx_testrun_id` (`testrun_id`),
   PRIMARY KEY (`id`),
   CONSTRAINT `message_fk_testrun_id` FOREIGN KEY (`testrun_id`) REFERENCES `testrun` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -230,9 +230,9 @@ DROP TABLE IF EXISTS `state`;
 CREATE TABLE `state` (
   `id` integer(11) NOT NULL auto_increment,
   `testrun_id` integer(11) NOT NULL,
-  `state` text,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `state` text NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL,
   INDEX `state_idx_testrun_id` (`testrun_id`),
   PRIMARY KEY (`id`),
   UNIQUE `unique_testrun_id` (`testrun_id`),
@@ -247,7 +247,7 @@ DROP TABLE IF EXISTS `testrun_requested_feature`;
 CREATE TABLE `testrun_requested_feature` (
   `id` integer(11) NOT NULL auto_increment,
   `testrun_id` integer(11) NOT NULL,
-  `feature` VARCHAR(255) DEFAULT '',
+  `feature` VARCHAR(255) NULL DEFAULT '',
   INDEX `testrun_requested_feature_idx_testrun_id` (`testrun_id`),
   PRIMARY KEY (`id`),
   CONSTRAINT `testrun_requested_feature_fk_testrun_id` FOREIGN KEY (`testrun_id`) REFERENCES `testrun` (`id`)
@@ -278,7 +278,7 @@ DROP TABLE IF EXISTS `testrun_precondition`;
 CREATE TABLE `testrun_precondition` (
   `testrun_id` integer(11) NOT NULL,
   `precondition_id` integer(11) NOT NULL,
-  `succession` integer(10),
+  `succession` integer(10) NULL,
   INDEX `testrun_precondition_idx_precondition_id` (`precondition_id`),
   INDEX `testrun_precondition_idx_testrun_id` (`testrun_id`),
   PRIMARY KEY (`testrun_id`, `precondition_id`),
@@ -310,13 +310,13 @@ DROP TABLE IF EXISTS `testrun_scheduling`;
 CREATE TABLE `testrun_scheduling` (
   `id` integer(11) NOT NULL auto_increment,
   `testrun_id` integer(11) NOT NULL,
-  `queue_id` integer(11) DEFAULT 0,
-  `host_id` integer(11),
-  `prioqueue_seq` integer(11),
-  `status` VARCHAR(255) DEFAULT 'prepare',
-  `auto_rerun` TINYINT DEFAULT 0,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime,
+  `queue_id` integer(11) NULL DEFAULT 0,
+  `host_id` integer(11) NULL,
+  `prioqueue_seq` integer(11) NULL,
+  `status` VARCHAR(255) NULL DEFAULT 'prepare',
+  `auto_rerun` TINYINT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL,
   INDEX `testrun_scheduling_idx_host_id` (`host_id`),
   INDEX `testrun_scheduling_idx_queue_id` (`queue_id`),
   INDEX `testrun_scheduling_idx_testrun_id` (`testrun_id`),
