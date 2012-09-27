@@ -24,7 +24,7 @@ __PACKAGE__->add_columns
 __PACKAGE__->set_primary_key("id");
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
-
+__PACKAGE__->add_unique_constraint( constraint_name => [ qw/name/ ] );
 __PACKAGE__->has_many ( testrunschedulings => "${basepkg}::TestrunScheduling", { 'foreign.host_id' => 'self.id' });
 __PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         { 'foreign.host_id' => 'self.id' });
 __PACKAGE__->has_many ( denied_from_queue  => "${basepkg}::DeniedHost",        { 'foreign.host_id' => 'self.id' });
