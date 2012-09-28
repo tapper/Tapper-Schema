@@ -13,32 +13,40 @@ __PACKAGE__->table('view_testrun_overview');
 
 # virtual is needed when the query should accept parameters
 __PACKAGE__->result_source_instance->is_virtual(0);
+__PACKAGE__->result_source_instance->deploy_depends_on( [qw(Tapper::Schema::ReportsDB::Result::View010TestrunOverviewReports
+                                                            Tapper::Schema::ReportsDB::Result::Report
+                                                            Tapper::Schema::ReportsDB::Result::Suite
+                                                          )] );
 __PACKAGE__->result_source_instance->view_definition
     (
-     "select vtor.*, ".
-     "       r.machine_name, ".
-     "       r.created_at, ".
-     "       r.suite_id, ".
-     "       s.name as suite_name ".
+     "select   vtor.primary_report_id  as vtor_primary_report_id ".
+     "       , vtor.rgt_testrun_id     as vtor_rgt_testrun_id ".
+     "       , vtor.rgts_success_ratio as vtor_rgts_success_ratio ".
+     "       , report.id               as report_id ".
+     "       , report.machine_name     as report_machine_name ".
+     "       , report.created_at       as report_created_at ".
+     "       , report.suite_id         as report_suite_id ".
+     "       , suite.name              as report_suite_name ".
      "from view_testrun_overview_reports vtor, ".
-     "     report r, ".
-     "     suite s ".
-     "where vtor.primary_report_id=r.id and ".
-     "      r.suite_id=s.id"
+     "     report report, ".
+     "     suite suite ".
+     "where CAST(vtor.primary_report_id as INTEGER)=report.id and ".
+     "      report.suite_id=suite.id"
     );
 
 __PACKAGE__->add_columns
     (
      # view_testrun_overview_reports
-     'rgt_testrun_id'     => { data_type => 'INT',      size => 11  },
-     'rgts_success_ratio' => { data_type => 'varchar',  size => 20  },
-     'primary_report_id'  => { data_type => 'INT',      size => 11  },
+     'vtor_primary_report_id'   => { data_type => 'INT',      size => 11  },
+     'vtor_rgt_testrun_id'      => { data_type => 'INT',      size => 11  },
+     'vtor_rgts_success_ratio'  => { data_type => 'varchar',  size => 20  },
      # report
-     'machine_name'       => { data_type => 'varchar',  size => 50  },
-     'created_at'         => { data_type => 'DATETIME'              },
-     'suite_id'           => { data_type => 'varchar',  size => 11  },
+     'report_id'                => { data_type => 'INT',      size => 11  },
+     'report_machine_name'      => { data_type => 'varchar',  size => 50  },
+     'report_created_at'        => { data_type => 'DATETIME'              },
      # suite
-     'suite_name'         => { data_type => 'varchar',  size => 255 },
+     'report_suite_id'          => { data_type => 'INT',      size => 11  },
+     'report_suite_name'        => { data_type => 'varchar',  size => 255 },
     );
 
 1;
