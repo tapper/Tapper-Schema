@@ -63,7 +63,7 @@ __PACKAGE__->has_many     ( reportsections => 'Tapper::Schema::ReportsDB::Result
 
 =head2 sqlt_deploy_hook
 
-Add an index over I<machine_name> on deploy.
+Add useful indexes at deploy time.
 
 =cut
 
@@ -71,6 +71,8 @@ sub sqlt_deploy_hook
 {
         my ($self, $sqlt_table) = @_;
         $sqlt_table->add_index(name => 'report_idx_machine_name', fields => ['machine_name']);
+        # $sqlt_table->add_index(name => 'report_idx_suite_id',     fields => ['suite_id']); # implicitely done(?)
+        $sqlt_table->add_index(name => 'report_idx_created_at',   fields => ['created_at']);
 }
 
 #sub suite_name { shift->suite->name }

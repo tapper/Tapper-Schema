@@ -40,4 +40,16 @@ sub groupreports {
         return $self->result_source->schema->resultset('Report')->search({ id => [ -or => [ @report_ids ] ] });
 }
 
+=head2 sqlt_deploy_hook
+
+Add useful indexes at deploy time.
+
+=cut
+
+sub sqlt_deploy_hook
+{
+        my ($self, $sqlt_table) = @_;
+        $sqlt_table->add_index(name => 'reportgrouptestrun_idx_report_id', fields => ['report_id']);
+}
+
 1;

@@ -76,4 +76,16 @@ sub mark_as_finished
         $self->update;
 }
 
+=head2 sqlt_deploy_hook
+
+Add useful indexes at deploy time.
+
+=cut
+
+sub sqlt_deploy_hook
+{
+        my ($self, $sqlt_table) = @_;
+        $sqlt_table->add_index(name => 'testrun_scheduling_idx_created_at',   fields => ['created_at']);
+}
+
 1;

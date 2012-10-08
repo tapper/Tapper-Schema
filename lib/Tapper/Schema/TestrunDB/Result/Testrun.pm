@@ -309,4 +309,16 @@ sub disassign_preconditions {
         return 0;
 }
 
+=head2 sqlt_deploy_hook
+
+Add useful indexes at deploy time.
+
+=cut
+
+sub sqlt_deploy_hook
+{
+        my ($self, $sqlt_table) = @_;
+        $sqlt_table->add_index(name => 'testrun_idx_created_at',   fields => ['created_at']);
+}
+
 1;
