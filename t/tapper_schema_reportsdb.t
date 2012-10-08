@@ -13,7 +13,7 @@ use Test::Deep;
 use Scalar::Util;
 
 BEGIN {
-        plan tests => 25;
+        plan tests => 26;
         use_ok( 'Tapper::Schema::ReportsDB' );
 }
 
@@ -83,3 +83,13 @@ my $tapdom1 = $tapdom;
 $tapdom1->[0]{section}{'section-000'}{tap}{tapdom_config}{ignorelines} = 'ignore';
 $tapdom2->[0]{section}{'section-000'}{tap}{tapdom_config}{ignorelines} = 'ignore';
 cmp_bag($tapdom2, $tapdom1, "stored tapdom keeps constant");
+
+my $file = reportsdb_schema->resultset('ReportFile')->new({
+                                                           report_id => 21,
+                                                           filename  => 'affe',
+                                                           filecontent => 'zomtec',
+                                                          }
+                                                         );
+$file->insert;
+is($file->filecontent, 'zomtec', 'Content of file');
+diag  reportsdb_schema->resultset('ReportFile')->first->filecontent;
