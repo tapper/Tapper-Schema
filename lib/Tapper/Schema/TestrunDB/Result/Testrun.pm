@@ -156,7 +156,7 @@ sub rerun
              });
 
         # prepare job scheduling infos
-        my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->search({ testrun_id => $self->id })->first;
+        my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->search({ testrun_id => $self->id }, {rows => 1})->first;
         my ($queue_id, $host_id, $auto_rerun, $requested_features, $requested_hosts);
         if ($testrunscheduling) {
                 $queue_id           = $testrunscheduling->queue_id;
@@ -165,7 +165,7 @@ sub rerun
                 $requested_features = $testrunscheduling->requested_features;
                 $requested_hosts    = $testrunscheduling->requested_hosts;
         } else {
-                my $queue = $self->result_source->schema->resultset('Queue')->search({ name => "AdHoc"} )->first;
+                my $queue = $self->result_source->schema->resultset('Queue')->search({ name => "AdHoc"}, {rows => 1})->first;
                 if (not $queue) {
                         die "No default queue 'AdHoc' found.";
                 }

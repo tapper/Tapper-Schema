@@ -15,7 +15,7 @@ current result set.
 sub groupreports {
         my ($self) = @_;
 
-        $self->first->groupreports;
+        $self->search({}, {rows => 1})->first->groupreports;
 }
 
 1;
