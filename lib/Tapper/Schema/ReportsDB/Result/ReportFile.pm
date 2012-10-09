@@ -23,7 +23,12 @@ __PACKAGE__->add_columns
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->filter_column('filecontent', {
                                            filter_from_storage => sub { my ($row, $element) = @_;
-                                                                        return $row->is_compressed ? memBunzip( $element ) : $element
+                                                                        my $uncompressed;
+                                                                        if ($row->is_compressed) {
+                                                                                eval { $uncompressed = memBunzip( $element ) };
+                                                                                return $uncompressed if !$@ && $uncompressed;
+                                                                        }
+                                                                        return $element;
                                                                       },
                                            filter_to_storage =>   sub { my ($row, $element) = @_;
                                                                         if ($element) {
@@ -31,12 +36,12 @@ __PACKAGE__->filter_column('filecontent', {
                                                                                 eval {
                                                                                         $compressed = memBzip( $element );
                                                                                 };
-                                                                                if ($@) {
-                                                                                        $row->is_compressed( 0 );
-                                                                                        return $element;
-                                                                                } else {
+                                                                                if (!$@ and $compressed) {
                                                                                         $row->is_compressed( 1 );
                                                                                         return $compressed;
+                                                                                } else {
+                                                                                        $row->is_compressed( 0 );
+                                                                                        return $element;
                                                                                 }
                                                                         } else {
                                                                                 $row->is_compressed( 0 );
