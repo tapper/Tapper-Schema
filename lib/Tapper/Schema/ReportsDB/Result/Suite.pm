@@ -22,7 +22,7 @@ __PACKAGE__->has_many   ( reports => 'Tapper::Schema::ReportsDB::Result::Report'
 
 =head2 sqlt_deploy_hook
 
-Add an index over I<name> on deploy.
+Add useful indexes at deploy time.
 
 =cut
 
