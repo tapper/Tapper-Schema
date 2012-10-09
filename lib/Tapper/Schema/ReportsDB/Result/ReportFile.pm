@@ -27,8 +27,17 @@ __PACKAGE__->filter_column('filecontent', {
                                                                       },
                                            filter_to_storage =>   sub { my ($row, $element) = @_;
                                                                         if ($element) {
-                                                                                $row->is_compressed( 1 );
-                                                                                return memBzip( $element );
+                                                                                my $compressed;
+                                                                                eval {
+                                                                                        $compressed = memBzip( $element );
+                                                                                };
+                                                                                if ($@) {
+                                                                                        $row->is_compressed( 0 );
+                                                                                        return $element;
+                                                                                } else {
+                                                                                        $row->is_compressed( 1 );
+                                                                                        return $compressed;
+                                                                                }
                                                                         } else {
                                                                                 $row->is_compressed( 0 );
                                                                                 return $element;
