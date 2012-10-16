@@ -14,10 +14,10 @@ __PACKAGE__->add_columns
     (
      "id",                      { data_type => "INT",      default_value => undef,  is_nullable => 0, size => 11, is_auto_increment => 1,     },
      "suite_id",                { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 11, is_foreign_key => 1,        },
-     "suite_version",           { data_type => "VARCHAR",  default_value => undef,  is_nullable => 1, size => 11,                             },
-     "reportername",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 100,                            },
-     "peeraddr",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 20,                             },
-     "peerport",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 20,                             },
+     "suite_version",           { data_type => "VARCHAR",  default_value => undef,  is_nullable => 1, size => 255,                            },
+     "reportername",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
+     "peeraddr",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
+     "peerport",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
      "peerhost",                { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
      #
      # tap parse result and its human interpretation
@@ -41,7 +41,7 @@ __PACKAGE__->add_columns
      "starttime_test_program",  { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      "endtime_test_program",    { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },
      #
-     "machine_name",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 50,                             },
+     "machine_name",            { data_type => "VARCHAR",  default_value => "",     is_nullable => 1, size => 255,                            },
      "machine_description",     { data_type => "TEXT",     default_value => "",     is_nullable => 1,                                         },
      #
      "created_at",              { data_type => "DATETIME", default_value => undef,  is_nullable => 0, set_on_create => 1,                     },

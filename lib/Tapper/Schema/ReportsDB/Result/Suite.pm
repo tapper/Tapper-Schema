@@ -11,7 +11,7 @@ __PACKAGE__->add_columns
     (
      "id",          { data_type => "INT",     default_value => undef, is_nullable => 0, size => 11, is_auto_increment => 1, },
      "name",        { data_type => "VARCHAR", default_value => undef, is_nullable => 0, size => 255,                        },
-     "type",        { data_type => "VARCHAR", default_value => undef, is_nullable => 0, size => 50,                         },
+     "type",        { data_type => "VARCHAR", default_value => undef, is_nullable => 0, size => 255,                        },
      "description", { data_type => "TEXT",    default_value => undef, is_nullable => 0,                                     },
     );
 

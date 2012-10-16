@@ -23,8 +23,8 @@ __PACKAGE__->add_columns
      "language_description",    { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "cpuinfo",                 { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "bios",                    { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
-     "ram",                     { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
-     "uptime",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 50,                      },
+     "ram",                     { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
+     "uptime",                  { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "lspci",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "lsusb",                   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      # context
@@ -35,7 +35,7 @@ __PACKAGE__->add_columns
      "tags",                    { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      # xen info
      "xen_changeset",           { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
-     "xen_hvbits",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 10,                      },
+     "xen_hvbits",              { data_type => "VARCHAR",  default_value => undef, is_nullable => 1, size => 255,                     },
      "xen_dom0_kernel",         { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "xen_base_os_description", { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
      "xen_guest_description",   { data_type => "TEXT",     default_value => undef, is_nullable => 1,                                  },
