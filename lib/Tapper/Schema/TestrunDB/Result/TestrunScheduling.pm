@@ -86,6 +86,7 @@ sub sqlt_deploy_hook
 {
         my ($self, $sqlt_table) = @_;
         $sqlt_table->add_index(name => 'testrun_scheduling_idx_created_at',   fields => ['created_at']);
+        $sqlt_table->add_index(name => 'testrun_scheduling_idx_status',       fields => ['status']);
 }
 
 1;

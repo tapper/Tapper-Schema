@@ -285,6 +285,7 @@ CREATE INDEX "testrun_scheduling_idx_host_id" on "testrun_scheduling" ("host_id"
 CREATE INDEX "testrun_scheduling_idx_queue_id" on "testrun_scheduling" ("queue_id");
 CREATE INDEX "testrun_scheduling_idx_testrun_id" on "testrun_scheduling" ("testrun_id");
 CREATE INDEX "testrun_scheduling_idx_created_at" on "testrun_scheduling" ("created_at");
+CREATE INDEX "testrun_scheduling_idx_status" on "testrun_scheduling" ("status");
 
 --
 -- Foreign Key Definitions
