@@ -1,6 +1,18 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        * PostgreSQL support
+        - [FIX] schema definition to also work with PostgreSQL
+        - [FIX] rename table user into owner
+        - [FIX] handle VIEWs with PostgreSQL schema upgrade
+        - [FIX] increase sizes of most varchar fields
+        - [FIX] compression handling of empty or NULL files
+        - [FIX] slow ->first() usage
+
+        * Features
+        - [FEAT] table for denied hosts (for Tapper scheduler)
+        - [FIX] more paranoid handling of wrong data
+        - [FIX] add explicit indexes to deployment
 
 4.0.2     2012-05-24
         - fix missing dependencies
