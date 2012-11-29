@@ -55,6 +55,20 @@ sub _success_ratio
         return $ratio;
 }
 
+=head2 success_word
+
+Reports overall success as a word - fail or pass. This word is always all
+lowercase.
+
+=cut
+
+sub success_word
+{
+        my ($self) = @_;
+        $self->success_ratio == 100 ? 'pass' : 'fail';
+}
+
+
 =head2 update_failed_passed
 
 Update reportgroup details, eg. on incoming new reports of this group.
