@@ -65,8 +65,6 @@ sub mark_as_finished
 {
         my ($self) = @_;
 
-        use Data::Dumper;
-
         # set scheduling info
         $self->status("finished");
         $self->host->free(1);
