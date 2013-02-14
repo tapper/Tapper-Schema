@@ -16,6 +16,7 @@ __PACKAGE__->add_columns
      "free",       { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
      "active",     { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        },
      "is_deleted", { data_type => "TINYINT",   default_value => "0",                  is_nullable => 1,                                        }, # deleted hosts need to be kept in db to show old testruns correctly
+     "pool_count", { data_type => "INT",       default_value => undef,                is_nullable => 1,                                        },
      "created_at", { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP', is_nullable => 1,                                        }, # '
      "updated_at", { data_type => "DATETIME",  default_value => undef,                is_nullable => 1,                                        },
 
@@ -30,6 +31,18 @@ __PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         {
 __PACKAGE__->has_many ( denied_from_queue  => "${basepkg}::DeniedHost",        { 'foreign.host_id' => 'self.id' });
 __PACKAGE__->has_many ( features           => "${basepkg}::HostFeature",       { 'foreign.host_id' => 'self.id' });
 
+
+=head2 is_pool
+
+Tell me whether the given host is a pool host or not.
+
+=cut
+
+sub is_pool
+{
+        my($self) = @_;
+        return defined($self->pool_count);
+}
 
 1;
 

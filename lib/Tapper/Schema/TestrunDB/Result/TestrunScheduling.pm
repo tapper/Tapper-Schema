@@ -47,7 +47,12 @@ sub mark_as_running
 
         # set scheduling info
         $self->status("running");
-        $self->host->free(0);
+        if ($self->host->is_pool) {
+                $self->host->pool_count($self->host->pool_count-1);
+                $self->host->free(0) if $self->host->pool_count == 0;
+        } else {
+                $self->host->free(0);
+        }
         $self->prioqueue_seq(undef);
 
         # sync db
@@ -68,6 +73,10 @@ sub mark_as_finished
         # set scheduling info
         $self->status("finished");
         $self->host->free(1);
+
+        if ($self->host->is_pool) {
+                $self->host->pool_count($self->host->pool_count+1);
+        }
 
         # sync db
         $self->host->update;
