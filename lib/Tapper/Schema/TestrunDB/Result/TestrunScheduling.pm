@@ -48,8 +48,8 @@ sub mark_as_running
         # set scheduling info
         $self->status("running");
         if ($self->host->is_pool) {
-                $self->host->pool_count($self->host->pool_count-1);
-                $self->host->free(0) if $self->host->pool_count == 0;
+                $self->host->pool_free($self->host->pool_free-1);
+                $self->host->free(0) if $self->host->pool_free == 0;
         } else {
                 $self->host->free(0);
         }
@@ -75,7 +75,7 @@ sub mark_as_finished
         $self->host->free(1);
 
         if ($self->host->is_pool) {
-                $self->host->pool_count($self->host->pool_count+1);
+                $self->host->pool_free($self->host->pool_free+1);
         }
 
         # sync db

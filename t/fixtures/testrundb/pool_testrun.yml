@@ -58,5 +58,15 @@
     name: pool_iring
     free: 1
     active: 1
-    pool_count: 2
+    pool_free: 2
+# -------------------- scenarios --------------------
+
+- schema: Host
+  name: elem_pool_iring
+  data:
+    id: 6
+    name: iring
+    free: 1
+    active: 1
+    pool_id: 5
 # -------------------- scenarios --------------------
