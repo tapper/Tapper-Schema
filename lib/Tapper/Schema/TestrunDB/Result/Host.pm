@@ -51,15 +51,37 @@ sub is_pool
 
 =head2 pool_count
 
-Count of all elements in a pool
+Setter/getter for all elements in a pool
 
 =cut
 
 sub pool_count
 {
-        my ($self) = @_;
-        return undef unless $self->is_pool;
-        return($self->pool_free + $self->pool_elements->count);
+        my ($self, $new_count) = @_;
+        if (defined $new_count) {
+                if (not $self->is_pool) {
+                        $self->pool_free($new_count);
+                        $self->free(1);
+                        $self->update;
+                } else {
+                        # need a transaction because its possible that the number
+                        # of running tests changes between query and setting
+                        my $guard = $self->result_source->schema->txn_scope_guard;
+
+                        my $new_free = $new_count - $self->testrunschedulings->search({status => 'running'})->count;
+                        $self->pool_free($new_free);
+                        if ($self->pool_free > 0) {
+                                $self->active(1);
+                        } else {
+                                $self->active(0);
+                        }
+                        $self->update;
+                        $guard->commit;
+                }
+        } else {
+                return undef unless $self->is_pool;
+                return($self->pool_free + $self->testrunschedulings->search({status => 'running'})->count);
+        }
 }
 
 

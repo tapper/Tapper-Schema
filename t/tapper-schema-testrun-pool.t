@@ -1,7 +1,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 21;
 use Tapper::Config;
 
 use_ok('Tapper::Schema');
@@ -58,3 +58,31 @@ is($job->host->free, 1, 'Pool free again after free_host');
 
 $host = model->resultset('Host')->find({name => 'iring'});
 is($host->pool_master->name,'pool_iring', 'Associated pool master found');
+
+# updating pools
+
+$host = model->resultset('Host')->new({name => 'pool_update_test',
+                                       free => 1,
+                                       active => 1,
+                                      })->insert;
+is($host->pool_count, undef, 'No pool count on nonpool host');
+
+$host->pool_count(2);
+is($host->pool_count, 2, 'Pool count set for  nonpool host');
+
+$host->pool_count(4);
+is($host->pool_count, 4, 'Pool count updated for free pool host');
+
+$job->host_id($host->id);
+$job->mark_as_running;
+
+# reload host from database
+$host = model->resultset('Host')->find({name => 'pool_update_test'});
+is($host->pool_free, 3, 'Free hosts reduced');
+is($host->pool_count, 4, 'All pool in hosts count unchanged');
+
+ok($host->free, 'Nonempty pool host is free');
+$host->pool_count(1);
+is($host->pool_free, 0, 'Free hosts reduced by reducing pool count');
+is($host->pool_count, 1, 'Pool count reduced');
+ok($host->free, 'Empty pool host is not free');
