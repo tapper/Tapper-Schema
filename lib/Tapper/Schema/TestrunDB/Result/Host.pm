@@ -59,6 +59,7 @@ sub pool_count
 {
         my ($self, $new_count) = @_;
         if (defined $new_count) {
+                # if host is not a pool yet, we make it a pool but don't need to care for existing elements
                 if (not $self->is_pool) {
                         $self->pool_free($new_count);
                         $self->free(1);
