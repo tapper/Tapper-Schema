@@ -72,9 +72,9 @@ sub pool_count
                         my $new_free = $new_count - $self->testrunschedulings->search({status => 'running'})->count;
                         $self->pool_free($new_free);
                         if ($self->pool_free > 0) {
-                                $self->active(1);
+                                $self->free(1);
                         } else {
-                                $self->active(0);
+                                $self->free(0);
                         }
                         $self->update;
                         $guard->commit;
