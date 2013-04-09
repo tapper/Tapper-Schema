@@ -85,4 +85,4 @@ ok($host->free, 'Nonempty pool host is free');
 $host->pool_count(1);
 is($host->pool_free, 0, 'Free hosts reduced by reducing pool count');
 is($host->pool_count, 1, 'Pool count reduced');
-ok($host->free, 'Empty pool host is not free');
+ok(not($host->free), 'Empty pool host is not free');

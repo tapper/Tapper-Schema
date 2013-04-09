@@ -47,7 +47,12 @@ sub mark_as_running
 
         # set scheduling info
         $self->status("running");
+        # need a transaction because someone might access this
+        # variable on the CLI
+        my $guard = $self->result_source->schema->txn_scope_guard;
+
         if ($self->host->is_pool) {
+                $self->host->get_from_storage;
                 $self->host->pool_free($self->host->pool_free-1);
                 $self->host->free(0) if $self->host->pool_free == 0;
         } else {
@@ -58,6 +63,7 @@ sub mark_as_running
         # sync db
         $self->host->update;
         $self->update;
+        $guard->commit;
 }
 
 =head2 mark_as_finished
@@ -72,15 +78,21 @@ sub mark_as_finished
 
         # set scheduling info
         $self->status("finished");
-        $self->host->free(1);
+
+        # need a transaction because someone might access this
+        # variable on the CLI
+        my $guard = $self->result_source->schema->txn_scope_guard;
 
         if ($self->host->is_pool) {
+                $self->host($self->host->get_from_storage);
                 $self->host->pool_free($self->host->pool_free+1);
         }
+        $self->host->free(1);
 
         # sync db
         $self->host->update;
         $self->update;
+        $guard->commit;
 }
 
 =head2 sqlt_deploy_hook
