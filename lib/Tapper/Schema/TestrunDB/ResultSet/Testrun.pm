@@ -122,7 +122,7 @@ sub add {
               testrun_id => $testrun->id,
               queue_id   => $args->{queue_id},
               host_id    => $args->{host_id},
-              status     => "schedule",
+              status     => $args->{status} || "schedule",
               auto_rerun => $args->{auto_rerun} || 0,
              });
         if ($args->{priority}) {
