@@ -95,7 +95,7 @@ sub some_meta_available
                            simnow-device-interface-version
                            simnow-bsd-file
                            simnow-image-file
-                           ticket-url wiki-url planning-id
+                           ticket-url wiki-url planning-id moreinfo-url
                            tags
                           /;
         @meta_cols = map { my $x = $_; $x =~ s/-/_/g; $x } @meta_cols;
