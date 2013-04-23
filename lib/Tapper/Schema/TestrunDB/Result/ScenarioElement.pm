@@ -36,6 +36,7 @@ set. This count may include $self.
 sub peers_need_fitting
 {
         my ($self) = @_;
+        return 0 if $self->scenario->type ne 'interdep';
         return $self->peer_elements->search({is_fitted => { '!=' => 1,}})->count;
 }
 
