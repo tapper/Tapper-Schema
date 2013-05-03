@@ -86,8 +86,12 @@ sub mark_as_finished
         if ($self->host->is_pool) {
                 $self->host($self->host->get_from_storage);
                 $self->host->pool_free($self->host->pool_free+1);
+                if ($self->host->pool_free > 0) {
+                        $self->host->free(1);
+                }
+        } else {
+                $self->host->free(1);
         }
-        $self->host->free(1);
 
         # sync db
         $self->host->update;
