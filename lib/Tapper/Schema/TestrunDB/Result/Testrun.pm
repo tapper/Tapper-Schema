@@ -215,6 +215,8 @@ sub rerun
 
 Assign given preconditions to this testrun.
 
+@param  array   - list of precondition ids
+
 @return success - 0
 @return error   - error message
 
@@ -287,6 +289,8 @@ sub insert_preconditions {
 =head2 disassign_preconditions
 
 Disconnect list of preconditions from a testrun.
+
+@param array - list of precondition ids
 
 =cut
 
