@@ -208,7 +208,9 @@ sub rerun
         $testrunscheduling_new->status('schedule');
         $testrunscheduling_new->update;
         $testrun_new->assign_preconditions(@preconditions);
-        return $testrun_new->id;
+
+        return $testrun_new;
+
 }
 
 =head2 assign_preconditions
