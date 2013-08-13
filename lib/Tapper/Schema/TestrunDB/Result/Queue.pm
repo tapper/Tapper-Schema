@@ -43,7 +43,7 @@ sub queued_testruns
                                            status => 'schedule'
                                           },
                                           {
-                                           ordered_by => 'testrun_id'
+                                           order_by => 'testrun_id'
                                           });
 }
 
