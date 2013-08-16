@@ -112,6 +112,7 @@ sub add {
               starttime_earliest    => $args->{earliest},
               owner_id              => $args->{owner_id},
               rerun_on_error        => $args->{rerun_on_error},
+              wait_after_tests      => $args->{wait_after_tests},
              });
 
         $testrun->insert;
