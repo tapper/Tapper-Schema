@@ -183,9 +183,12 @@ Update I<priority> and I<active> flags.
 sub update_content {
         my ($self, $args) =@_;
 
+        require DateTime;
         $self->priority( $args->{priority} ) if exists($args->{priority});
         $self->active( $args->{active} ) if exists($args->{active});
+        $self->updated_at( DateTime->now->strftime('%F %T') );
         $self->update;
+
         return $self->id;
 }
 
