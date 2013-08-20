@@ -16,7 +16,6 @@ our $VERSION = '4.001007';
 # by forcing correct load order.
 use Class::C3;
 use MRO::Compat;
-use YAML::Syck;
 
 use parent 'DBIx::Class::Schema';
 
@@ -50,9 +49,11 @@ Check whether given string is valid yaml.
 sub _yaml_ok {
         my ($condition) = @_;
 
+        require YAML::Syck;
+
         my @res;
         eval {
-                @res = Load($condition);
+                @res = YAML::Syck::Load($condition);
         };
         return $@;
 }

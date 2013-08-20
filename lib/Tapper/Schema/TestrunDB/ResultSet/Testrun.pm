@@ -3,9 +3,6 @@ package Tapper::Schema::TestrunDB::ResultSet::Testrun;
 use strict;
 use warnings;
 
-use DateTime;
-
-
 use parent 'DBIx::Class::ResultSet';
 
 =head2 queued_testruns
@@ -61,6 +58,7 @@ sub due_testruns
 {
         my ($self) = @_;
 
+        require DateTime;
         my $now = $self->result_source->storage->datetime_parser->format_datetime(DateTime->now);
         return $self->search(
                              {

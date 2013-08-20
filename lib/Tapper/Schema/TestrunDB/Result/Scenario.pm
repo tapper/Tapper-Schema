@@ -5,9 +5,6 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use YAML::XS;
-
-
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
 __PACKAGE__->table("scenario");
@@ -21,10 +18,18 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/id/);
 
-__PACKAGE__->inflate_column( options => {
-                                         inflate => sub { YAML::XS::Load(shift)},
-                                         deflate => sub { YAML::XS::Dump(shift)},
-                                      });
+__PACKAGE__->inflate_column(
+    options => {
+        inflate => sub {
+            require YAML::XS;
+            YAML::XS::Load(shift);
+        },
+        deflate => sub {
+            require YAML::XS;
+            YAML::XS::Dump(shift);
+        },
+    }
+);
 
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;

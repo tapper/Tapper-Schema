@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class::ResultSet';
-use YAML::Syck;
 
 =head2 add
 
@@ -19,6 +18,7 @@ sub add {
         my @precond_list = @$preconditions;
         my @precond_ids;
 
+        require YAML::Syck;
         foreach my $precond_data (@precond_list) {
                 # (XXX) decide how to handle empty preconditions
                 next if not (ref($precond_data) eq 'HASH');
@@ -27,7 +27,7 @@ sub add {
                 my $precondition = $self->result_source->schema->resultset('Precondition')->new
                     ({
                       shortname    => $shortname,
-                      precondition => Dump($precond_data),
+                      precondition => YAML::Syck::Dump($precond_data),
                       timeout      => $timeout,
                      });
                 $precondition->insert;
