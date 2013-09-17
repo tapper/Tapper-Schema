@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::ReportSection;
+package Tapper::Schema::TestrunDB::Result::ReportSection;
 
 use strict;
 use warnings;
@@ -63,7 +63,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->has_many   ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->has_many   ( report => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 
 # -------------------- methods on results --------------------
@@ -120,14 +120,14 @@ sub sqlt_deploy_hook
 
 =head1 NAME
 
-Tapper::Schema::ReportsDB::ReportSection - A ResultSet description
+Tapper::Schema::TestrunDB::ReportSection - A ResultSet description
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Tapper::Schema::ReportsDB;
+ use Tapper::Schema::TestrunDB;
 
 
 =head1 AUTHOR

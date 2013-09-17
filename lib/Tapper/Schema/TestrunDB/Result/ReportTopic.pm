@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::ReportTopic;
+package Tapper::Schema::TestrunDB::Result::ReportTopic;
 
 use strict;
 use warnings;
@@ -17,21 +17,21 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 
 1;
 
 =head1 NAME
 
-Tapper::Schema::ReportsDB::ReportTopic - A ResultSet description
+Tapper::Schema::TestrunDB::ReportTopic - A ResultSet description
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Tapper::Schema::ReportsDB;
+ use Tapper::Schema::TestrunDB;
 
 
 =head1 AUTHOR

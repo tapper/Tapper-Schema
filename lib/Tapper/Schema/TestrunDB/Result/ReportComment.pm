@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::ReportComment;
+package Tapper::Schema::TestrunDB::Result::ReportComment;
 
 use strict;
 use warnings;
@@ -20,22 +20,22 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
-__PACKAGE__->belongs_to   ( owner  => 'Tapper::Schema::ReportsDB::Result::Owner',  { 'foreign.id' => 'self.owner_id' });
+__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->belongs_to   ( owner  => 'Tapper::Schema::TestrunDB::Result::Owner',  { 'foreign.id' => 'self.owner_id' });
 
 
 1;
 
 =head1 NAME
 
-Tapper::Schema::ReportsDB::ReportComment - A ResultSet description
+Tapper::Schema::TestrunDB::ReportComment - A ResultSet description
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Tapper::Schema::ReportsDB;
+ use Tapper::Schema::TestrunDB;
 
 
 =head1 AUTHOR

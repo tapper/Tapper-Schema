@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::Contact;
+package Tapper::Schema::TestrunDB::Result::Contact;
 
 use strict;
 use warnings;
@@ -25,14 +25,14 @@ __PACKAGE__->belongs_to( owner => "${basepkg}::Owner", { 'foreign.id' => 'self.o
 
 =head1 NAME
 
-Tapper::Schema::ReportsDB::Result::Contact - Keep contact information for owners
+Tapper::Schema::TestrunDB::Result::Contact - Keep contact information for owners
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Tapper::Schema::ReportsDB;
+ use Tapper::Schema::TestrunDB;
 
 
 =head1 AUTHOR

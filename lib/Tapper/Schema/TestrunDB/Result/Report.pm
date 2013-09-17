@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::Report;
+package Tapper::Schema::TestrunDB::Result::Report;
 
 use 5.010;
 use strict;
@@ -50,15 +50,15 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to   ( suite                => 'Tapper::Schema::ReportsDB::Result::Suite',                { 'foreign.id'        => 'self.suite_id' }, { 'join_type' => 'LEFT OUTER' });
-__PACKAGE__->might_have   ( reportgrouparbitrary => 'Tapper::Schema::ReportsDB::Result::ReportgroupArbitrary', { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
-__PACKAGE__->might_have   ( reportgrouptestrun   => 'Tapper::Schema::ReportsDB::Result::ReportgroupTestrun',   { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
-__PACKAGE__->might_have      ( tap                  => 'Tapper::Schema::ReportsDB::Result::Tap',                 { 'foreign.report_id'        => 'self.id' }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->belongs_to   ( suite                => 'Tapper::Schema::TestrunDB::Result::Suite',                { 'foreign.id'        => 'self.suite_id' }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->might_have   ( reportgrouparbitrary => 'Tapper::Schema::TestrunDB::Result::ReportgroupArbitrary', { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->might_have   ( reportgrouptestrun   => 'Tapper::Schema::TestrunDB::Result::ReportgroupTestrun',   { 'foreign.report_id' => 'self.id'       }, { 'join_type' => 'LEFT OUTER' });
+__PACKAGE__->might_have      ( tap                  => 'Tapper::Schema::TestrunDB::Result::Tap',                 { 'foreign.report_id'        => 'self.id' }, { 'join_type' => 'LEFT OUTER' });
 
-__PACKAGE__->has_many     ( comments       => 'Tapper::Schema::ReportsDB::Result::ReportComment', { 'foreign.report_id' => 'self.id' });
-__PACKAGE__->has_many     ( topics         => 'Tapper::Schema::ReportsDB::Result::ReportTopic',   { 'foreign.report_id' => 'self.id' });
-__PACKAGE__->has_many     ( files          => 'Tapper::Schema::ReportsDB::Result::ReportFile',    { 'foreign.report_id' => 'self.id' });
-__PACKAGE__->has_many     ( reportsections => 'Tapper::Schema::ReportsDB::Result::ReportSection', { 'foreign.report_id' => 'self.id' });
+__PACKAGE__->has_many     ( comments       => 'Tapper::Schema::TestrunDB::Result::ReportComment', { 'foreign.report_id' => 'self.id' });
+__PACKAGE__->has_many     ( topics         => 'Tapper::Schema::TestrunDB::Result::ReportTopic',   { 'foreign.report_id' => 'self.id' });
+__PACKAGE__->has_many     ( files          => 'Tapper::Schema::TestrunDB::Result::ReportFile',    { 'foreign.report_id' => 'self.id' });
+__PACKAGE__->has_many     ( reportsections => 'Tapper::Schema::TestrunDB::Result::ReportSection', { 'foreign.report_id' => 'self.id' });
 
 
 =head2 sqlt_deploy_hook

@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::ReportFile;
+package Tapper::Schema::TestrunDB::Result::ReportFile;
 
 use strict;
 use warnings;
@@ -50,7 +50,7 @@ __PACKAGE__->filter_column('filecontent', {
                                                                       },
                                            }
                            );
-__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 
 # -------------------- methods on results --------------------
@@ -60,14 +60,14 @@ __PACKAGE__->belongs_to   ( report => 'Tapper::Schema::ReportsDB::Result::Report
 
 =head1 NAME
 
-Tapper::Schema::ReportsDB::ReportFile - A ResultSet description
+Tapper::Schema::TestrunDB::ReportFile - A ResultSet description
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Tapper::Schema::ReportsDB;
+ use Tapper::Schema::TestrunDB;
 
 
 =head1 AUTHOR

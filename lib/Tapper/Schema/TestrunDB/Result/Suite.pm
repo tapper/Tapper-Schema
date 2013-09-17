@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::Suite;
+package Tapper::Schema::TestrunDB::Result::Suite;
 
 use strict;
 use warnings;
@@ -17,7 +17,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->has_many   ( reports => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.suite_id'        => 'self.id' });
+__PACKAGE__->has_many   ( reports => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.suite_id'        => 'self.id' });
 
 
 =head2 sqlt_deploy_hook

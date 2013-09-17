@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::ResultSet::ReportgroupTestrun;
+package Tapper::Schema::TestrunDB::ResultSet::ReportgroupTestrun;
 
 use strict;
 use warnings;

@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::View020TestrunOverview;
+package Tapper::Schema::TestrunDB::Result::View020TestrunOverview;
 # the number is to sort classes on deploy
 
 use 5.010;
@@ -13,9 +13,9 @@ __PACKAGE__->table('view_testrun_overview');
 
 # virtual is needed when the query should accept parameters
 __PACKAGE__->result_source_instance->is_virtual(0);
-__PACKAGE__->result_source_instance->deploy_depends_on( [qw(Tapper::Schema::ReportsDB::Result::View010TestrunOverviewReports
-                                                            Tapper::Schema::ReportsDB::Result::Report
-                                                            Tapper::Schema::ReportsDB::Result::Suite
+__PACKAGE__->result_source_instance->deploy_depends_on( [qw(Tapper::Schema::TestrunDB::Result::View010TestrunOverviewReports
+                                                            Tapper::Schema::TestrunDB::Result::Report
+                                                            Tapper::Schema::TestrunDB::Result::Suite
                                                           )] );
 __PACKAGE__->result_source_instance->view_definition
     (

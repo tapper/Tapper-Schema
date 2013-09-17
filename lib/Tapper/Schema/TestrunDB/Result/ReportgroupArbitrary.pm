@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::ReportgroupArbitrary;
+package Tapper::Schema::TestrunDB::Result::ReportgroupArbitrary;
 
 use strict;
 use warnings;
@@ -17,7 +17,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/arbitrary_id report_id/);
 
-__PACKAGE__->belongs_to ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->belongs_to ( report => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 # -------------------- methods on results --------------------
 

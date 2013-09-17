@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::ReportgroupTestrunStats;
+package Tapper::Schema::TestrunDB::Result::ReportgroupTestrunStats;
 
 use 5.010;
 use strict;
@@ -26,7 +26,7 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/testrun_id/);
 
-__PACKAGE__->has_many ( reportgrouptestruns => 'Tapper::Schema::ReportsDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, {cascade_delete => 0, cascade_copy => 0 } );
+__PACKAGE__->has_many ( reportgrouptestruns => 'Tapper::Schema::TestrunDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, {cascade_delete => 0, cascade_copy => 0 } );
 
 
 =head2 groupreports

@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::ReportgroupTestrun;
+package Tapper::Schema::TestrunDB::Result::ReportgroupTestrun;
 
 use 5.010;
 use strict;
@@ -18,8 +18,8 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/testrun_id report_id/);
 
-__PACKAGE__->might_have ( reportgrouptestrunstats => 'Tapper::Schema::ReportsDB::Result::ReportgroupTestrunStats', { 'foreign.testrun_id' => 'self.testrun_id' }, { is_foreign_key_constraint => 0 } );
-__PACKAGE__->belongs_to ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' } );
+__PACKAGE__->might_have ( reportgrouptestrunstats => 'Tapper::Schema::TestrunDB::Result::ReportgroupTestrunStats', { 'foreign.testrun_id' => 'self.testrun_id' }, { is_foreign_key_constraint => 0 } );
+__PACKAGE__->belongs_to ( report => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.id' => 'self.report_id' } );
 
 # -------------------- methods on results --------------------
 

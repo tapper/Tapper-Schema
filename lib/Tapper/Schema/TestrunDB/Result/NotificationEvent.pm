@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::NotificationEvent;
+package Tapper::Schema::TestrunDB::Result::NotificationEvent;
 
 use strict;
 use warnings;
@@ -28,14 +28,14 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 NAME
 
-Tapper::Schema::ReportsDB::Result::NotificationEvent - Keep data about events that may trigger notifications
+Tapper::Schema::TestrunDB::Result::NotificationEvent - Keep data about events that may trigger notifications
 
 
 =head1 SYNOPSIS
 
 Abstraction for the database table.
 
- use Tapper::Schema::ReportsDB;
+ use Tapper::Schema::TestrunDB;
 
 
 =head1 AUTHOR

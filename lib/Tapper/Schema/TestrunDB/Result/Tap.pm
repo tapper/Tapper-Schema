@@ -1,4 +1,4 @@
-package Tapper::Schema::ReportsDB::Result::Tap;
+package Tapper::Schema::TestrunDB::Result::Tap;
 
 use 5.010;
 use strict;
@@ -27,6 +27,6 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::ReportsDB::Result::Report', { 'foreign.id' => 'self.report_id' });
+__PACKAGE__->belongs_to   ( report => 'Tapper::Schema::TestrunDB::Result::Report', { 'foreign.id' => 'self.report_id' });
 
 1;
