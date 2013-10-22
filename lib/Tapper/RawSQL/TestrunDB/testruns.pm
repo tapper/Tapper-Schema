@@ -24,6 +24,7 @@ sub web_list {
         state        => 'ts.status',
         owner        => 't.owner_id',
         topic        => 't.topic_name',
+        success      => 'r.successgrade',
     );
 
     for my $s_filter ( keys %h_where_columns ) {
@@ -49,6 +50,7 @@ sub web_list {
             SELECT
                 t.id                                                        AS testrun_id,
                 FLOOR( CAST( NULLIF( rgts.success_ratio, 0 ) AS float ) )   AS success_ratio,
+                r.successgrade,
                 r.id                                                        AS primary_report_id,
                 t.topic_name,
                 TO_CHAR( r.created_at, 'YYYY-MM-DD' )                       AS testrun_date,
@@ -114,6 +116,7 @@ sub web_list {
             SELECT
                 t.id                                            AS testrun_id,
                 CAST( IFNULL( rgts.success_ratio, 0 ) AS INT )  AS success_ratio,
+                r.successgrade,
                 r.id                                            AS primary_report_id,
                 t.topic_name,
                 STRFTIME( '%Y-%m-%d', r.created_at )            AS testrun_date,
@@ -185,6 +188,7 @@ sub web_list {
             SELECT
                 t.id                                        AS testrun_id,
                 FLOOR( IFNULL( rgts.success_ratio, 0 ) )    AS success_ratio,
+                r.successgrade,
                 r.id                                        AS primary_report_id,
                 t.topic_name,
                 DATE_FORMAT( t.created_at, '%Y-%m-%d' )     AS testrun_date,
