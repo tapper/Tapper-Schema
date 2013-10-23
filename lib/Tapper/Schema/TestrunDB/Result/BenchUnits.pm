@@ -1,6 +1,6 @@
-package Tapper::Schema::TestrunDB::Result::BenchAdditionalTypes;
+package Tapper::Schema::TestrunDB::Result::BenchUnits;
 
-# ABSTRACT: Tapper - types of additional values for benchmark data points
+# ABSTRACT: Tapper - units for benchmark data points
 
 use strict;
 use warnings;
@@ -8,9 +8,9 @@ use warnings;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
-__PACKAGE__->table('bench_additional_types');
+__PACKAGE__->table('bench_units');
 __PACKAGE__->add_columns(
-    'bench_additional_type_id', {
+    'bench_unit_id', {
         data_type           => 'TINYINT',
         default_value       => undef,
         is_nullable         => 0,
@@ -20,11 +20,11 @@ __PACKAGE__->add_columns(
             unsigned => 1,
         },
     },
-    'bench_additional_type', {
+    'bench_unit', {
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 32,
+        size                => 64,
     },
     'created_at', {
         data_type           => 'TIMESTAMP',
@@ -34,18 +34,15 @@ __PACKAGE__->add_columns(
     },
 );
 
-
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
-__PACKAGE__->set_primary_key('bench_additional_type_id');
+__PACKAGE__->set_primary_key('bench_unit_id');
 __PACKAGE__->add_unique_constraint(
-    'ux_bench_additional_types_01' => ['bench_additional_type'],
+    'ux_bench_units_01' => ['bench_unit'],
 );
+
 __PACKAGE__->has_many (
-    bench_additional_value => "${basepkg}::BenchAdditionalValues", { 'foreign.bench_additional_type_id' => 'self.bench_additional_type_id' },
-);
-__PACKAGE__->has_many (
-    bench_additional_type_relation => "${basepkg}::BenchAdditionalTypeRelations", { 'foreign.bench_additional_type_id' => 'self.bench_additional_type_id' },
+    benchs   => "${basepkg}::Benchs", { 'foreign.bench_unit_id' => 'self.bench_unit_id' },
 );
 
 =head1 SYNOPSIS
@@ -53,11 +50,6 @@ __PACKAGE__->has_many (
 Abstraction for the database table.
 
  use Tapper::Schema::TestrunDB;
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
 
 =head1 BUGS
 
