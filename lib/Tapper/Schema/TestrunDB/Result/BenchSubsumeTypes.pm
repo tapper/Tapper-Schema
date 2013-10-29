@@ -62,7 +62,7 @@ __PACKAGE__->has_many (
 );
 
 sub sqlt_deploy_hook {
-
+        return 1;
     my ( $or_self, $or_sqlt_table) = @_;
 
     # add default lines to table
