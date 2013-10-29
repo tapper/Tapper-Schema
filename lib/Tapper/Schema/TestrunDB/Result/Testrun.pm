@@ -28,7 +28,7 @@ __PACKAGE__->add_columns(
     'notes', {
         data_type           => 'TEXT',
         default_value       => undef,
-        is_nullable         => 0,
+        is_nullable         => 1,
     },
     'topic_name', {
         data_type           => 'VARCHAR',
@@ -80,7 +80,7 @@ __PACKAGE__->add_columns(
     'wait_after_tests', {
         data_type           => 'TINYINT',
         default_value       => 0,
-        is_nullable         => 0,
+        is_nullable         => 1,
         size                => 1,
         extra               => {
             unsigned => 1,
@@ -90,7 +90,7 @@ __PACKAGE__->add_columns(
     'rerun_on_error', {
         data_type           => 'TINYINT',
         default_value       => 0,
-        is_nullable         => 0,
+        is_nullable         => 1,
         size                => 1,
         extra               => {
             unsigned => 1,
@@ -99,13 +99,13 @@ __PACKAGE__->add_columns(
     'created_at', {
         data_type           => 'TIMESTAMP',
         default_value       => undef,
-        is_nullable         => 0,
+        is_nullable         => 1,
         set_on_create       => 1,
     },
     'updated_at', {
         data_type           => 'TIMESTAMP',
         default_value       => undef,
-        is_nullable         => 0,
+        is_nullable         => 1,
         set_on_create       => 1,
         set_on_update       => 1,
     },
