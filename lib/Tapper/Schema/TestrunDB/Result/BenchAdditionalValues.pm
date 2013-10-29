@@ -57,6 +57,8 @@ __PACKAGE__->belongs_to(
     bench_additional_type => "${basepkg}::BenchAdditionalTypes", { 'foreign.bench_additional_type_id' => 'self.bench_additional_type_id'  },
 );
 
+1;
+
 =head1 SYNOPSIS
 
 Abstraction for the database table.
@@ -66,5 +68,3 @@ Abstraction for the database table.
 =head1 BUGS
 
 None.
-
-1;

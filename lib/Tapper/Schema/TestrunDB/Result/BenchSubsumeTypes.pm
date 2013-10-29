@@ -108,6 +108,8 @@ sub sqlt_deploy_hook {
 
 }
 
+1;
+
 =head1 SYNOPSIS
 
 Abstraction for the database table.
@@ -117,5 +119,3 @@ Abstraction for the database table.
 =head1 BUGS
 
 None.
-
-1;

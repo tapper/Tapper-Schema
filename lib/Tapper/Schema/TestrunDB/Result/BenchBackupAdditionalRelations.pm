@@ -58,6 +58,8 @@ __PACKAGE__->belongs_to(
     bench_additional_value => "${basepkg}::BenchAdditionalValues", { 'foreign.bench_additional_value_id' => 'self.bench_additional_value_id'  },
 );
 
+1;
+
 =head1 SYNOPSIS
 
 Abstraction for the database table.
@@ -72,5 +74,3 @@ AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
 =head1 BUGS
 
 None.
-
-1;

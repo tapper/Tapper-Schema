@@ -5,29 +5,113 @@ use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use Data::Dumper;
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
-__PACKAGE__->table("testrun");
-__PACKAGE__->add_columns
-    (
-     "id",                        { data_type => "INT",       default_value => undef, is_nullable => 0, size => 11,    is_auto_increment => 1, },
-     "shortname",                 { data_type => "VARCHAR",   default_value => "",    is_nullable => 1, size => 255,                           },
-     "notes",                     { data_type => "TEXT",      default_value => "",    is_nullable => 1,                                        },
-     "topic_name",                { data_type => "VARCHAR",   default_value => "",    is_nullable => 0, size => 255,    is_foreign_key => 1,    },
-     "starttime_earliest",        { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
-     "starttime_testrun",         { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
-     "starttime_test_program",    { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
-     "endtime_test_program",      { data_type => "DATETIME",  default_value => undef, is_nullable => 1,                                        },
-     "owner_id",                  { data_type => "INT",       default_value => undef, is_nullable => 1, size => 11,    is_foreign_key => 1,    },
-     "testplan_id",               { data_type => "INT",       default_value => undef, is_nullable => 1, size => 11,    is_foreign_key => 1,    },
-     "wait_after_tests",          { data_type => "INT",       default_value => 0,     is_nullable => 1, size => 1,                             },
-     "rerun_on_error",            { data_type => "INT",       default_value => 0,     is_nullable => 1, size => 11,                            }, # number of times to rerun this test on error
-     "created_at" ,               { data_type => "TIMESTAMP", default_value => \'CURRENT_TIMESTAMP',  is_nullable => 0, set_on_create => 1,                     },
-     "updated_at",                { data_type => "DATETIME", default_value => undef,  is_nullable => 1, set_on_create => 1, set_on_update => 1, },
-    );
+__PACKAGE__->table('testrun');
+__PACKAGE__->add_columns(
+    'id', {
+        data_type           => 'INT',
+        default_value       => undef,
+        is_nullable         => 0,
+        size                => 11,
+        is_auto_increment   => 1,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    'shortname', {
+        data_type           => 'VARCHAR',
+        default_value       => undef,
+        is_nullable         => 0,
+        size                => 255,
+    },
+    'notes', {
+        data_type           => 'TEXT',
+        default_value       => undef,
+        is_nullable         => 0,
+    },
+    'topic_name', {
+        data_type           => 'VARCHAR',
+        default_value       => undef,
+        is_nullable         => 0,
+        size                => 255,
+        is_foreign_key      => 1,
+    },
+    'starttime_earliest', {
+        data_type           => 'TIMESTAMP',
+        default_value       => undef,
+        is_nullable         => 1,
+    },
+    'starttime_testrun', {
+        data_type           => 'TIMESTAMP',
+        default_value       => undef,
+        is_nullable         => 1,
+    },
+    'starttime_test_program', {
+        data_type           => 'TIMESTAMP',
+        default_value       => undef,
+        is_nullable         => 1,
+    },
+    'endtime_test_program', {
+        data_type           => 'TIMESTAMP',
+        default_value       => undef,
+        is_nullable         => 1,
+    },
+    'owner_id', {
+        data_type           => 'SMALLINT',
+        default_value       => undef,
+        is_nullable         => 1,
+        size                => 6,
+        is_foreign_key      => 1,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    'testplan_id', {
+        data_type           => 'INT',
+        default_value       => undef,
+        is_nullable         => 1,
+        size                => 11,
+        is_foreign_key      => 1,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    'wait_after_tests', {
+        data_type           => 'TINYINT',
+        default_value       => 0,
+        is_nullable         => 0,
+        size                => 1,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    # number of times to rerun this test on error
+    'rerun_on_error', {
+        data_type           => 'TINYINT',
+        default_value       => 0,
+        is_nullable         => 0,
+        size                => 1,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    'created_at', {
+        data_type           => 'TIMESTAMP',
+        default_value       => undef,
+        is_nullable         => 0,
+        set_on_create       => 1,
+    },
+    'updated_at', {
+        data_type           => 'TIMESTAMP',
+        default_value       => undef,
+        is_nullable         => 0,
+        set_on_create       => 1,
+        set_on_update       => 1,
+    },
+);
 
-__PACKAGE__->set_primary_key("id");
+__PACKAGE__->set_primary_key('id');
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
@@ -41,6 +125,7 @@ __PACKAGE__->might_have   ( testrun_scheduling         => "${basepkg}::TestrunSc
 __PACKAGE__->might_have   ( scenario_element           => "${basepkg}::ScenarioElement",         { 'foreign.testrun_id' => 'self.id' });
 __PACKAGE__->might_have   ( state                      => "${basepkg}::State",                   { 'foreign.testrun_id' => 'self.id' });
 __PACKAGE__->has_many     ( message                    => "${basepkg}::Message",                 { 'foreign.testrun_id' => 'self.id' });
+__PACKAGE__->has_many     ( testrun_requested_host     => "${basepkg}::TestrunRequestedHost",    { 'foreign.testrun_id' => 'self.id' });
 
 
 # -------------------- methods on results --------------------

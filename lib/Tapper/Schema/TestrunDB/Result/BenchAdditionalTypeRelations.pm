@@ -49,6 +49,8 @@ __PACKAGE__->belongs_to(
     bench_additional_type => "${basepkg}::BenchAdditionalTypes", { 'foreign.bench_additional_type_id' => 'self.bench_additional_type_id'  },
 );
 
+1;
+
 =head1 SYNOPSIS
 
 Abstraction for the database table.
@@ -63,5 +65,3 @@ AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
 =head1 BUGS
 
 None.
-
-1;

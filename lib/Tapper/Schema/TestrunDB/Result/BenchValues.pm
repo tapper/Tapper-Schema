@@ -75,6 +75,8 @@ __PACKAGE__->has_many (
     bench_backup_value => "${basepkg}::BenchBackupValues", { 'foreign.bench_value_id' => 'self.bench_value_id' },
 );
 
+1;
+
 =head1 SYNOPSIS
 
 Abstraction for the database table.
@@ -84,5 +86,3 @@ Abstraction for the database table.
 =head1 BUGS
 
 None.
-
-1;

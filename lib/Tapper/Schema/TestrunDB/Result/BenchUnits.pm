@@ -45,6 +45,8 @@ __PACKAGE__->has_many (
     benchs   => "${basepkg}::Benchs", { 'foreign.bench_unit_id' => 'self.bench_unit_id' },
 );
 
+1;
+
 =head1 SYNOPSIS
 
 Abstraction for the database table.
@@ -54,5 +56,3 @@ Abstraction for the database table.
 =head1 BUGS
 
 None.
-
-1;

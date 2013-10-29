@@ -253,4 +253,111 @@ sub web_list {
     };
 }
 
+sub continuous_list {
+    return {
+        'Pg' => q#
+            SELECT
+                t.id                                            AS testrun_id,
+                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%m' )   AS testrun_date,
+                ts.status,
+                t.topic_name,
+                q.name                                          AS queue_name,
+                STRING_AGG( h.name, ',' )                       AS hosts,
+                NULLIF( o.name, o.login )                       AS owner
+            FROM
+                testrun t
+                JOIN testrun_scheduling ts
+                    ON ( t.id = ts.testrun_id )
+                JOIN owner o
+                    ON ( t.owner_id = o.id )
+                JOIN testrun_requested_host trh
+                    ON ( t.id = trh.testrun_id )
+                JOIN host h
+                    ON ( trh.host_id = h.id )
+                JOIN queue q
+                    ON ( ts.queue_id = q.id )
+            WHERE
+                ts.auto_rerun = 1
+                AND ts.status IN ( 'prepare', 'schedule' )
+            GROUP BY
+                t.id,
+                t.created_at,
+                ts.status,
+                t.topic_name,
+                queue_name,
+                owner
+            ORDER BY
+                t.id DESC
+        #,
+        'SQLite' => q#
+            SELECT
+                t.id                                            AS testrun_id,
+                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%m' )   AS testrun_date,
+                ts.status,
+                t.topic_name,
+                q.name                                          AS queue_name,
+                GROUP_CONCAT( h.name )                          AS hosts,
+                IFNULL( o.name, o.login )                       AS owner
+            FROM
+                testrun t
+                JOIN testrun_scheduling ts
+                    ON ( t.id = ts.testrun_id )
+                JOIN owner o
+                    ON ( t.owner_id = o.id )
+                JOIN testrun_requested_host trh
+                    ON ( t.id = trh.testrun_id )
+                JOIN host h
+                    ON ( trh.host_id = h.id )
+                JOIN queue q
+                    ON ( ts.queue_id = q.id )
+            WHERE
+                ts.auto_rerun = 1
+                AND ts.status IN ( 'prepare', 'schedule' )
+            GROUP BY
+                t.id,
+                t.created_at,
+                ts.status,
+                t.topic_name,
+                queue_name,
+                owner
+            ORDER BY
+                t.id DESC
+        #,
+        'mysql' => q#
+            SELECT
+                t.id                                            AS testrun_id,
+                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%m' )   AS testrun_date,
+                ts.status,
+                t.topic_name,
+                q.name                                          AS queue_name,
+                GROUP_CONCAT( h.name ORDER BY h.name )          AS hosts,
+                IFNULL( o.name, o.login )                       AS owner
+            FROM
+                testrundb.testrun t
+                JOIN testrundb.testrun_scheduling ts
+                    ON ( t.id = ts.testrun_id )
+                JOIN testrundb.owner o
+                    ON ( t.owner_id = o.id )
+                JOIN testrundb.testrun_requested_host trh
+                    ON ( t.id = trh.testrun_id )
+                JOIN testrundb.host h
+                    ON ( trh.host_id = h.id )
+                JOIN queue q
+                    ON ( ts.queue_id = q.id )
+            WHERE
+                ts.auto_rerun = 1
+                AND ts.status IN ( 'prepare', 'schedule' )
+            GROUP BY
+                t.id,
+                t.created_at,
+                ts.status,
+                t.topic_name,
+                queue_name,
+                owner
+            ORDER BY
+                t.id DESC
+        #,
+    };
+}
+
 1;
