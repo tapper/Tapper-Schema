@@ -80,7 +80,7 @@ __PACKAGE__->add_columns(
     'wait_after_tests', {
         data_type           => 'TINYINT',
         default_value       => 0,
-        is_nullable         => 1,
+        is_nullable         => 1,           #TODO: 0
         size                => 1,
         extra               => {
             unsigned => 1,
@@ -90,7 +90,7 @@ __PACKAGE__->add_columns(
     'rerun_on_error', {
         data_type           => 'TINYINT',
         default_value       => 0,
-        is_nullable         => 1,
+        is_nullable         => 1,           #TODO: 0
         size                => 1,
         extra               => {
             unsigned => 1,

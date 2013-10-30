@@ -61,53 +61,6 @@ __PACKAGE__->has_many (
     bench_backup_value => "${basepkg}::BenchBackupValues", { 'foreign.bench_subsume_type_id' => 'self.bench_subsume_type_id' },
 );
 
-sub sqlt_deploy_hook {
-        return 1;
-    my ( $or_self, $or_sqlt_table) = @_;
-
-    # add default lines to table
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'atomic',
-        bench_subsume_type_rank   => 1,
-    })->insert();
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'second',
-        bench_subsume_type_rank   => 2,
-        datetime_strftime_pattern => '%Y%m%d%H%M%S',
-    })->insert();
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'minute',
-        bench_subsume_type_rank   => 3,
-        datetime_strftime_pattern => '%Y%m%d%H%M',
-    })->insert();
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'hour',
-        bench_subsume_type_rank   => 4,
-        datetime_strftime_pattern => '%Y%m%d%H',
-    })->insert();
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'day',
-        bench_subsume_type_rank   => 5,
-        datetime_strftime_pattern => '%Y%m%d',
-    })->insert();
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'week',
-        bench_subsume_type_rank   => 6,
-        datetime_strftime_pattern => '%Y%W',
-    })->insert();
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'month',
-        bench_subsume_type_rank   => 7,
-        datetime_strftime_pattern => '%Y%m',
-    })->insert();
-    $or_sqlt_table->new({
-        bench_subsume_type        => 'year',
-        bench_subsume_type_rank   => 8,
-        datetime_strftime_pattern => '%Y',
-    })->insert();
-
-}
-
 1;
 
 =head1 SYNOPSIS
