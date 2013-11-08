@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::TestrunRequestedHost;
 
+# ABSTRACT: Tapper - Relate testruns with hosts ( requested )
+
 use strict;
 use warnings;
 
@@ -22,32 +24,3 @@ __PACKAGE__->belongs_to( testrunscheduling => "${basepkg}::Testrun", { 'foreign.
 __PACKAGE__->belongs_to( host              => "${basepkg}::Host",    { 'foreign.id' => 'self.host_id'    });
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Result::PrePrecondition - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

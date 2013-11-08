@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Tap;
 
+# ABSTRACT: Tapper - containing tap reports
+
 use 5.010;
 use strict;
 use warnings;

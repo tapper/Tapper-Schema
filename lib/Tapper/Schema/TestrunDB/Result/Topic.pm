@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Topic;
 
+# ABSTRACT: Tapper - Containg topic informations
+
 use strict;
 use warnings;
 

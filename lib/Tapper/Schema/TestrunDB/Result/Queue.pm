@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Queue;
 
+# ABSTRACT: Tapper - Containing queues of testruns
+
 use strict;
 use warnings;
 

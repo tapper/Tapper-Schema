@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::HostFeature;
 
+# ABSTRACT: Tapper - Containing features for hosts
+
 use 5.010;
 use strict;
 use warnings;
@@ -28,28 +30,3 @@ __PACKAGE__->belongs_to( host => "${basepkg}::Host", { 'foreign.id' => 'self.hos
 
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Result::HostFeature - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

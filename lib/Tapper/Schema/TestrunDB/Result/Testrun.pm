@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Testrun;
 
+# ABSTRACT: Tapper - Containing Testruns
+
 use 5.010;
 use strict;
 use warnings;

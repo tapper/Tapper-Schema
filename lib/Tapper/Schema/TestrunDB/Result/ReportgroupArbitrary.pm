@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::ReportgroupArbitrary;
 
+# ABSTRACT: Tapper - Containing relations between reports and arbitrary ids
+
 use strict;
 use warnings;
 
@@ -49,6 +51,5 @@ sub sqlt_deploy_hook
         my ($self, $sqlt_table) = @_;
         # $sqlt_table->add_index(name => 'reportgrouparbitrary_idx_report_id', fields => ['report_id']); # implicitely done(?)
 }
-
 
 1;

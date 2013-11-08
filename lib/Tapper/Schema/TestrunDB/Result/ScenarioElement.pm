@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::ScenarioElement;
 
+# ABSTRACT: Tapper - Containing relations between scenarios and testrun_ids
+
 use 5.010;
 use strict;
 use warnings;

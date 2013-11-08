@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Suite;
 
+# ABSTRACT: Tapper - Containing suite information
+
 use strict;
 use warnings;
 

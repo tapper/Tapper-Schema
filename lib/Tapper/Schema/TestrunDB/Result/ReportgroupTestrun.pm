@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::ReportgroupTestrun;
 
+# ABSTRACT: Tapper - Containing relations between testruns and reports
+
 use 5.010;
 use strict;
 use warnings;

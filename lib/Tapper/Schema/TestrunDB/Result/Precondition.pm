@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Precondition;
 
+# ABSTRACT: Tapper - Containing Preconditions for Testruns
+
 use strict;
 use warnings;
 
@@ -146,5 +148,3 @@ sub update_content {
 }
 
 1;
-
-
