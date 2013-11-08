@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::ChartLineAdditionals;
 
+# ABSTRACT: Tapper - Keep additional columns for chart line popup
+
 use strict;
 use warnings;
 
@@ -42,35 +44,5 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key('chart_line_id','chart_line_additional_column');
 __PACKAGE__->belongs_to( chart_line => "${basepkg}::ChartLines", { 'foreign.chart_line_id' => 'self.chart_line_id' });
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Result::ChartLines - Keep Chart Lines for Charts
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2012 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-
-=cut
 
 1;

@@ -58,13 +58,3 @@ __PACKAGE__->belongs_to(
 );
 
 1;
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-=head1 BUGS
-
-None.

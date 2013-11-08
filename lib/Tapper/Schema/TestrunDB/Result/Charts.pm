@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Charts;
 
+# ABSTRACT: Tapper - Keep Charts for Tapper-Reports-Web-GUI
+
 use strict;
 use warnings;
 
@@ -97,35 +99,5 @@ __PACKAGE__->has_many(
     chart_lines => 'Tapper::Schema::TestrunDB::Result::ChartLines',
     { 'foreign.chart_id' => 'self.chart_id' },
 );
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Result::Charts - Keep Charts for Tapper-Reports-Web-GUI
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2012 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-
-=cut
 
 1;

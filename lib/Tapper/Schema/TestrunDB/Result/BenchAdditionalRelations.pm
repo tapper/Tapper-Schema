@@ -58,14 +58,4 @@ __PACKAGE__->belongs_to(
     bench_additional_value => "${basepkg}::BenchAdditionalValues", { 'foreign.bench_additional_value_id' => 'self.bench_additional_value_id'  },
 );
 
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-=head1 BUGS
-
-None.
-
 1;
