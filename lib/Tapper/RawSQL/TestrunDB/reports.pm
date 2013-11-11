@@ -7,34 +7,61 @@ sub web_list {
 
     my ( $hr_vals ) = @_;
 
-    if ( !$hr_vals || !$hr_vals->{report_date_from} || !$hr_vals->{report_date_to} ) {
+    my %h_where;
+    my $b_essentials = 0;
+    if ( $hr_vals->{report_id} ) {
+        $b_essentials = 1;
+    }
+    if ( $hr_vals->{report_date_from} && $hr_vals->{report_date_to} ) {
+        $hr_vals->{report_date_min} = "$hr_vals->{report_date_from} 00:00:00";
+        $hr_vals->{report_date_max} = "$hr_vals->{report_date_to} 23:59:59";
+        $h_where{report_date} = 'created_at BETWEEN $report_date_min$ AND $report_date_max$';
+        $b_essentials = 1;
+    }
+
+    if (! $b_essentials ) {
         require Carp;
         Carp::croak('missing parameters for sql statement: reports::web_list');
     }
 
-    my %h_where;
-    if ( $hr_vals->{suite_id} && @{$hr_vals->{suite_id}} ) {
-        $h_where{suite_id} = 'suite_id IN (' . (join q#,#, @{$hr_vals->{suite_id}}) . ')';
-    }
-    if ( $hr_vals->{machine_name} ) {
-        $h_where{machine_name} = 'machine_name = $machine_name$';
-    }
-    if ( $hr_vals->{successgrade} ) {
-        $h_where{successgrade} = 'successgrade = $successgrade$';
-    }
-    if ( $hr_vals->{success_ratio} ) {
-        $h_where{success_ratio} = 'success_ratio = $success_ratio$';
-    }
+    my %h_where_columns = (
+        report_id       => 'id',
+        machine_name    => 'machine_name',
+        successgrade    => 'successgrade',
+        success_ratio   => 'success_ratio',
+        owner           => 'owner',
+        owner_null      => 'NULL',
+        suite_id        => 'suite_id',
+    );
+
     if ( $hr_vals->{owner} ) {
-        $h_where{owner}      = '`owner` = $owner$';
-        $h_where{owner_null} = '1 = 0';
+        $hr_vals->{owner_null} = 'exclude everything';
+    }
+    for my $s_filter ( keys %h_where_columns ) {
+        if ( $hr_vals->{$s_filter} ) {
+            if ( ref $hr_vals->{$s_filter} eq 'ARRAY' ) {
+                if ( @{$hr_vals->{$s_filter}} ) {
+                    if ( @{$hr_vals->{$s_filter}} == 1 ) {
+                        $h_where{$s_filter} = "$h_where_columns{$s_filter} = \$$s_filter\$";
+                    }
+                    else {
+                        $h_where{$s_filter} = "$h_where_columns{$s_filter} IN (\$$s_filter\$)";
+                    }
+                }
+            }
+            else {
+                $h_where{$s_filter} = "$h_where_columns{$s_filter} = \$$s_filter\$";
+            }
+        }
     }
 
-    $hr_vals->{report_date_from} = "$hr_vals->{report_date_from} 00:00:00";
-    $hr_vals->{report_date_to}   = "$hr_vals->{report_date_to} 23:59:59";
-    $h_where{report_date}       = 'r.created_at BETWEEN $report_date_from$ AND $report_date_to$';
+    my @a_main  = ( 'suite_id', 'machine_name', 'successgrade', 'success_ratio', 'owner', [qw/ r report_date /], [qw/ r report_id /] );
+    my @a_inner = ( 'suite_id', 'machine_name', 'successgrade', 'success_ratio', 'owner', [qw/ ri report_date /], [qw/ ri report_id /] );
+    my @a_sub   = ( 'suite_id', 'machine_name', 'successgrade', 'success_ratio', 'owner_null', [qw/ r report_date /], [qw/ r report_id /] );
 
-    my $s_where = join "\nAND ", grep { $_ } @h_where{qw/ suite_id machine_name successgrade success_ratio owner report_date /};
+    my $s_where_main  = join "\nAND ", map { ref $_ ? $_->[0] . '.' . $h_where{$_->[1]} : $h_where{$_} } grep { ref $_ ? $h_where{$_->[1]} : $h_where{$_} } @a_main;
+    my $s_where_inner = join "\nAND ", map { ref $_ ? $_->[0] . '.' . $h_where{$_->[1]} : $h_where{$_} } grep { ref $_ ? $h_where{$_->[1]} : $h_where{$_} } @a_inner;
+    my $s_where_sub   = join "\nAND ", map { ref $_ ? $_->[0] . '.' . $h_where{$_->[1]} : $h_where{$_} } grep { ref $_ ? $h_where{$_->[1]} : $h_where{$_} } @a_sub;
 
     return {
         Pg => "
@@ -63,7 +90,7 @@ sub web_list {
                                  ON ( rgti.report_id = ri.id )
                          WHERE
                              rgti.testrun_id = rgt.testrun_id
-                             AND $s_where
+                             AND $s_where_inner
                          ORDER BY
                              rgti.primaryreport DESC,
                              rgti.report_id DESC
@@ -78,7 +105,7 @@ sub web_list {
                      JOIN reportgrouptestrun rgt
                          ON ( r.id = rgt.report_id )
                  WHERE
-                     $s_where
+                     $s_where_main
              )
              UNION
              (
@@ -106,7 +133,7 @@ sub web_list {
                                  ON ( rgti.report_id = ri.id )
                          WHERE
                              rgti.arbitrary_id = rgt.arbitrary_id
-                             AND $s_where
+                             AND $s_where_inner
                          ORDER BY
                              rgti.primaryreport DESC,
                              rgti.report_id DESC
@@ -121,7 +148,7 @@ sub web_list {
                      JOIN reportgrouparbitrary rgt
                          ON ( r.id = rgt.report_id )
                  WHERE
-                     $s_where
+                     $s_where_main
              )
              UNION
              (
@@ -150,7 +177,7 @@ sub web_list {
                  WHERE
                          rgt.report_id IS NULL
                      AND rga.report_id IS NULL
-                     AND " . (join "\nAND ", grep { $_ } @h_where{qw/ suite_id machine_name successgrade success_ratio owner_null report_date /}) . "
+                     AND $s_where_sub
              )
              ORDER BY
                  primary_date DESC,
@@ -180,7 +207,7 @@ sub web_list {
                                 ON ( rgti.report_id = ri.id )
                         WHERE
                             rgti.testrun_id = rgt.testrun_id
-                            AND $s_where
+                            AND $s_where_inner
                         ORDER BY
                             rgti.primaryreport DESC,
                             rgti.report_id DESC
@@ -195,7 +222,7 @@ sub web_list {
                     JOIN reportgrouptestrun rgt
                         ON ( r.id = rgt.report_id )
                 WHERE
-                    $s_where
+                    $s_where_main
             UNION
                 -- reportgrouptestrun
                 SELECT
@@ -218,7 +245,7 @@ sub web_list {
                                 ON ( rgti.report_id = ri.id )
                         WHERE
                             rgti.arbitrary_id = rgt.arbitrary_id
-                            AND $s_where
+                            AND $s_where_inner
                         ORDER BY
                             rgti.primaryreport DESC,
                             rgti.report_id DESC
@@ -233,7 +260,7 @@ sub web_list {
                     JOIN reportgrouparbitrary rgt
                         ON ( r.id = rgt.report_id )
                 WHERE
-                    $s_where
+                    $s_where_main
             UNION
                 -- non related reports
                 SELECT
@@ -260,7 +287,7 @@ sub web_list {
                 WHERE
                         rgt.report_id IS NULL
                     AND rga.report_id IS NULL
-                    AND " . (join "\nAND ", grep { $_ } @h_where{qw/ suite_id machine_name successgrade success_ratio owner_null report_date /}) . "
+                    AND $s_where_sub
             ORDER BY
                 primary_date DESC,
                 grouping_id DESC,
@@ -293,7 +320,7 @@ sub web_list {
                                 ON ( rgti.report_id = ri.id )
                         WHERE
                             rgti.testrun_id = rgt.testrun_id
-                            AND $s_where
+                            AND $s_where_inner
                         ORDER BY
                             rgti.primaryreport DESC,
                             rgti.report_id DESC
@@ -308,7 +335,7 @@ sub web_list {
                     JOIN testrundb.reportgrouptestrun rgt
                         ON ( r.id = rgt.report_id )
                 WHERE
-                    $s_where
+                    $s_where_main
             )
             UNION
             (
@@ -336,7 +363,7 @@ sub web_list {
                                 ON ( rgti.report_id = ri.id )
                         WHERE
                             rgti.arbitrary_id = rgt.arbitrary_id
-                            AND $s_where
+                            AND $s_where_inner
                         ORDER BY
                             rgti.primaryreport DESC,
                             rgti.report_id DESC
@@ -351,7 +378,7 @@ sub web_list {
                     JOIN testrundb.reportgrouparbitrary rgt
                         ON ( r.id = rgt.report_id )
                 WHERE
-                    $s_where
+                    $s_where_main
             )
             UNION
             (
@@ -380,7 +407,7 @@ sub web_list {
                 WHERE
                         rgt.report_id IS NULL
                     AND rga.report_id IS NULL
-                    AND " . (join "\nAND ", grep { $_ } @h_where{qw/ suite_id machine_name successgrade success_ratio owner_null report_date /}) . "
+                    AND $s_where_sub
             )
             ORDER BY
                 primary_date DESC,

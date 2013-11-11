@@ -8,14 +8,20 @@ sub web_list {
     my ( $hr_vals ) = @_;
 
     my @a_where;
-    if ( !$hr_vals || !$hr_vals->{testrun_date_from} || !$hr_vals->{testrun_date_to} ) {
-        require Carp;
-        Carp::croak('missing parameters for sql statement: reports::web_list');
+    my $b_essentials = 0;
+    if ( $hr_vals->{testrun_id} ) {
+        $b_essentials = 1;
     }
-    else {
+    if ( $hr_vals->{testrun_date_from} && $hr_vals->{testrun_date_to} ) {
         $hr_vals->{testrun_date_min} = "$hr_vals->{testrun_date_from} 00:00:00";
         $hr_vals->{testrun_date_max} = "$hr_vals->{testrun_date_to} 23:59:59";
         push @a_where, 't.created_at BETWEEN $testrun_date_min$ AND $testrun_date_max$';
+        $b_essentials = 1;
+    }
+
+    if (! $b_essentials ) {
+        require Carp;
+        Carp::croak('missing parameters for sql statement: testruns::web_list');
     }
 
     my %h_where_columns = (
