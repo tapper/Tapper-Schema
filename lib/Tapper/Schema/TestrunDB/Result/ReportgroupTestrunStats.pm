@@ -8,27 +8,89 @@ use warnings;
 
 use parent 'DBIx::Class';
 
-__PACKAGE__->load_components("Core");
-__PACKAGE__->table("reportgrouptestrunstats");
-__PACKAGE__->add_columns
-    (
-     "testrun_id",    { data_type => "INT",     default_value => undef,  is_nullable => 0,  size => 11, is_foreign_key => 1, },
-     "total",         { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "failed",        { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "passed",        { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "parse_errors",  { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "skipped",       { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "todo",          { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "todo_passed",   { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "wait",          { data_type => "INT",     default_value => undef,  is_nullable => 1,  size => 10,                      },
-     "success_ratio", { data_type => "VARCHAR", default_value => undef,  is_nullable => 1,  size => 20,                      },
-     # "exit" makes wrong SQL
-     # "exit",         { data_type => "INT",  default_value => undef,  is_nullable => 1,  size => 10,                      },
-    );
+__PACKAGE__->load_components('Core');
+__PACKAGE__->table('reportgrouptestrunstats');
+__PACKAGE__->add_columns(
+    'testrun_id', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 0,
+        size            => 11,
+        is_foreign_key  => 1,
+    },
+    'total', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'failed', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'passed', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'parse_errors', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'skipped', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'todo', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'todo_passed', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'wait', {
+        data_type       => 'INT',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 10,
+    },
+    'success_ratio', {
+        data_type       => 'VARCHAR',
+        default_value   => undef,
+        is_nullable     => 1,
+        size            => 20,
+    },
+#    # "exit" makes wrong SQL
+#    'exit', {
+#        data_type       => 'INT',
+#        default_value   => undef,
+#        is_nullable     => 1,
+#        size => 10,
+#    },
+);
 
 __PACKAGE__->set_primary_key(qw/testrun_id/);
-
-__PACKAGE__->has_many ( reportgrouptestruns => 'Tapper::Schema::TestrunDB::Result::ReportgroupTestrun', { 'foreign.testrun_id' => 'self.testrun_id' }, {cascade_delete => 0, cascade_copy => 0 } );
+__PACKAGE__->has_many(
+    reportgrouptestruns => 'Tapper::Schema::TestrunDB::Result::ReportgroupTestrun',
+    { 'foreign.testrun_id' => 'self.testrun_id' },
+    { cascade_delete => 0, cascade_copy => 0 },
+);
+__PACKAGE__->has_one(
+    testrun => 'Tapper::Schema::TestrunDB::Result::Testrun',
+    { 'foreign.id' => 'self.testrun_id' },
+);
 
 
 =head2 groupreports

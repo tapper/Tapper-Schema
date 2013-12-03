@@ -117,18 +117,53 @@ __PACKAGE__->set_primary_key('id');
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
-__PACKAGE__->belongs_to   ( owner                      => "${basepkg}::Owner",                   { 'foreign.id'   => 'self.owner_id' });
-__PACKAGE__->belongs_to   ( testplan_instance          => "${basepkg}::TestplanInstance",        { 'foreign.id'   => 'self.testplan_id'   });
+# * : 1
+__PACKAGE__->belongs_to(
+    owner                   => "${basepkg}::Owner",
+    { 'foreign.id'          => 'self.owner_id' },
+);
+__PACKAGE__->belongs_to(
+    testplan_instance       => "${basepkg}::TestplanInstance",
+    { 'foreign.id'          => 'self.testplan_id' },
+);
 
-__PACKAGE__->has_many     ( testrun_precondition       => "${basepkg}::TestrunPrecondition",     { 'foreign.testrun_id' => 'self.id' });
-__PACKAGE__->many_to_many ( preconditions              => "testrun_precondition",                                        'precondition' );
+# 1 : 0,1
+__PACKAGE__->might_have(
+    testrun_scheduling      => "${basepkg}::TestrunScheduling",
+    { 'foreign.testrun_id'  => 'self.id' },
+);
+__PACKAGE__->might_have(
+    scenario_element        => "${basepkg}::ScenarioElement",
+    { 'foreign.testrun_id'  => 'self.id' },
+);
+__PACKAGE__->might_have(
+    state                   => "${basepkg}::State",
+    { 'foreign.testrun_id'  => 'self.id' },
+);
+__PACKAGE__->might_have(
+    reportgrouptestrunstats => "${basepkg}::ReportgroupTestrunStats",
+    { 'foreign.testrun_id'  => 'self.id' },
+);
 
-__PACKAGE__->might_have   ( testrun_scheduling         => "${basepkg}::TestrunScheduling",       { 'foreign.testrun_id' => 'self.id' });
-__PACKAGE__->might_have   ( scenario_element           => "${basepkg}::ScenarioElement",         { 'foreign.testrun_id' => 'self.id' });
-__PACKAGE__->might_have   ( state                      => "${basepkg}::State",                   { 'foreign.testrun_id' => 'self.id' });
-__PACKAGE__->has_many     ( message                    => "${basepkg}::Message",                 { 'foreign.testrun_id' => 'self.id' });
-__PACKAGE__->has_many     ( testrun_requested_host     => "${basepkg}::TestrunRequestedHost",    { 'foreign.testrun_id' => 'self.id' });
+# 1 : *
+__PACKAGE__->has_many(
+    testrun_precondition    => "${basepkg}::TestrunPrecondition",
+    { 'foreign.testrun_id'  => 'self.id' },
+);
+__PACKAGE__->has_many(
+    message                 => "${basepkg}::Message",
+    { 'foreign.testrun_id'  => 'self.id' },
+);
+__PACKAGE__->has_many(
+    testrun_requested_host  => "${basepkg}::TestrunRequestedHost",
+    { 'foreign.testrun_id'  => 'self.id' },
+);
 
+# * : *
+__PACKAGE__->many_to_many(
+    preconditions           => "testrun_precondition",
+    'precondition'
+);
 
 # -------------------- methods on results --------------------
 
