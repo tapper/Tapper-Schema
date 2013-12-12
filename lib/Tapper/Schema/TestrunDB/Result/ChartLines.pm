@@ -30,19 +30,7 @@ __PACKAGE__->add_columns(
             unsigned        => 1,
         },
     },
-    'chart_axis_x_column'   , {
-        data_type           => 'VARCHAR',
-        default_value       => undef,
-        is_nullable         => 0,
-        size                => 64,
-    },
     'chart_axis_x_column_format'   , {
-        data_type           => 'VARCHAR',
-        default_value       => undef,
-        is_nullable         => 0,
-        size                => 64,
-    },
-    'chart_axis_y_column'   , {
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
@@ -96,6 +84,14 @@ __PACKAGE__->belongs_to(
 );
 __PACKAGE__->has_many(
     chart_additionals => "${basepkg}::ChartLineAdditionals",
+    { 'foreign.chart_line_id' => 'self.chart_line_id' },
+);
+__PACKAGE__->has_many(
+    chart_axis_elements => "${basepkg}::ChartLineAxisElements",
+    { 'foreign.chart_line_id' => 'self.chart_line_id' },
+);
+__PACKAGE__->has_many(
+    chart_tiny_url_lines => "${basepkg}::ChartTinyUrlLines",
     { 'foreign.chart_line_id' => 'self.chart_line_id' },
 );
 

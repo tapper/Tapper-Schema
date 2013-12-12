@@ -66,11 +66,43 @@ __PACKAGE__->add_columns(
         is_nullable         => 0,
         size                => 64,
     },
+    'order_by_x_axis', {
+        data_type           => 'TINYINT',
+        default_value       => undef,
+        is_nullable         => 0,
+        size                => 4,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    'order_by_y_axis', {
+        data_type           => 'TINYINT',
+        default_value       => undef,
+        is_nullable         => 0,
+        size                => 4,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    'active', {
+        data_type           => 'TINYINT',
+        default_value       => 0,
+        is_nullable         => 0,
+        size                => 4,
+        extra               => {
+            unsigned => 1,
+        },
+    },
     'created_at', {
         data_type           => 'TIMESTAMP',
         default_value       => undef,
         is_nullable         => 0,
         set_on_create       => 1,
+    },
+    'updated_at', {
+        data_type           => 'TIMESTAMP',
+        default_value       => undef,
+        is_nullable         => 1,
     },
 );
 
