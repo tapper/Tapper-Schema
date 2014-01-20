@@ -198,7 +198,7 @@ sub web_list {
                 r.id                                        AS primary_report_id,
                 t.topic_name,
                 DATE_FORMAT( t.created_at, '%Y-%m-%d' )     AS testrun_date,
-                DATE_FORMAT( t.created_at, '%H:%m' )        AS testrun_time,
+                DATE_FORMAT( t.created_at, '%H:%i' )        AS testrun_time,
                 IFNULL( r.updated_at, t.updated_at )        AS updated_at,
                 IFNULL( o.login, 'unknown user' )           AS testrun_owner,
                 t.starttime_testrun,
@@ -264,7 +264,7 @@ sub continuous_list {
         'Pg' => q#
             SELECT
                 t.id                                            AS testrun_id,
-                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%m' )   AS testrun_date,
+                TO_CHAR( r.created_at, 'YYYY-MM-DD HH24:MM' )   AS testrun_date,
                 ts.status,
                 t.topic_name,
                 q.name                                          AS queue_name,
@@ -298,7 +298,7 @@ sub continuous_list {
         'SQLite' => q#
             SELECT
                 t.id                                            AS testrun_id,
-                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%m' )   AS testrun_date,
+                STRFTIME( '%Y-%m-%d %H:%M', r.created_at )      AS testrun_date,
                 ts.status,
                 t.topic_name,
                 q.name                                          AS queue_name,
@@ -332,7 +332,7 @@ sub continuous_list {
         'mysql' => q#
             SELECT
                 t.id                                            AS testrun_id,
-                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%m' )   AS testrun_date,
+                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%i' )   AS testrun_date,
                 ts.status,
                 t.topic_name,
                 q.name                                          AS queue_name,
