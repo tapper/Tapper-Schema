@@ -1,6 +1,6 @@
-package Tapper::Schema::TestrunDB::Result::ChartLines;
+package Tapper::Schema::TestrunDB::Result::ChartLineRestrictions;
 
-# ABSTRACT: Tapper - Keep Chart Lines for Charts
+# ABSTRACT: Tapper - Keep Chart Line Restrictions for Charts
 
 use strict;
 use warnings;
@@ -8,9 +8,9 @@ use warnings;
 use parent 'DBIx::Class';
 
 __PACKAGE__->load_components(qw/FilterColumn InflateColumn::DateTime Core/);
-__PACKAGE__->table('chart_lines');
+__PACKAGE__->table('chart_line_restrictions');
 __PACKAGE__->add_columns(
-    'chart_line_id', {
+    'chart_line_restriction_id', {
         data_type           => 'INT',
         default_value       => undef,
         is_nullable         => 0,
@@ -20,33 +20,35 @@ __PACKAGE__->add_columns(
             unsigned => 1,
         },
     },
-    'chart_id', {
+    'chart_line_id', {
         data_type           => 'INT',
         default_value       => undef,
         is_nullable         => 0,
         size                => 11,
-        is_foreign_key      => 1,
         extra               => {
-            unsigned        => 1,
+            unsigned => 1,
         },
     },
-    'chart_axis_x_column_format'   , {
+    'chart_line_restriction_operator'   , {
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 64,
+        size                => 4,
     },
-    'chart_axis_y_column_format'   , {
+    'chart_line_restriction_column'   , {
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 64,
+        size                => 512,
     },
-    'chart_line_name'   , {
-        data_type           => 'VARCHAR',
+    'is_template_restriction', {
+        data_type           => 'TINYINT',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 64,
+        size                => 3,
+        extra               => {
+            unsigned => 1,
+        },
     },
     'created_at', {
         data_type           => 'TIMESTAMP',
@@ -59,27 +61,15 @@ __PACKAGE__->add_columns(
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
-__PACKAGE__->set_primary_key('chart_line_id');
+__PACKAGE__->set_primary_key('chart_line_restriction_id');
 
 __PACKAGE__->belongs_to(
-    chart => "${basepkg}::Charts",
-    { 'foreign.chart_id' => 'self.chart_id' },
-);
-__PACKAGE__->has_many(
-    chart_additionals => "${basepkg}::ChartLineAdditionals",
+    chart => "${basepkg}::ChartLines",
     { 'foreign.chart_line_id' => 'self.chart_line_id' },
 );
 __PACKAGE__->has_many(
-    chart_axis_elements => "${basepkg}::ChartLineAxisElements",
-    { 'foreign.chart_line_id' => 'self.chart_line_id' },
-);
-__PACKAGE__->has_many(
-    chart_tiny_url_lines => "${basepkg}::ChartTinyUrlLines",
-    { 'foreign.chart_line_id' => 'self.chart_line_id' },
-);
-__PACKAGE__->has_many(
-    chart_line_restrictions => "${basepkg}::ChartLineRestrictions",
-    { 'foreign.chart_line_id' => 'self.chart_line_id' },
+    chart_line_restriction_values => "${basepkg}::ChartLineRestrictionValues",
+    { 'foreign.chart_line_restriction_id' => 'self.chart_line_restriction_id' },
 );
 
 1;
