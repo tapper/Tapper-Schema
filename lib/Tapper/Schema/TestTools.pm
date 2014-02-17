@@ -35,7 +35,7 @@ sub setup_db
         unlink $tmpfname;
         my $schema = Tapper::Schema::TestrunDB->connect($dsn, $cfg->{username}, $cfg->{password}, { ignore_version => 1 });
         $schema->deploy;
-        $schema->upgrade if $schema->schema_version > $schema->get_db_version;
+#         $schema->upgrade if $schema->schema_version > $schema->get_db_version;
         return $schema;
 }
 

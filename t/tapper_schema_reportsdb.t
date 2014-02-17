@@ -17,8 +17,8 @@ use Scalar::Util;
 construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/report.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-ok( testrundb_schema->get_db_version, "schema is versioned" );
-diag testrundb_schema->get_db_version;
+# ok( testrundb_schema->get_db_version, "schema is versioned" );
+# diag testrundb_schema->get_db_version;
 
 is( testrundb_schema->resultset('Report')->count, 3,  "report count" );
 
