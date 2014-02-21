@@ -51,9 +51,9 @@ __PACKAGE__->add_columns(
         },
     },
     'bench_value', {
-        data_type           => 'FLOAT',
+        data_type           => 'VARCHAR',
         default_value       => undef,
-        is_nullable         => 0,
+        is_nullable         => 512,
     },
     'active', {
         data_type           => 'TINYINT',

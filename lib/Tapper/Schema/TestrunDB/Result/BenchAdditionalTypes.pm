@@ -24,7 +24,7 @@ __PACKAGE__->add_columns(
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 32,
+        size                => 512,
     },
     'created_at', {
         data_type           => 'TIMESTAMP',

@@ -34,7 +34,7 @@ __PACKAGE__->add_columns(
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 128,
+        size                => 512,
         extra               => {
             unsigned => 1,
         },
