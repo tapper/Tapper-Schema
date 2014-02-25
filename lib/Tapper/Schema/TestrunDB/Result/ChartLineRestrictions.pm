@@ -25,6 +25,7 @@ __PACKAGE__->add_columns(
         default_value       => undef,
         is_nullable         => 0,
         size                => 11,
+        is_foreign_key      => 1,
         extra               => {
             unsigned => 1,
         },
@@ -42,6 +43,15 @@ __PACKAGE__->add_columns(
         size                => 512,
     },
     'is_template_restriction', {
+        data_type           => 'TINYINT',
+        default_value       => undef,
+        is_nullable         => 0,
+        size                => 3,
+        extra               => {
+            unsigned => 1,
+        },
+    },
+    'is_numeric_restriction', {
         data_type           => 'TINYINT',
         default_value       => undef,
         is_nullable         => 0,

@@ -22,7 +22,7 @@ __PACKAGE__->add_columns(
     'chart_line_axis_column', {
         data_type           => 'VARCHAR',
         is_nullable         => 0,
-        size                => 128,
+        size                => 512,
     },
 );
 

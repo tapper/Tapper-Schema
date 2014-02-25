@@ -20,7 +20,7 @@ __PACKAGE__->add_columns(
             unsigned => 1,
         },
     },
-    'chart_id', {
+    'chart_version_id', {
         data_type           => 'INT',
         default_value       => undef,
         is_nullable         => 0,
@@ -30,6 +30,12 @@ __PACKAGE__->add_columns(
             unsigned        => 1,
         },
     },
+    'chart_line_name'   , {
+        data_type           => 'VARCHAR',
+        default_value       => undef,
+        is_nullable         => 0,
+        size                => 128,
+    },
     'chart_axis_x_column_format'   , {
         data_type           => 'VARCHAR',
         default_value       => undef,
@@ -37,12 +43,6 @@ __PACKAGE__->add_columns(
         size                => 64,
     },
     'chart_axis_y_column_format'   , {
-        data_type           => 'VARCHAR',
-        default_value       => undef,
-        is_nullable         => 0,
-        size                => 64,
-    },
-    'chart_line_name'   , {
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
@@ -60,10 +60,13 @@ __PACKAGE__->add_columns(
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->set_primary_key('chart_line_id');
+__PACKAGE__->add_unique_constraint(
+    'ux_chart_lines_01' => ['chart_version_id','chart_line_name'],
+);
 
 __PACKAGE__->belongs_to(
-    chart => "${basepkg}::Charts",
-    { 'foreign.chart_id' => 'self.chart_id' },
+    chart_version => "${basepkg}::ChartVersions",
+    { 'foreign.chart_version_id' => 'self.chart_version_id' },
 );
 __PACKAGE__->has_many(
     chart_additionals => "${basepkg}::ChartLineAdditionals",

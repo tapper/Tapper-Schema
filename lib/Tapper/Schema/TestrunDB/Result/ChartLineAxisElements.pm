@@ -15,6 +15,7 @@ __PACKAGE__->add_columns(
         default_value       => undef,
         is_nullable         => 0,
         size                => 11,
+        is_auto_increment   => 1,
         extra               => {
             unsigned => 1,
         },
@@ -52,6 +53,10 @@ __PACKAGE__->add_columns(
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->set_primary_key('chart_line_axis_element_id');
+__PACKAGE__->add_unique_constraint(
+    'ux_chart_line_axis_elements_01' => ['chart_line_id','chart_line_axis','chart_line_axis_element_number'],
+);
+
 __PACKAGE__->belongs_to(
     chart => "${basepkg}::ChartLines",
     { 'foreign.chart_line_id' => 'self.chart_line_id' },

@@ -50,5 +50,7 @@ __PACKAGE__->add_columns(
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->set_primary_key('chart_type_id');
+__PACKAGE__->add_unique_constraint( ux_chart_types_01 => [ 'chart_type_name' ], );
+__PACKAGE__->add_unique_constraint( ux_chart_types_02 => [ 'chart_type_flot_name' ], );
 
 1;

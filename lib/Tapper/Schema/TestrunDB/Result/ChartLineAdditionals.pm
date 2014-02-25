@@ -23,13 +23,13 @@ __PACKAGE__->add_columns(
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 64,
+        size                => 512,
     },
     'chart_line_additional_url', {
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 1,
-        size                => 256,
+        size                => 1024,
     },
     'created_at', {
         data_type           => 'TIMESTAMP',
@@ -43,6 +43,8 @@ __PACKAGE__->add_columns(
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 
 __PACKAGE__->set_primary_key('chart_line_id','chart_line_additional_column');
-__PACKAGE__->belongs_to( chart_line => "${basepkg}::ChartLines", { 'foreign.chart_line_id' => 'self.chart_line_id' });
+__PACKAGE__->belongs_to(
+    chart_line => "${basepkg}::ChartLines", { 'foreign.chart_line_id' => 'self.chart_line_id' },
+);
 
 1;

@@ -56,5 +56,8 @@ __PACKAGE__->add_unique_constraint(
 __PACKAGE__->belongs_to(
     bench_additional_type => "${basepkg}::BenchAdditionalTypes", { 'foreign.bench_additional_type_id' => 'self.bench_additional_type_id'  },
 );
+__PACKAGE__->has_many(
+    bench_additional_relations => "${basepkg}::BenchAdditionalRelations", { 'foreign.bench_additional_value_id' => 'self.bench_additional_value_id'  },
+);
 
 1;
