@@ -74,7 +74,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key('chart_line_restriction_id');
 
 __PACKAGE__->belongs_to(
-    chart => "${basepkg}::ChartLines",
+    chart_line => "${basepkg}::ChartLines",
     { 'foreign.chart_line_id' => 'self.chart_line_id' },
 );
 __PACKAGE__->has_many(

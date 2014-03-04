@@ -133,5 +133,9 @@ __PACKAGE__->has_many(
     chart_lines => 'Tapper::Schema::TestrunDB::Result::ChartLines',
     { 'foreign.chart_version_id' => 'self.chart_version_id' },
 );
+__PACKAGE__->has_many(
+    chart_markings => 'Tapper::Schema::TestrunDB::Result::ChartMarkings',
+    { 'foreign.chart_version_id' => 'self.chart_version_id' },
+);
 
 1;
