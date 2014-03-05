@@ -16,8 +16,14 @@ CREATE  TABLE `testrundb`.`chart_markings` (
 );
 
 ALTER TABLE `testrundb`.`chart_markings`
+    ADD COLUMN `chart_marking_name` VARCHAR(128) NOT NULL  AFTER `chart_version_id`,
     ADD COLUMN `chart_marking_x_from` VARCHAR(512) NULL  AFTER `chart_marking_color` ,
     ADD COLUMN `chart_marking_x_to` VARCHAR(512) NULL  AFTER `chart_marking_x_from` ,
     ADD COLUMN `chart_marking_y_from` VARCHAR(512) NULL  AFTER `chart_marking_x_to` ,
     ADD COLUMN `chart_marking_y_to` VARCHAR(512) NULL  AFTER `chart_marking_y_from`
+;
+
+ALTER TABLE `testrundb`.`chart_markings`
+    ADD COLUMN `chart_marking_x_format` VARCHAR(64) NULL DEFAULT NULL  AFTER `chart_marking_x_to` ,
+    ADD COLUMN `chart_marking_y_format` VARCHAR(64) NULL DEFAULT NULL  AFTER `chart_marking_y_to`
 ;
