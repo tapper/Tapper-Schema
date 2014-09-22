@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Preconditiontype;
 
+# ABSTRACT: Tapper - Containing types of preconditions
+
 use strict;
 use warnings;
 
@@ -29,32 +31,3 @@ __PACKAGE__->set_primary_key("name");
 
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::TestsDB::Result::Preconditiontype - A Result description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

@@ -13,30 +13,30 @@ use Test::Deep;
 use Scalar::Util;
 
 BEGIN {
-        use_ok( 'Tapper::Schema::ReportsDB' );
+        use_ok( 'Tapper::Schema::TestrunDB' );
 }
 
 # -----------------------------------------------------------------------------------------------------------------
-construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/reportgroupviews.yml' );
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/reportgroupviews.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-is( reportsdb_schema->resultset('ReportgroupTestrun')->count,      6, "reportgrouptestrun count" );
-is( reportsdb_schema->resultset('ReportgroupTestrunStats')->count, 2, "reportgrouptestrunstats count" );
+is( testrundb_schema->resultset('ReportgroupTestrun')->count,      6, "reportgrouptestrun count" );
+is( testrundb_schema->resultset('ReportgroupTestrunStats')->count, 2, "reportgrouptestrunstats count" );
 
 # find report
-my $report = reportsdb_schema->resultset('Report')->find(23);
+my $report = testrundb_schema->resultset('Report')->find(23);
 like($report->tap->tap, qr/OK 2 bar CCC/ms, "found report");
 
 # find according report group (grouped by testrun)
 my $rgt = $report->reportgrouptestrun;
 ok(defined $rgt, "has according reportgroup testrun");
 
-my $rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => 700 });
+my $rgt_stats = testrundb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => 700 });
 $rgt = $rgt_stats->reportgrouptestruns({});
 cmp_bag([ map { $_->report_id } $rgt->all], [21, 22, 23], "reports via rgt_stats.reportgrouptestruns group 700");
 # diag "rgt testruns: ", Dumper([ map { $_->report_id } $rgt->all]);
 
-my $testrun_rs = reportsdb_schema->resultset('View020TestrunOverview')->search({}, { order_by   => 'vtor_rgt_testrun_id asc' });
+my $testrun_rs = testrundb_schema->resultset('View020TestrunOverview')->search({}, { order_by   => 'vtor_rgt_testrun_id asc' });
 
 # group 1 - 700
 my $tr = $testrun_rs->next;
@@ -58,7 +58,7 @@ is($columns{'report_machine_name'},       'machine2c',   "group 800 - machine_na
 is($columns{'report_suite_id'},           '115',         "group 800 - suite_id");
 is($columns{'report_suite_name'},         'Topic-Hossa', "group 800 - report_suite_name");
 
-$rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => 800 });
+$rgt_stats = testrundb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => 800 });
 $rgt = $rgt_stats->reportgrouptestruns;
 cmp_bag([ map { $_->report_id } $rgt->all], [24, 25, 26], "reports via rgt_stats.reportgrouptestruns group 800");
 

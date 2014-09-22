@@ -14,21 +14,21 @@ use Test::Deep;
 use Scalar::Util;
 
 # -----------------------------------------------------------------------------------------------------------------
-construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/report.yml' );
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/report.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-ok( reportsdb_schema->get_db_version, "schema is versioned" );
-diag reportsdb_schema->get_db_version;
+# ok( testrundb_schema->get_db_version, "schema is versioned" );
+# diag testrundb_schema->get_db_version;
 
-is( reportsdb_schema->resultset('Report')->count, 3,  "report count" );
+is( testrundb_schema->resultset('Report')->count, 3,  "report count" );
 
 # -----------------------------------------------------------------------------------------------------------------
-construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/reportsection.yml' );
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/reportsection.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-is( reportsdb_schema->resultset('ReportSection')->count, 8,  "reportsection count" );
+is( testrundb_schema->resultset('ReportSection')->count, 8,  "reportsection count" );
 
-my @reportsections = reportsdb_schema->resultset('ReportSection')->search({report_id => 21})->all;
+my @reportsections = testrundb_schema->resultset('ReportSection')->search({report_id => 21})->all;
 is( scalar @reportsections, 8,  "reportsection count" );
 
 is( $reportsections[0]->some_meta_available, 1, "section - some meta available 0");
@@ -40,23 +40,23 @@ is( $reportsections[5]->some_meta_available, 0, "section - some meta available 5
 is( $reportsections[6]->some_meta_available, 1, "section - some meta available 6");
 is( $reportsections[7]->some_meta_available, 1, "section - some meta available 7");
 
-is( reportsdb_schema->resultset('Report')->find(20)->some_meta_available, 0, "report - some_meta_available 0");
-is( reportsdb_schema->resultset('Report')->find(21)->some_meta_available, 1, "report - some_meta_available 1");
+is( testrundb_schema->resultset('Report')->find(20)->some_meta_available, 0, "report - some_meta_available 0");
+is( testrundb_schema->resultset('Report')->find(21)->some_meta_available, 1, "report - some_meta_available 1");
 
 
 # -----------------------------------------------------------------------------------------------------------------
-construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/reportgroups.yml' );
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/reportgroups.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-is( reportsdb_schema->resultset('ReportgroupTestrun')->count,   3, "reportgrouptestrun count" );
-is( reportsdb_schema->resultset('ReportgroupArbitrary')->count, 3, "reportgrouparbitrary count" );
+is( testrundb_schema->resultset('ReportgroupTestrun')->count,   3, "reportgrouptestrun count" );
+is( testrundb_schema->resultset('ReportgroupArbitrary')->count, 3, "reportgrouparbitrary count" );
 
-my $report = reportsdb_schema->resultset('Report')->find(24);
+my $report = testrundb_schema->resultset('Report')->find(24);
 like($report->tap->tap, qr/OK 2 bar DDD/ms, "found report");
 my $reportgroup_arbitrary = $report->reportgrouparbitrary;
 ok(defined $reportgroup_arbitrary, "has according reportgroup arbitrary");
 
-$report = reportsdb_schema->resultset('Report')->find(23);
+$report = testrundb_schema->resultset('Report')->find(23);
 like($report->tap->tap, qr/OK 2 bar CCC/ms, "found report");
 my $reportgroup_testrun = $report->reportgrouptestrun;
 ok(defined $reportgroup_testrun, "has according reportgroup testrun");
@@ -66,7 +66,7 @@ my $tapdom = $report->get_cached_tapdom;
 is(Scalar::Util::reftype($tapdom), "ARRAY", "got tapdom");
 
 # get it again
-$report = reportsdb_schema->resultset('Report')->find(23);
+$report = testrundb_schema->resultset('Report')->find(23);
 like($report->tap->tapdom, qr/\$VAR1/, "tapdom created on demand looks like Data::Dumper string");
 #diag "tapdom1: ".$report->tap->tapdom;
 my $VAR1;
@@ -81,7 +81,7 @@ $tapdom2->[0]{section}{'section-000'}{tap}{tapdom_config}{ignorelines} = 'ignore
 cmp_bag($tapdom2, $tapdom1, "stored tapdom keeps constant");
 
 # ===== file compression =====
-my $file = reportsdb_schema->resultset('ReportFile')->new({
+my $file = testrundb_schema->resultset('ReportFile')->new({
                                                            report_id => 21,
                                                            filename  => 'affe',
                                                            filecontent => 'zomtec',
@@ -94,9 +94,9 @@ is($file->filecontent, 'zomtec', 'Content of file');
 is($file->is_compressed, 1, 'File is compressed');
 is (memBunzip($unfiltered), 'zomtec', 'Unfiltered content of file bunzipped');
 isnt($unfiltered, 'zomtec', 'Unfiltered content of file');
-diag reportsdb_schema->resultset('ReportFile')->first->filecontent;
+diag testrundb_schema->resultset('ReportFile')->first->filecontent;
 
-$file = reportsdb_schema->resultset('ReportFile')->new({
+$file = testrundb_schema->resultset('ReportFile')->new({
                                                         report_id => 21,
                                                         filename  => 'affe',
                                                         filecontent => '',

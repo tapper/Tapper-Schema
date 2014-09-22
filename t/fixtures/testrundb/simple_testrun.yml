@@ -55,7 +55,6 @@
     shortname: autoinstall
     notes: this testrun only exists to test autoinstall preconditions
     topic_name: Software
-    wait_after_tests: ~
 
 
 # -------------------- preconditions

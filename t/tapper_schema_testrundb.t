@@ -19,8 +19,8 @@ BEGIN {
 construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/owner.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-ok( testrundb_schema->get_db_version,  "schema is versioned" );
-diag testrundb_schema->get_db_version;
+# ok( testrundb_schema->get_db_version,  "schema is versioned" );
+# diag testrundb_schema->get_db_version;
 
 is( testrundb_schema->resultset('Owner')->count, 3,  "owner count" );
 

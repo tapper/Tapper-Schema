@@ -84,9 +84,7 @@ my @host = map {$_->host->name} $testrun->testrun_scheduling->requested_hosts->a
 cmp_bag( \@host , [ 'iring','bullock','athene'], 'Requested hosts');
 is($testrun->scenario_element->scenario->type, 'interdep', 'Setting scenario');
 
-my $new_testrun_id = $testrun->rerun();
-my $new_testrun = model->resultset('Testrun')->find($new_testrun_id);
-
+my $new_testrun = $testrun->rerun();
 
 my @new_host = map {$_->host->name} $new_testrun->testrun_scheduling->requested_hosts->all;
 cmp_bag( \@new_host , \@host, 'Requested hosts of rerun test');

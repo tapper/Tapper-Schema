@@ -13,18 +13,18 @@ use Test::Deep;
 use Scalar::Util;
 
 BEGIN {
-        use_ok( 'Tapper::Schema::ReportsDB' );
+        use_ok( 'Tapper::Schema::TestrunDB' );
 }
 
 # -----------------------------------------------------------------------------------------------------------------
-construct_fixture( schema  => reportsdb_schema, fixture => 't/fixtures/reportsdb/reportgroups.yml' );
+construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/reportgroups.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-is( reportsdb_schema->resultset('ReportgroupTestrun')->count,   3, "reportgrouptestrun count" );
-is( reportsdb_schema->resultset('ReportgroupArbitrary')->count, 3, "reportgrouparbitrary count" );
+is( testrundb_schema->resultset('ReportgroupTestrun')->count,   3, "reportgrouptestrun count" );
+is( testrundb_schema->resultset('ReportgroupArbitrary')->count, 3, "reportgrouparbitrary count" );
 
 # find report
-my $report = reportsdb_schema->resultset('Report')->find(23);
+my $report = testrundb_schema->resultset('Report')->find(23);
 like($report->tap->tap, qr/OK 2 bar CCC/ms, "found report");
 
 # find according report group (grouped by testrun)
@@ -32,17 +32,17 @@ my $rgt = $report->reportgrouptestrun;
 ok(defined $rgt, "has according reportgroup testrun");
 
 # find according report group stats -- should not exist yet
-my $rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->find($rgt->testrun_id);
+my $rgt_stats = testrundb_schema->resultset('ReportgroupTestrunStats')->find($rgt->testrun_id);
 is($rgt_stats, undef, "no reportgroup stats yet");
 
 # re-create report group stats
-$rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => $rgt->testrun_id });
+$rgt_stats = testrundb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => $rgt->testrun_id });
 $rgt_stats->insert;
 is($rgt_stats->testrun_id, 753, "reportgroup stats created");
 
 is($rgt_stats->testrun_id, 753, "reportgroup stats created");
 
-$rgt_stats = reportsdb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => $rgt->testrun_id });
+$rgt_stats = testrundb_schema->resultset('ReportgroupTestrunStats')->new({ testrun_id => $rgt->testrun_id });
 
 $rgt = $rgt_stats->reportgrouptestruns;
 cmp_bag([ map { $_->report_id } $rgt->all], [21, 22, 23], "reports via rgt_stats.reportgrouptestruns");

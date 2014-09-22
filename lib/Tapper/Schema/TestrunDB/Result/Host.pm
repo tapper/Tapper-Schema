@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Host;
 
+# ABSTRACT: Tapper - Containing hosts used by Tapper
+
 use 5.010;
 use strict;
 use warnings;
@@ -27,14 +29,15 @@ __PACKAGE__->set_primary_key("id");
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
 __PACKAGE__->add_unique_constraint( constraint_name => [ qw/name/ ] );
-__PACKAGE__->has_many ( testrunschedulings => "${basepkg}::TestrunScheduling", { 'foreign.host_id' => 'self.id' });
-__PACKAGE__->has_many ( queuehosts         => "${basepkg}::QueueHost",         { 'foreign.host_id' => 'self.id' });
-__PACKAGE__->has_many ( denied_from_queue  => "${basepkg}::DeniedHost",        { 'foreign.host_id' => 'self.id' });
-__PACKAGE__->has_many ( features           => "${basepkg}::HostFeature",       { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( testrunschedulings   => "${basepkg}::TestrunScheduling",    { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( testrunrequestedhost => "${basepkg}::TestrunRequestedHost", { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( queuehosts           => "${basepkg}::QueueHost",            { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( denied_from_queue    => "${basepkg}::DeniedHost",           { 'foreign.host_id' => 'self.id' });
+__PACKAGE__->has_many ( features             => "${basepkg}::HostFeature",          { 'foreign.host_id' => 'self.id' });
 
 
-__PACKAGE__->belongs_to( pool_master      => "${basepkg}::Host",              { 'foreign.id'         => 'self.pool_id'},{ join_type => 'left' });
-__PACKAGE__->has_many  ( pool_elements    => "${basepkg}::Host",              { 'foreign.pool_id'    => 'self.id'   });
+__PACKAGE__->belongs_to( pool_master         => "${basepkg}::Host",                 { 'foreign.id'      => 'self.pool_id'},{ join_type => 'left' });
+__PACKAGE__->has_many  ( pool_elements       => "${basepkg}::Host",                 { 'foreign.pool_id' => 'self.id'   });
 
 
 =head2 is_pool
@@ -87,32 +90,3 @@ sub pool_count
 
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Testrun - A ResultSet description
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

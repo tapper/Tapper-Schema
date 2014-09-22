@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Precondition;
 
+# ABSTRACT: Tapper - Containing Preconditions for Testruns
+
 use strict;
 use warnings;
 
@@ -125,16 +127,24 @@ sub update_content {
         my $yaml_error = Tapper::Schema::TestrunDB::_yaml_ok($condition);
         die Tapper::Exception::Param->new($yaml_error) if $yaml_error;
 
-        my $cond_hash = Load($condition);
+        my @a_conditions = Load($condition);
+        if ( scalar @a_conditions > 1 ) {
+            say {*STDERR} 'cannot update a single precondition with a set of preconditions';
+            return;
+        }
 
+        my $cond_hash = $a_conditions[0];
         $self->shortname( $cond_hash->{shortname} ) if $cond_hash->{shortname};
         $self->precondition( $condition );
         $self->timeout( $cond_hash->{timeout} ) if $cond_hash->{timeout};
-        $self->update;
 
-        return $self->id;
+        if ( $self->update ) {
+            return $self->id;
+        }
+        else {
+            say {*STDERR} 'update precondition failed: ' . $self->id;
+            return;
+        }
 }
 
 1;
-
-

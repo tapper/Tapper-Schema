@@ -16,16 +16,15 @@ our $VERSION = '4.001007';
 # by forcing correct load order.
 use Class::C3;
 use MRO::Compat;
-use YAML::Syck;
 
 use parent 'DBIx::Class::Schema';
 
 our $NULL  = 'NULL';
 our $DELIM = ' | ';
 
-__PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
-__PACKAGE__->upgrade_directory('./lib/auto/Tapper/Schema/');
-__PACKAGE__->backup_directory('./lib/auto/Tapper/Schema/');
+# __PACKAGE__->load_components(qw/+DBIx::Class::Schema::Versioned/);
+# __PACKAGE__->upgrade_directory('./lib/auto/Tapper/Schema/');
+# __PACKAGE__->backup_directory('./lib/auto/Tapper/Schema/');
 
 __PACKAGE__->load_namespaces;
 
@@ -50,9 +49,11 @@ Check whether given string is valid yaml.
 sub _yaml_ok {
         my ($condition) = @_;
 
+        require YAML::Syck;
+
         my @res;
         eval {
-                @res = Load($condition);
+                @res = YAML::Syck::Load($condition);
         };
         return $@;
 }

@@ -1,13 +1,12 @@
 package Tapper::Schema::TestrunDB::Result::Scenario;
 
+# ABSTRACT: Tapper - Grouping of interdependent tests
+
 use 5.010;
 use strict;
 use warnings;
 
 use parent 'DBIx::Class';
-use YAML::XS;
-
-
 
 __PACKAGE__->load_components("InflateColumn::Object::Enum", "Core");
 __PACKAGE__->table("scenario");
@@ -21,10 +20,18 @@ __PACKAGE__->add_columns
 
 __PACKAGE__->set_primary_key(qw/id/);
 
-__PACKAGE__->inflate_column( options => {
-                                         inflate => sub { YAML::XS::Load(shift)},
-                                         deflate => sub { YAML::XS::Dump(shift)},
-                                      });
+__PACKAGE__->inflate_column(
+    options => {
+        inflate => sub {
+            require YAML::XS;
+            YAML::XS::Load(shift);
+        },
+        deflate => sub {
+            require YAML::XS;
+            YAML::XS::Dump(shift);
+        },
+    }
+);
 
 
 (my $basepkg = __PACKAGE__) =~ s/::\w+$//;
@@ -33,32 +40,3 @@ __PACKAGE__->has_many  ( scenario_elements => "${basepkg}::ScenarioElement", { '
 
 
 1;
-
-=head1 NAME
-
-Tapper::Schema::TestrunDB::Result::Testgroup - Grouping of interdependent tests
-
-
-=head1 SYNOPSIS
-
-Abstraction for the database table.
-
- use Tapper::Schema::TestrunDB;
-
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-
-=head1 BUGS
-
-None.
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-

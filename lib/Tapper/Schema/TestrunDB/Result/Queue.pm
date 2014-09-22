@@ -1,5 +1,7 @@
 package Tapper::Schema::TestrunDB::Result::Queue;
 
+# ABSTRACT: Tapper - Containing queues of testruns
+
 use strict;
 use warnings;
 
@@ -43,7 +45,7 @@ sub queued_testruns
                                            status => 'schedule'
                                           },
                                           {
-                                           ordered_by => 'testrun_id'
+                                           order_by => 'testrun_id'
                                           });
 }
 
@@ -183,9 +185,12 @@ Update I<priority> and I<active> flags.
 sub update_content {
         my ($self, $args) =@_;
 
+        require DateTime;
         $self->priority( $args->{priority} ) if exists($args->{priority});
         $self->active( $args->{active} ) if exists($args->{active});
+        $self->updated_at( DateTime->now->strftime('%F %T') );
         $self->update;
+
         return $self->id;
 }
 
