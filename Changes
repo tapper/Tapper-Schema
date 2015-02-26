@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - put a bit more info into the abstract of Tapper::Schema
+        - added simple documentation, including links to Tapper and TAP
 
 4.1.3     2013-04-06
         - [FIX] missing dependency
