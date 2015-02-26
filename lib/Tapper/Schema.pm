@@ -1,5 +1,5 @@
 package Tapper::Schema;
-# ABSTRACT: Tapper - Database schemas for Tapper
+# ABSTRACT: Tapper - Database schemas for the Tapper test framework
 
 use warnings;
 use strict;
