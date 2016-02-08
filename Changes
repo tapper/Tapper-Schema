@@ -1,6 +1,14 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - pool hosts to address anonymous hosts where only the count
+          but not their actual name matters, like in a cloud
+        - merge databases ReportsDB/TestrunDB
+        - big database refactoring for correctness and efficiency
+        - raw sql supprt for stuff that are hard to express with DBIC
+        - support for Tapper charts
+        - support for Tapper continuous testing overview
+        - more complex filtering
 
 4.1.3     2013-04-06
         - [FIX] missing dependency
