@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+5.0.0     2016-02-15
         - pool hosts to address anonymous hosts where only the count
           but not their actual name matters, like in a cloud
         - merge databases ReportsDB/TestrunDB
