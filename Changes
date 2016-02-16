@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+5.0.2     2016-02-16
         - fiddling with timestamps, again
         - sync db schema version with transported SQL init files
           (not the same as the module version yet)
