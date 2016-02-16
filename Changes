@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
         - fiddling with timestamps, again
+        - sync db schema version with transported SQL init files
+          (not the same as the module version yet)
 
 5.0.1     2016-02-16
         - fiddling with timestamps
