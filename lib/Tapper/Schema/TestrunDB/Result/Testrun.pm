@@ -8,7 +8,7 @@ use warnings;
 
 use parent 'DBIx::Class';
 
-__PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
+__PACKAGE__->load_components(qw/InflateColumn::DateTime TimeStamp Core/);
 __PACKAGE__->table('testrun');
 __PACKAGE__->add_columns(
     'id', {
