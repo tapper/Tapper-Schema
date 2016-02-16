@@ -298,7 +298,7 @@ sub continuous_list {
         'SQLite' => q#
             SELECT
                 t.id                                            AS testrun_id,
-                STRFTIME( '%Y-%m-%d %H:%M', r.created_at )      AS testrun_date,
+                STRFTIME( '%Y-%m-%d %H:%M', t.created_at )      AS testrun_date,
                 ts.status,
                 t.topic_name,
                 q.name                                          AS queue_name,
