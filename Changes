@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - require TAP::DOM 0.13 for more complete TAP details
 
 5.0.2     2016-02-16
         - fiddling with timestamps, again
