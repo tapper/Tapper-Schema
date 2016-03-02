@@ -30,7 +30,7 @@ __PACKAGE__->result_source_instance->view_definition
      "from view_testrun_overview_reports vtor, ".
      "     report report, ".
      "     suite suite ".
-     "where CAST(vtor.primary_report_id as INTEGER)=report.id and ".
+     "where CAST(vtor.primary_report_id as UNSIGNED INTEGER)=report.id and ".
      "      report.suite_id=suite.id"
     );
 
