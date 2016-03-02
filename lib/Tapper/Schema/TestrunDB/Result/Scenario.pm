@@ -15,7 +15,7 @@ __PACKAGE__->add_columns
      "id",   { data_type => "INT",       default_value => undef, is_nullable => 0, size => 11,  is_auto_increment => 1, },
      "type", { data_type => "VARCHAR",   default_value => "",    is_nullable => 0, size => 255,                         },
      "options", { data_type => "TEXT",    default       => undef, is_nullable => 1,                                      },
-     "name",  { data_type => "VARCHAR",                           is_nullable => 1,                                      },
+     "name",  { data_type => "VARCHAR",                           is_nullable => 1,  size => 255,                        },
     );
 
 __PACKAGE__->set_primary_key(qw/id/);
