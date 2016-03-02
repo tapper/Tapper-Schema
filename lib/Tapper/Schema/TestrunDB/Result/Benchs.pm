@@ -34,7 +34,7 @@ __PACKAGE__->add_columns(
         data_type           => 'VARCHAR',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 512,
+        size                => 767,
     },
     'active', {
         data_type           => 'TINYINT',
