@@ -35,9 +35,6 @@ __PACKAGE__->add_columns(
         default_value       => undef,
         is_nullable         => 0,
         size                => 512,
-        extra               => {
-            unsigned => 1,
-        },
     },
     'created_at', {
         data_type           => 'TIMESTAMP',

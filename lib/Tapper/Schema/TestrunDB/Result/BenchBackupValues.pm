@@ -41,10 +41,10 @@ __PACKAGE__->add_columns(
         },
     },
     'bench_subsume_type_id', {
-        data_type           => 'TINYINT',
+        data_type           => 'SMALLINT',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 4,
+        size                => 6,
         is_foreign_key      => 1,
         extra               => {
             unsigned => 1,
@@ -53,7 +53,8 @@ __PACKAGE__->add_columns(
     'bench_value', {
         data_type           => 'VARCHAR',
         default_value       => undef,
-        is_nullable         => 512,
+        is_nullable         => 0,
+        size                => 512,
     },
     'active', {
         data_type           => 'TINYINT',

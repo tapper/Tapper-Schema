@@ -11,10 +11,10 @@ __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
 __PACKAGE__->table('bench_subsume_types');
 __PACKAGE__->add_columns(
     'bench_subsume_type_id', {
-        data_type           => 'TINYINT',
+        data_type           => 'SMALLINT',
         default_value       => undef,
         is_nullable         => 0,
-        size                => 4,
+        size                => 6,
         is_auto_increment   => 1,
         extra               => {
             unsigned => 1,

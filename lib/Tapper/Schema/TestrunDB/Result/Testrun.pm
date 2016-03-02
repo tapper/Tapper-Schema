@@ -17,9 +17,6 @@ __PACKAGE__->add_columns(
         is_nullable         => 0,
         size                => 11,
         is_auto_increment   => 1,
-        extra               => {
-            unsigned => 1,
-        },
     },
     'shortname', {
         data_type           => 'VARCHAR',
@@ -60,14 +57,11 @@ __PACKAGE__->add_columns(
         is_nullable         => 1,
     },
     'owner_id', {
-        data_type           => 'SMALLINT',
+        data_type           => 'INT',
         default_value       => undef,
         is_nullable         => 1,
-        size                => 6,
+        size                => 11,
         is_foreign_key      => 1,
-        extra               => {
-            unsigned => 1,
-        },
     },
     'testplan_id', {
         data_type           => 'INT',
@@ -75,18 +69,12 @@ __PACKAGE__->add_columns(
         is_nullable         => 1,
         size                => 11,
         is_foreign_key      => 1,
-        extra               => {
-            unsigned => 1,
-        },
     },
     'wait_after_tests', {
         data_type           => 'TINYINT',
         default_value       => 0,
         is_nullable         => 1,           #TODO: 0
         size                => 1,
-        extra               => {
-            unsigned => 1,
-        },
     },
     # number of times to rerun this test on error
     'rerun_on_error', {
@@ -94,9 +82,6 @@ __PACKAGE__->add_columns(
         default_value       => 0,
         is_nullable         => 1,           #TODO: 0
         size                => 1,
-        extra               => {
-            unsigned => 1,
-        },
     },
     'created_at', {
         data_type           => 'TIMESTAMP',
