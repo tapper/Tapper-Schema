@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - harmonize and fix types needed for constraints in MySQL
 
 5.0.3     2016-02-26
         - require TAP::DOM 0.13 for more complete TAP details
