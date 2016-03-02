@@ -36,8 +36,6 @@ __PACKAGE__->add_columns
      "skipped",                 { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10,                             },
      "todo",                    { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10,                             },
      "todo_passed",             { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10,                             },
-     "wait",                    { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10,                             },
-     "exit",                    { data_type => "INT",      default_value => undef,  is_nullable => 1, size => 10,                             },
      "success_ratio",           { data_type => "VARCHAR",  default_value => undef,  is_nullable => 1, size => 20,                             },
      #
      "starttime_test_program",  { data_type => "DATETIME", default_value => undef,  is_nullable => 1,                                         },

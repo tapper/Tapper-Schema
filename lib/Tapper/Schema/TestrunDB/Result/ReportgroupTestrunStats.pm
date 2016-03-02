@@ -60,25 +60,12 @@ __PACKAGE__->add_columns(
         is_nullable     => 1,
         size            => 10,
     },
-    'wait', {
-        data_type       => 'INT',
-        default_value   => undef,
-        is_nullable     => 1,
-        size            => 10,
-    },
     'success_ratio', {
         data_type       => 'VARCHAR',
         default_value   => undef,
         is_nullable     => 1,
         size            => 20,
     },
-#    # "exit" makes wrong SQL
-#    'exit', {
-#        data_type       => 'INT',
-#        default_value   => undef,
-#        is_nullable     => 1,
-#        size => 10,
-#    },
 );
 
 __PACKAGE__->set_primary_key(qw/testrun_id/);
@@ -156,7 +143,7 @@ sub update_failed_passed
         my $reports_rs = $self->groupreports;
         no strict 'refs'; ## no critic (ProhibitNoStrict)
         my %sums = ();
-        my @stat_fields = (qw/failed passed total parse_errors skipped todo todo_passed wait/); # no "exit", that would create wrong SQL
+        my @stat_fields = (qw/failed passed total parse_errors skipped todo todo_passed /); # no "exit" or "wait", that would create wrong SQL
         while (my $r = $reports_rs->next) {
                 $sums{$_} += ($r->$_ // 0) foreach @stat_fields;
         }
