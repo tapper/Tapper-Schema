@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+5.0.4     2016-03-03
         - harmonize and fix types needed for constraints in MySQL
         - drop exit+wait from reports
 
