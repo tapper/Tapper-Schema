@@ -12,6 +12,7 @@ use Test::Fixture::DBIC::Schema;
 use Test::More 0.88;
 use Test::Deep;
 use Scalar::Util;
+use Tapper::Config;
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/report.yml' );
@@ -65,6 +66,8 @@ unlike($report->tap->tapdom, qr/\$VAR1/, "no tapdom yet");
 my $tapdom = $report->get_cached_tapdom;
 is(Scalar::Util::reftype($tapdom), "ARRAY", "got tapdom");
 
+SKIP: {
+    skip "TAP::DOM caching is disabled in config", 2 unless Tapper::Config->subconfig->{cache_tapdom_in_db};
 # get it again
 $report = testrundb_schema->resultset('Report')->find(23);
 like($report->tap->tapdom, qr/\$VAR1/, "tapdom created on demand looks like Data::Dumper string");
@@ -79,6 +82,7 @@ my $tapdom1 = $tapdom;
 $tapdom1->[0]{section}{'section-000'}{tap}{tapdom_config}{ignorelines} = 'ignore';
 $tapdom2->[0]{section}{'section-000'}{tap}{tapdom_config}{ignorelines} = 'ignore';
 cmp_bag($tapdom2, $tapdom1, "stored tapdom keeps constant");
+}
 
 # ===== file compression =====
 my $file = testrundb_schema->resultset('ReportFile')->new({

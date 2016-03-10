@@ -8,6 +8,7 @@ use warnings;
 
 use parent 'DBIx::Class';
 
+use Tapper::Config;
 use Data::Dumper;
 
 __PACKAGE__->load_components(qw(InflateColumn::DateTime TimeStamp Core));
@@ -140,6 +141,8 @@ sub get_cached_tapdom
 {
         my ($r) = @_;
 
+        my $cache_tapdom_in_db = Tapper::Config->subconfig->{cache_tapdom_in_db};
+
         require Tapper::TAP::Harness;
         require TAP::DOM;
 
@@ -147,7 +150,8 @@ sub get_cached_tapdom
         my $tapdom_sections = [];
 
         my $report     = $r->result_source->schema->resultset('Report')->find($r->id);
-        my $tapdom_str = $report->tap->tapdom;
+        my $tapdom_str;
+        $tapdom_str = $report->tap->tapdom if $cache_tapdom_in_db;
 
         # set TAPPER_FORCE_NEW_TAPDOM to force the re-generation of the TAP DOM, e.g. when the TAP::DOM module changes
         if ($tapdom_str and not -e '/tmp/TAPPER_FORCE_NEW_TAPDOM')
@@ -190,10 +194,12 @@ sub get_cached_tapdom
                                                         };
                         }
                         $tapdom_str = Dumper($tapdom_sections);
+                        if ($cache_tapdom_in_db) {
                         $report->tap->tapdom( $tapdom_str );
                         #say STDERR "new report: ", Dumper($report);
                         $report->tap->update;
                         $report->update;
+                        }
                 }
         }
         #print STDERR ".\n";
