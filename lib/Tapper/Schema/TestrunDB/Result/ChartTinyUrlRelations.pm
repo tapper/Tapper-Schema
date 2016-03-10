@@ -42,8 +42,5 @@ __PACKAGE__->set_primary_key(
 __PACKAGE__->belongs_to(
     chart_tiny_url_line => "${basepkg}::ChartTinyUrlLines", { 'foreign.chart_tiny_url_line_id' => 'self.chart_tiny_url_line_id'  },
 );
-__PACKAGE__->belongs_to(
-    bench_value => "${basepkg}::BenchValues", { 'foreign.bench_value_id' => 'self.bench_value_id'  },
-);
 
 1;
