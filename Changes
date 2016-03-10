@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+5.0.5     2016-03-10
         - disabled TAP::DOM caching by default (it wasted space in DB)
 
 5.0.4     2016-03-03
