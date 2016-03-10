@@ -4,47 +4,6 @@
 -- 
 SET foreign_key_checks=0;
 
-DROP TABLE IF EXISTS bench_additional_types;
-
---
--- Table: bench_additional_types
---
-CREATE TABLE bench_additional_types (
-  bench_additional_type_id SMALLINT(6) unsigned NOT NULL auto_increment,
-  bench_additional_type text NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  PRIMARY KEY (bench_additional_type_id),
-  UNIQUE ux_bench_additional_types_01 (bench_additional_type)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS bench_subsume_types;
-
---
--- Table: bench_subsume_types
---
-CREATE TABLE bench_subsume_types (
-  bench_subsume_type_id SMALLINT(6) unsigned NOT NULL auto_increment,
-  bench_subsume_type VARCHAR(32) NOT NULL,
-  bench_subsume_type_rank TINYINT(4) NOT NULL,
-  datetime_strftime_pattern VARCHAR(32) NULL,
-  created_at TIMESTAMP NOT NULL,
-  PRIMARY KEY (bench_subsume_type_id),
-  UNIQUE ux_bench_subsume_types_01 (bench_subsume_type)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS bench_units;
-
---
--- Table: bench_units
---
-CREATE TABLE bench_units (
-  bench_unit_id TINYINT(4) unsigned NOT NULL auto_increment,
-  bench_unit VARCHAR(64) NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  PRIMARY KEY (bench_unit_id),
-  UNIQUE ux_bench_units_01 (bench_unit)
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS chart_axis_types;
 
 --
@@ -133,7 +92,7 @@ CREATE TABLE host (
   PRIMARY KEY (id),
   UNIQUE constraint_name (name),
   CONSTRAINT host_fk_pool_id FOREIGN KEY (pool_id) REFERENCES host (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS notification_event;
 
@@ -161,7 +120,7 @@ CREATE TABLE owner (
   password VARCHAR(255) NULL,
   PRIMARY KEY (id),
   UNIQUE unique_login (login)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS precondition;
 
@@ -185,7 +144,7 @@ CREATE TABLE preconditiontype (
   name VARCHAR(255) NOT NULL,
   description text NOT NULL DEFAULT '',
   PRIMARY KEY (name)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS queue;
 
@@ -203,7 +162,7 @@ CREATE TABLE queue (
   updated_at datetime NULL,
   PRIMARY KEY (id),
   UNIQUE unique_queue_name (name)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS reportgrouptestrunstats;
 
@@ -329,40 +288,7 @@ CREATE TABLE topic (
   name VARCHAR(255) NOT NULL,
   description text NOT NULL DEFAULT '',
   PRIMARY KEY (name)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS bench_additional_values;
-
---
--- Table: bench_additional_values
---
-CREATE TABLE bench_additional_values (
-  bench_additional_value_id integer(11) unsigned NOT NULL auto_increment,
-  bench_additional_type_id SMALLINT(6) unsigned NOT NULL,
-  bench_additional_value text NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  INDEX bench_additional_values_idx_bench_additional_type_id (bench_additional_type_id),
-  PRIMARY KEY (bench_additional_value_id),
-  UNIQUE ux_bench_additional_values_01 (bench_additional_type_id, bench_additional_value),
-  CONSTRAINT bench_additional_values_fk_bench_additional_type_id FOREIGN KEY (bench_additional_type_id) REFERENCES bench_additional_types (bench_additional_type_id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS benchs;
-
---
--- Table: benchs
---
-CREATE TABLE benchs (
-  bench_id integer(11) unsigned NOT NULL auto_increment,
-  bench_unit_id TINYINT(4) unsigned NOT NULL,
-  bench text NOT NULL,
-  active TINYINT(4) unsigned NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  INDEX benchs_idx_bench_unit_id (bench_unit_id),
-  PRIMARY KEY (bench_id),
-  UNIQUE ux_benchs_01 (bench),
-  CONSTRAINT benchs_fk_bench_unit_id FOREIGN KEY (bench_unit_id) REFERENCES bench_units (bench_unit_id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS contact;
 
@@ -467,7 +393,7 @@ CREATE TABLE report (
   INDEX report_idx_created_at (created_at),
   PRIMARY KEY (id),
   CONSTRAINT report_fk_suite_id FOREIGN KEY (suite_id) REFERENCES suite (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS chart_tag_relations;
 
@@ -549,7 +475,7 @@ CREATE TABLE reportgrouparbitrary (
   INDEX reportgrouparbitrary_idx_report_id (report_id),
   PRIMARY KEY (arbitrary_id, report_id),
   CONSTRAINT reportgrouparbitrary_fk_report_id FOREIGN KEY (report_id) REFERENCES report (id) ON DELETE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS reportgrouptestrun;
 
@@ -625,41 +551,6 @@ CREATE TABLE testrun (
   PRIMARY KEY (id),
   CONSTRAINT testrun_fk_owner_id FOREIGN KEY (owner_id) REFERENCES owner (id),
   CONSTRAINT testrun_fk_testplan_id FOREIGN KEY (testplan_id) REFERENCES testplan_instance (id) ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS bench_additional_type_relations;
-
---
--- Table: bench_additional_type_relations
---
-CREATE TABLE bench_additional_type_relations (
-  bench_id integer(12) unsigned NOT NULL,
-  bench_additional_type_id SMALLINT(6) unsigned NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  INDEX bench_additional_type_relations_idx_bench_id (bench_id),
-  INDEX bench_additional_type_relations_idx_bench_additional_type_id (bench_additional_type_id),
-  PRIMARY KEY (bench_id, bench_additional_type_id),
-  CONSTRAINT bench_additional_type_relations_fk_bench_id FOREIGN KEY (bench_id) REFERENCES benchs (bench_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT bench_additional_type_relations_fk_bench_additional_type_id FOREIGN KEY (bench_additional_type_id) REFERENCES bench_additional_types (bench_additional_type_id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS bench_values;
-
---
--- Table: bench_values
---
-CREATE TABLE bench_values (
-  bench_value_id integer(11) unsigned NOT NULL auto_increment,
-  bench_id integer(11) unsigned NOT NULL,
-  bench_subsume_type_id SMALLINT(6) unsigned NOT NULL,
-  bench_value text NOT NULL,
-  active TINYINT(4) unsigned NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  INDEX bench_values_idx_bench_id (bench_id),
-  INDEX bench_values_idx_bench_subsume_type_id (bench_subsume_type_id),
-  PRIMARY KEY (bench_value_id),
-  CONSTRAINT bench_values_fk_bench_id FOREIGN KEY (bench_id) REFERENCES benchs (bench_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT bench_values_fk_bench_subsume_type_id FOREIGN KEY (bench_subsume_type_id) REFERENCES bench_subsume_types (bench_subsume_type_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS chart_versions;
@@ -757,28 +648,6 @@ CREATE TABLE testrun_requested_feature (
   INDEX testrun_requested_feature_idx_testrun_id (testrun_id),
   PRIMARY KEY (id),
   CONSTRAINT testrun_requested_feature_fk_testrun_id FOREIGN KEY (testrun_id) REFERENCES testrun (id)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS bench_backup_values;
-
---
--- Table: bench_backup_values
---
-CREATE TABLE bench_backup_values (
-  bench_backup_value_id integer(11) unsigned NOT NULL auto_increment,
-  bench_value_id integer(11) unsigned NOT NULL,
-  bench_id integer(11) unsigned NOT NULL,
-  bench_subsume_type_id SMALLINT(6) unsigned NOT NULL,
-  bench_value text NOT NULL,
-  active TINYINT(4) unsigned NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  INDEX bench_backup_values_idx_bench_id (bench_id),
-  INDEX bench_backup_values_idx_bench_subsume_type_id (bench_subsume_type_id),
-  INDEX bench_backup_values_idx_bench_value_id (bench_value_id),
-  PRIMARY KEY (bench_backup_value_id),
-  CONSTRAINT bench_backup_values_fk_bench_id FOREIGN KEY (bench_id) REFERENCES benchs (bench_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT bench_backup_values_fk_bench_subsume_type_id FOREIGN KEY (bench_subsume_type_id) REFERENCES bench_subsume_types (bench_subsume_type_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT bench_backup_values_fk_bench_value_id FOREIGN KEY (bench_value_id) REFERENCES bench_values (bench_value_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS chart_lines;
@@ -881,9 +750,9 @@ CREATE TABLE chart_line_additionals (
   chart_line_additional_url text NULL,
   created_at TIMESTAMP NOT NULL,
   INDEX chart_line_additionals_idx_chart_line_id (chart_line_id),
-  PRIMARY KEY (chart_line_id, chart_line_additional_column),
+  PRIMARY KEY (chart_line_id, chart_line_additional_column(767)),
   CONSTRAINT chart_line_additionals_fk_chart_line_id FOREIGN KEY (chart_line_id) REFERENCES chart_lines (chart_line_id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS chart_line_axis_elements;
 
@@ -930,7 +799,7 @@ CREATE TABLE testrun_scheduling (
   queue_id integer(11) NULL DEFAULT 0,
   host_id integer(11) NULL,
   prioqueue_seq integer(11) NULL,
-  status VARCHAR(255) NULL DEFAULT 'prepare',
+  status VARCHAR(191) NULL DEFAULT 'prepare',
   auto_rerun TINYINT NULL DEFAULT 0,
   created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NULL,
@@ -943,23 +812,6 @@ CREATE TABLE testrun_scheduling (
   CONSTRAINT testrun_scheduling_fk_host_id FOREIGN KEY (host_id) REFERENCES host (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT testrun_scheduling_fk_queue_id FOREIGN KEY (queue_id) REFERENCES queue (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT testrun_scheduling_fk_testrun_id FOREIGN KEY (testrun_id) REFERENCES testrun (id) ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS bench_additional_relations;
-
---
--- Table: bench_additional_relations
---
-CREATE TABLE bench_additional_relations (
-  bench_value_id integer(12) unsigned NOT NULL,
-  bench_additional_value_id integer(12) unsigned NOT NULL,
-  active TINYINT(4) unsigned NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  INDEX bench_additional_relations_idx_bench_additional_value_id (bench_additional_value_id),
-  INDEX bench_additional_relations_idx_bench_value_id (bench_value_id),
-  PRIMARY KEY (bench_value_id, bench_additional_value_id),
-  CONSTRAINT bench_additional_relations_fk_bench_additional_value_id FOREIGN KEY (bench_additional_value_id) REFERENCES bench_additional_values (bench_additional_value_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT bench_additional_relations_fk_bench_value_id FOREIGN KEY (bench_value_id) REFERENCES bench_values (bench_value_id)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS chart_line_axis_columns;
@@ -1018,23 +870,6 @@ CREATE TABLE chart_tiny_url_lines (
   CONSTRAINT chart_tiny_url_lines_fk_chart_tiny_url_id FOREIGN KEY (chart_tiny_url_id) REFERENCES chart_tiny_urls (chart_tiny_url_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS bench_backkup_additional_relations;
-
---
--- Table: bench_backkup_additional_relations
---
-CREATE TABLE bench_backkup_additional_relations (
-  bench_backup_value_id integer(12) unsigned NOT NULL,
-  bench_additional_value_id integer(12) unsigned NOT NULL,
-  active TINYINT(4) unsigned NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  INDEX bench_backkup_additional_relations_idx_bench_additional_value_id (bench_additional_value_id),
-  INDEX bench_backkup_additional_relations_idx_bench_backup_value_id (bench_backup_value_id),
-  PRIMARY KEY (bench_backup_value_id, bench_additional_value_id),
-  CONSTRAINT bench_backkup_additional_relations_fk_bench_additional_value_id FOREIGN KEY (bench_additional_value_id) REFERENCES bench_additional_values (bench_additional_value_id),
-  CONSTRAINT bench_backkup_additional_relations_fk_bench_backup_value_id FOREIGN KEY (bench_backup_value_id) REFERENCES bench_backup_values (bench_backup_value_id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS chart_tiny_url_relations;
 
 --
@@ -1046,7 +881,6 @@ CREATE TABLE chart_tiny_url_relations (
   INDEX chart_tiny_url_relations_idx_bench_value_id (bench_value_id),
   INDEX chart_tiny_url_relations_idx_chart_tiny_url_line_id (chart_tiny_url_line_id),
   PRIMARY KEY (chart_tiny_url_line_id, bench_value_id),
-  CONSTRAINT chart_tiny_url_relations_fk_bench_value_id FOREIGN KEY (bench_value_id) REFERENCES bench_values (bench_value_id),
   CONSTRAINT chart_tiny_url_relations_fk_chart_tiny_url_line_id FOREIGN KEY (chart_tiny_url_line_id) REFERENCES chart_tiny_url_lines (chart_tiny_url_line_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
