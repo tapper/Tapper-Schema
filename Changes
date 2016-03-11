@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+5.0.6     2016-03-11
         - provide a MySQL optimized plain SQL "create tables" file
           supporting UTF-8 and COMPRESSED tables
           (see https://github.com/tapper/Tapper/wiki/SwitchingToMySQL)
