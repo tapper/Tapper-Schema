@@ -133,7 +133,7 @@ CREATE TABLE precondition (
   precondition text NULL,
   timeout integer(10) NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=4;
 
 DROP TABLE IF EXISTS preconditiontype;
 
@@ -277,7 +277,7 @@ CREATE TABLE testplan_instance (
   created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=4;
 
 DROP TABLE IF EXISTS topic;
 
