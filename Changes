@@ -1,6 +1,13 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - provide a MySQL optimized plain SQL "create tables" file
+          supporting UTF-8 and COMPRESSED tables
+          (see https://github.com/tapper/Tapper/wiki/SwitchingToMySQL)
+        - that file also does not contain the unused Tapper::Benchmark
+          tables, as we use BenchmarkAnything anyway
+          (however, the Tapper::Schema::TestrunDB still contains them
+          to not diverge from upstream too much)
 
 5.0.5     2016-03-10
         - disabled TAP::DOM caching by default (it wasted space in DB)
