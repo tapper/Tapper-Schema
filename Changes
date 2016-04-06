@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - fix transaction handling on testrun+host state setting
+          (fixing a mis-scheduling in Tapper::MCP)
 
 5.0.6     2016-03-11
         - provide a MySQL optimized plain SQL "create tables" file
