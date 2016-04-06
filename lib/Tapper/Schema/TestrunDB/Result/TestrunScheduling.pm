@@ -47,8 +47,6 @@ sub mark_as_running
 {
         my ($self) = @_;
 
-        # set scheduling info
-        $self->status("running");
         # need a transaction because someone might access this
         # variable on the CLI
         my $guard = $self->result_source->schema->txn_scope_guard;
@@ -60,11 +58,12 @@ sub mark_as_running
         } else {
                 $self->host->free(0);
         }
-        $self->prioqueue_seq(undef);
-
-        # sync db
         $self->host->update;
+
+        $self->prioqueue_seq(undef);
+        $self->status("running");
         $self->update;
+
         $guard->commit;
 }
 
@@ -77,9 +76,6 @@ Mark a testrun as I<finished>.
 sub mark_as_finished
 {
         my ($self) = @_;
-
-        # set scheduling info
-        $self->status("finished");
 
         # need a transaction because someone might access this
         # variable on the CLI
@@ -94,9 +90,8 @@ sub mark_as_finished
         } else {
                 $self->host->free(1);
         }
-
-        # sync db
         $self->host->update;
+        $self->status("finished");
         $self->update;
         $guard->commit;
 }
