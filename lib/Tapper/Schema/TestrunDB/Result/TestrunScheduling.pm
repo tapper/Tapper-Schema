@@ -88,7 +88,9 @@ sub mark_as_finished
                         $self->host->free(1);
                 }
         } else {
+            if ($self->host->testrunschedulings->search({status => "running"})->count == 1) { # mitigate scheduler bug where multiple jobs run on same host; this condition here hopefully recovers the situation.
                 $self->host->free(1);
+            }
         }
         $self->host->update;
         $self->status("finished");
