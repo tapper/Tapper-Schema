@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - rawsql testrun web_list now based on updated_at field
         - fix transaction handling on testrun+host state setting
           (fixing a mis-scheduling in Tapper::MCP)
 
