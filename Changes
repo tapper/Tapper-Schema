@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - last release did only search by updated_at but not show it
+          with that -- now fixed
 
 5.0.7     2016-08-24
         - rawsql testrun web_list now based on updated_at field

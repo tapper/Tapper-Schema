@@ -59,8 +59,8 @@ sub web_list {
                 r.successgrade,
                 r.id                                                        AS primary_report_id,
                 t.topic_name,
-                TO_CHAR( r.created_at, 'YYYY-MM-DD' )                       AS testrun_date,
-                TO_CHAR( r.created_at, 'HH24:MM' )                          AS testrun_time,
+                TO_CHAR( r.updated_at, 'YYYY-MM-DD' )                       AS testrun_date,
+                TO_CHAR( r.updated_at, 'HH24:MM' )                          AS testrun_time,
                 NULLIF( r.updated_at, t.updated_at )                        AS updated_at,
                 NULLIF( o.login, 'unknown user' )                           AS testrun_owner,
                 t.starttime_testrun,
@@ -125,8 +125,8 @@ sub web_list {
                 r.successgrade,
                 r.id                                            AS primary_report_id,
                 t.topic_name,
-                STRFTIME( '%Y-%m-%d', r.created_at )            AS testrun_date,
-                STRFTIME( '%H:%M', r.created_at )               AS testrun_time,
+                STRFTIME( '%Y-%m-%d', r.updated_at )            AS testrun_date,
+                STRFTIME( '%H:%M', r.updated_at )               AS testrun_time,
                 IFNULL( r.updated_at, t.updated_at )            AS updated_at,
                 IFNULL( o.login, 'unknown user' )               AS testrun_owner,
                 t.starttime_testrun,
@@ -197,8 +197,8 @@ sub web_list {
                 r.successgrade,
                 r.id                                        AS primary_report_id,
                 t.topic_name,
-                DATE_FORMAT( t.created_at, '%Y-%m-%d' )     AS testrun_date,
-                DATE_FORMAT( t.created_at, '%H:%i' )        AS testrun_time,
+                DATE_FORMAT( t.updated_at, '%Y-%m-%d' )     AS testrun_date,
+                DATE_FORMAT( t.updated_at, '%H:%i' )        AS testrun_time,
                 IFNULL( r.updated_at, t.updated_at )        AS updated_at,
                 IFNULL( o.login, 'unknown user' )           AS testrun_owner,
                 t.starttime_testrun,
@@ -264,7 +264,7 @@ sub continuous_list {
         'Pg' => q#
             SELECT
                 t.id                                            AS testrun_id,
-                TO_CHAR( r.created_at, 'YYYY-MM-DD HH24:MM' )   AS testrun_date,
+                TO_CHAR( r.updated_at, 'YYYY-MM-DD HH24:MM' )   AS testrun_date,
                 ts.status,
                 t.topic_name,
                 q.name                                          AS queue_name,
@@ -287,7 +287,7 @@ sub continuous_list {
                 AND ts.status IN ( 'prepare', 'schedule' )
             GROUP BY
                 t.id,
-                t.created_at,
+                t.updated_at,
                 ts.status,
                 t.topic_name,
                 queue_name,
@@ -298,7 +298,7 @@ sub continuous_list {
         'SQLite' => q#
             SELECT
                 t.id                                            AS testrun_id,
-                STRFTIME( '%Y-%m-%d %H:%M', t.created_at )      AS testrun_date,
+                STRFTIME( '%Y-%m-%d %H:%M', t.updated_at )      AS testrun_date,
                 ts.status,
                 t.topic_name,
                 q.name                                          AS queue_name,
@@ -321,7 +321,7 @@ sub continuous_list {
                 AND ts.status IN ( 'prepare', 'schedule' )
             GROUP BY
                 t.id,
-                t.created_at,
+                t.updated_at,
                 ts.status,
                 t.topic_name,
                 queue_name,
@@ -332,7 +332,7 @@ sub continuous_list {
         'mysql' => q#
             SELECT
                 t.id                                            AS testrun_id,
-                DATE_FORMAT( t.created_at, '%Y-%m-%d %H:%i' )   AS testrun_date,
+                DATE_FORMAT( t.updated_at, '%Y-%m-%d %H:%i' )   AS testrun_date,
                 ts.status,
                 t.topic_name,
                 q.name                                          AS queue_name,
@@ -355,7 +355,7 @@ sub continuous_list {
                 AND ts.status IN ( 'prepare', 'schedule' )
             GROUP BY
                 t.id,
-                t.created_at,
+                t.updated_at,
                 ts.status,
                 t.topic_name,
                 queue_name,
