@@ -15,7 +15,7 @@ sub web_list {
     if ( $hr_vals->{testrun_date_from} && $hr_vals->{testrun_date_to} ) {
         $hr_vals->{testrun_date_min} = "$hr_vals->{testrun_date_from} 00:00:00";
         $hr_vals->{testrun_date_max} = "$hr_vals->{testrun_date_to} 23:59:59";
-        push @a_where, 't.created_at BETWEEN $testrun_date_min$ AND $testrun_date_max$';
+        push @a_where, 't.updated_at BETWEEN $testrun_date_min$ AND $testrun_date_max$';
         $b_essentials = 1;
     }
 
