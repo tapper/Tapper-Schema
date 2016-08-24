@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+5.0.8     2016-08-24
         - last release did only search by updated_at but not show it
           with that -- now fixed
 
