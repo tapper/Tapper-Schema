@@ -37,6 +37,23 @@ __PACKAGE__->has_many  ( requested_hosts    => "${basepkg}::TestrunRequestedHost
 
 
 
+=head2 update_content
+
+Update content from given params.
+
+=cut
+
+sub update_content {
+        my ($self, $args) =@_;
+
+        $self->queue_id      ( $args->{queue_id}    ) if $args->{queue_id};
+        $self->host_id       ( $args->{host_id}     ) if $args->{host_id};
+        $self->status        ( $args->{status}      ) if $args->{status};
+        $self->auto_rerun    ( $args->{auto_rerun}  ) if $args->{auto_rerun};
+        $self->update;
+        return $self->id;
+}
+
 =head2 mark_as_running
 
 Mark a testrun as currently I<running>.
