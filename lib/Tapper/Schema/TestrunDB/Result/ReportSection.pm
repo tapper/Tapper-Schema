@@ -7,6 +7,25 @@ use warnings;
 
 use parent 'DBIx::Class';
 
+# this enumeration is a bit lame. anyway: copy the list from Tapper::TAP::Harness.@SECTION_HEADER_KEYS_GENERAL.
+# TODO: make it so (put list into schema and copy it from schema to Harness)
+our @meta_cols = qw/ram cpuinfo bios lspci lsusb uname osname uptime language-description
+                    flags kernel changeset description
+                    xen-version xen-changeset xen-dom0-kernel xen-base-os-description
+                    xen-guest-description xen-guest-test xen-guest-start xen-guest-flags xen-hvbits
+                    kvm-module-version kvm-userspace-version kvm-kernel
+                    kvm-base-os-description kvm-guest-description
+                    kvm-guest-test kvm-guest-start kvm-guest-flags
+                    simnow-svn-version
+                    simnow-version
+                    simnow-svn-repository
+                    simnow-device-interface-version
+                    simnow-bsd-file
+                    simnow-image-file
+                    ticket-url wiki-url planning-id moreinfo-url
+                    tags
+ /;
+
 __PACKAGE__->load_components("Core");
 __PACKAGE__->table("reportsection");
 __PACKAGE__->add_columns
@@ -84,24 +103,8 @@ sub some_meta_available
 
         # this enumeration is a bit lame. anyway: copy the list from Tapper::TAP::Harness.@SECTION_HEADER_KEYS_GENERAL.
         # TODO: make it so (put list into schema and copy it from schema to Harness)
-        my @meta_cols = qw/ram cpuinfo bios lspci lsusb uname osname uptime language-description
-                           flags kernel changeset description
-                           xen-version xen-changeset xen-dom0-kernel xen-base-os-description
-                           xen-guest-description xen-guest-test xen-guest-start xen-guest-flags xen-hvbits
-                           kvm-module-version kvm-userspace-version kvm-kernel
-                           kvm-base-os-description kvm-guest-description
-                           kvm-guest-test kvm-guest-start kvm-guest-flags
-                           simnow-svn-version
-                           simnow-version
-                           simnow-svn-repository
-                           simnow-device-interface-version
-                           simnow-bsd-file
-                           simnow-image-file
-                           ticket-url wiki-url planning-id moreinfo-url
-                           tags
-                          /;
-        @meta_cols = map { my $x = $_; $x =~ s/-/_/g; $x } @meta_cols;
-        return 1 if grep { defined } @cols{@meta_cols};
+        my @local_meta_cols = map { my $x = $_; $x =~ s/-/_/g; $x } @meta_cols;
+        return 1 if grep { defined } @cols{@local_meta_cols};
         return 0;
 }
 
