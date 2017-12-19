@@ -273,7 +273,7 @@ CREATE TABLE testplan_instance (
   id integer(11) NOT NULL auto_increment,
   path VARCHAR(255) NULL DEFAULT '',
   name VARCHAR(255) NULL DEFAULT '',
-  evaluated_testplan text NULL DEFAULT '',
+  evaluated_testplan mediumtext NULL DEFAULT '',
   created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NULL,
   PRIMARY KEY (id)
