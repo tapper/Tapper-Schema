@@ -102,7 +102,7 @@ sub _success_ratio
 {
         my ($self) = @_;
 
-        my $ratio = sprintf("%02.2f", $self->total ? ($self->passed / $self->total * 100) : 100 );
+        my $ratio = sprintf("%02.2f", $self->total ? ($self->passed / ($self->total + $self->parse_errors) * 100) : 100 );
         return $ratio;
 }
 
