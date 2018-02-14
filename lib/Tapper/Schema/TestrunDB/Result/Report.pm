@@ -181,7 +181,7 @@ sub get_cached_tapdom
                                 #print STDERR ".";
                                 my $rawtap = $_->{raw} || '';
                                 #say STDERR "x"x100, "\n", $rawtap, "\n", "x"x 100;
-                                $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/ms;
+                                $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/msi;
                                 #say STDERR length($rawtap);
                                 my $tapdom = new TAP::DOM ( tap    => $rawtap,
                                                             ignore => [qw( raw as_string )],
