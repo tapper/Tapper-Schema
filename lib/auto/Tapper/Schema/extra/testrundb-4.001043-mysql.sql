@@ -778,7 +778,7 @@ DROP TABLE IF EXISTS chart_line_restrictions;
 CREATE TABLE chart_line_restrictions (
   chart_line_restriction_id integer(11) unsigned NOT NULL auto_increment,
   chart_line_id integer(11) unsigned NOT NULL,
-  chart_line_restriction_operator VARCHAR(4) NOT NULL,
+  chart_line_restriction_operator VARCHAR(8) NOT NULL,
   chart_line_restriction_column text NOT NULL,
   is_template_restriction TINYINT(3) unsigned NOT NULL,
   is_numeric_restriction TINYINT(3) unsigned NOT NULL,
