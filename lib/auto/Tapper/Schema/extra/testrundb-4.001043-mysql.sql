@@ -458,6 +458,7 @@ CREATE TABLE reportfile (
   created_at datetime NOT NULL,
   updated_at datetime NOT NULL,
   INDEX reportfile_idx_report_id (report_id),
+  INDEX reportfile_idx_filename (filename),
   PRIMARY KEY (id),
   CONSTRAINT reportfile_fk_report_id FOREIGN KEY (report_id) REFERENCES report (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=4;
