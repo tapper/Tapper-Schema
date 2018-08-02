@@ -299,9 +299,17 @@ sub rerun
                         $assigned_feature->insert;
                 }
         }
-        if ($testrunscheduling and $testrunscheduling->requested_hosts->count) {
-                foreach my $host_id (map {$_->host_id}$testrunscheduling->requested_hosts->all) {
-                        my $assigned_host = $self->result_source->schema->resultset('TestrunRequestedHost')->new({host_id => $host_id, testrun_id => $testrun_new->id});
+        # prefer same host again
+        if ($host_id) {
+                my $assigned_host =
+                  $self->result_source->schema->resultset('TestrunRequestedHost')
+                  ->new({host_id => $host_id,
+                         testrun_id => $testrun_new->id
+                       });
+        }
+        elsif ($testrunscheduling and $testrunscheduling->requested_hosts->count) {
+                foreach my $orig_host_id (map { $_->host_id } $testrunscheduling->requested_hosts->all) {
+                        my $assigned_host = $self->result_source->schema->resultset('TestrunRequestedHost')->new({host_id => $orig_host_id, testrun_id => $testrun_new->id});
                         $assigned_host->insert;
                 }
         }
