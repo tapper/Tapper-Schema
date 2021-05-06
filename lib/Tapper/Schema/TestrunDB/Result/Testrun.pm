@@ -144,6 +144,11 @@ __PACKAGE__->has_many(
     { 'foreign.testrun_id'  => 'self.id' },
 );
 
+__PACKAGE__->has_many(
+    testrun_requested_resource => "${basepkg}::TestrunRequestedResource",
+    { 'foreign.testrun_id' => 'self.id' },
+);
+
 # * : *
 __PACKAGE__->many_to_many(
     preconditions           => "testrun_precondition",
@@ -171,6 +176,18 @@ sub to_string
                       : $Tapper::Schema::TestrunDB::NULL
                      } @{$self->result_source->{_ordered_columns} }
                 );
+}
+
+=head2 claimed_resources
+
+Resources that have been assigned to this Testrun either currently or in the past.
+
+=cut
+
+sub claimed_resources {
+        my ($self) = @_;
+        return map { $_->selected_resource } $self->testrun_requested_resource
+          ->search({ 'selected_resource_id' => { '!=', undef } }, { 'prefetch' => 'selected_resource' })->all();
 }
 
 =head2 is_member($head, @tail)
@@ -265,12 +282,14 @@ sub rerun
         # prepare job scheduling infos
         my $testrunscheduling = $self->result_source->schema->resultset('TestrunScheduling')->search({ testrun_id => $self->id }, {rows => 1})->first;
         my ($queue_id, $host_id, $auto_rerun, $requested_features, $requested_hosts);
+        my @resource_requests;
         if ($testrunscheduling) {
                 $queue_id           = $testrunscheduling->queue_id;
                 $host_id            = $testrunscheduling->host_id;
                 $auto_rerun         = $testrunscheduling->auto_rerun;
                 $requested_features = $testrunscheduling->requested_features;
                 $requested_hosts    = $testrunscheduling->requested_hosts;
+                @resource_requests  = $testrunscheduling->requested_resources;
         } else {
                 my $queue = $self->result_source->schema->resultset('Queue')->search({ name => "AdHoc"}, {rows => 1})->first;
                 if (not $queue) {
@@ -304,6 +323,10 @@ sub rerun
                         my $assigned_host = $self->result_source->schema->resultset('TestrunRequestedHost')->new({host_id => $host_id, testrun_id => $testrun_new->id});
                         $assigned_host->insert;
                 }
+        }
+        # copy resource requests
+        foreach my $request (@resource_requests) {
+                $testrun_new->add_requested_resource_by_id(map { $_->resource_id } $request->alternatives);
         }
 
         # assign preconditions
@@ -432,6 +455,69 @@ sub sqlt_deploy_hook
 {
         my ($self, $sqlt_table) = @_;
         $sqlt_table->add_index(name => 'testrun_idx_created_at',   fields => ['created_at']);
+}
+
+=head2 add_requested_resource_by_name
+
+Add a resource request to the testrun using resource names. Specify multiple
+resources to provide alternatives. When the testrun is running one of these is
+reserved to the testrun.
+
+@param @alternatives resource names
+@returns successful
+
+=cut
+
+sub add_requested_resource_by_name {
+        my $self = shift;
+        my @alternatives = @_;
+
+        my $schema = $self->result_source->schema;
+
+        my @resource_objects;
+        eval {
+                @resource_objects = map {
+                        $schema->resultset('Resource')->search({ name => $_ })->first
+                          or die "Resource $_ does not exist";
+                } @alternatives;
+                1;
+        };
+
+        if ($@) {
+                return 0;
+        }
+
+        return $self->add_requested_resource_by_id(map { $_->id } @resource_objects);
+}
+
+=head2 add_requested_resource_by_id
+
+Add a resource request to the testrun using resource ids. Specify multiple
+resources to provide alternatives. When the testrun is running one of these is
+reserved to the testrun.
+
+@param @resource_ids resource ids
+@returns successful
+
+=cut
+
+sub add_requested_resource_by_id {
+        my $self = shift;
+        my @resource_ids = @_;
+
+        my $schema = $self->result_source->schema;
+
+        my $request = $schema
+            ->resultset('TestrunRequestedResource')
+            ->create({ testrun_id => $self->id });
+
+        foreach my $resource_id (@resource_ids) {
+                $schema
+                    ->resultset('TestrunRequestedResourceAlternative')
+                    ->create({ request_id => $request->id, resource_id => $resource_id });
+        }
+
+        return 1;
 }
 
 1;

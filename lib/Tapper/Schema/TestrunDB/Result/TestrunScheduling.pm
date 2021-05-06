@@ -34,6 +34,12 @@ __PACKAGE__->belongs_to( host               => "${basepkg}::Host",              
 
 __PACKAGE__->has_many  ( requested_features => "${basepkg}::TestrunRequestedFeature", { 'foreign.testrun_id' => 'self.testrun_id' });
 __PACKAGE__->has_many  ( requested_hosts    => "${basepkg}::TestrunRequestedHost",    { 'foreign.testrun_id' => 'self.testrun_id' });
+__PACKAGE__->has_many  ( requested_resources => "${basepkg}::TestrunRequestedResource", { 'foreign.testrun_id' => 'self.testrun_id' });
+__PACKAGE__->has_many  (
+  claimed_resources => "${basepkg}::Resource",
+  { 'foreign.used_by_scheduling_id' => 'self.id' },
+  { 'cascade_delete' => 0 },
+);
 
 
 
@@ -112,6 +118,10 @@ sub mark_as_finished
         $self->host->update;
         $self->status("finished");
         $self->update;
+
+        # Free resources
+        $self->claimed_resources->update({ used_by_scheduling_id => undef });
+
         $guard->commit;
 }
 
