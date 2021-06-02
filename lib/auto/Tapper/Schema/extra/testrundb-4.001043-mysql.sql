@@ -934,4 +934,20 @@ CREATE TABLE testrun_requested_resource_alternative (
 CREATE INDEX testrun_requested_resource_alternative_idx_request_id ON testrun_requested_resource_alternative (request_id);
 CREATE INDEX testrun_requested_resource_alternative_idx_resource_id ON testrun_requested_resource_alternative (resource_id);
 
+--
+-- Table: testrun_dependency;
+--
+
+DROP TABLE IF EXISTS testrun_dependency;
+
+CREATE TABLE testrun_dependency (
+  dependee_testrun_id INT(11) NOT NULL,
+  depender_testrun_id INT(11) NOT NULL,
+  PRIMARY KEY (dependee_testrun_id, depender_testrun_id),
+  FOREIGN KEY (dependee_testrun_id) REFERENCES testrun(id) ON DELETE CASCADE,
+  FOREIGN KEY (depender_testrun_id) REFERENCES testrun(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE INDEX testrun_dependency_idx_dependee_testrun_id ON testrun_dependency (dependee_testrun_id);
+CREATE INDEX testrun_dependency_idx_depender_testrun_id ON testrun_dependency (depender_testrun_id);
+
 SET foreign_key_checks=1;

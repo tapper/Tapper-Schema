@@ -149,10 +149,20 @@ __PACKAGE__->has_many(
     { 'foreign.testrun_id' => 'self.id' },
 );
 
+__PACKAGE__->has_many(
+    testrun_dependencies => "${basepkg}::TestrunDependency",
+    { 'foreign.depender_testrun_id' => 'self.id' }
+);
+
 # * : *
 __PACKAGE__->many_to_many(
     preconditions           => "testrun_precondition",
     'precondition'
+);
+
+__PACKAGE__->many_to_many(
+    depending_testruns => "testrun_dependencies",
+    'dependee'
 );
 
 # -------------------- methods on results --------------------
