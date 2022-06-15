@@ -184,6 +184,7 @@ sub get_cached_tapdom
                                 $rawtap    = $TAPVERSION."\n".$rawtap unless $rawtap =~ /^TAP Version/msi;
                                 #say STDERR length($rawtap);
                                 my $tapdom = new TAP::DOM ( tap    => $rawtap,
+                                                            noempty_tap => 1,
                                                             ignore => [qw( raw as_string )],
                                                             ignorelines => qr/^\#\# /,        # mostly used in oprofile
                                                           );
