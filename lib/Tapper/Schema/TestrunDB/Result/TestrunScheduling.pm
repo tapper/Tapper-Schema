@@ -5,7 +5,6 @@ package Tapper::Schema::TestrunDB::Result::TestrunScheduling;
 # ABSTRACT: Tapper - Containing informations for an executed testrun
 
 use YAML::Syck;
-use common::sense;
 ## no critic (RequireUseStrict)
 use parent 'DBIx::Class';
 

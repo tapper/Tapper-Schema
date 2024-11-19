@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
         - TAP::DOM with option 'noempty_tap'
+        - throw common::sense out the air lock
 
 5.0.11    2019-11-04
         - re-upload to correct PAUSE user
